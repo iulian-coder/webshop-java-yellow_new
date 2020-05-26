@@ -32,7 +32,14 @@ public class CartController extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
         Map<Product, Integer> cartMap = cartDao.getAll();
 
+        double sum = 0;
+        for (Product entry : cartMap.keySet()) {
+            sum += Double.parseDouble(entry.getPrice().substring(0,entry.getPrice().length() - 4));
+        }
+
+
         context.setVariable("cartMap",cartMap);
+        context.setVariable("totalPrice",sum);
         engine.process("product/cart_page.html", context, resp.getWriter());
     }
 
