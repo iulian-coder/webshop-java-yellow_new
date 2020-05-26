@@ -15,13 +15,13 @@ public class Cart extends BaseModel{
         return this.cart;
     }
 
-    public void addToCart(Product product){
-        cart.add(product);
-    }
-
-    public void removeFromCart(Product product){
-        cart.remove(product);
-    }
+//    public void addToCart(Product product){
+//        cart.add(product);
+//    }
+//
+//    public void removeFromCart(Product product){
+//        cart.remove(product);
+//    }
 
     @Override
     public String toString() {

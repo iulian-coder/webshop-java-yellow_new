@@ -6,17 +6,20 @@ import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class CartDaoMem implements CartDao {
-    private List<Cart> data = new ArrayList<>();
+    private HashMap<Product, Integer> cart = new HashMap<>();
     private static CartDaoMem instance = null;
 
     /* A private Constructor prevents any other class from instantiating.
      */
     private CartDaoMem() {
+    }
+
+    public Map<Product, Integer> getCart() {
+        return this.cart;
     }
 
     public static CartDaoMem getInstance() {
@@ -27,24 +30,35 @@ public class CartDaoMem implements CartDao {
     }
 
     @Override
-    public void add(Cart cart) {
-        cart.setId(data.size() + 1);
-        data.add(cart);
+    public void add(int id) {
+        ProductDaoMem productsList = ProductDaoMem.getInstance();
+        Product product = productsList.find(id);
+            if(cart.containsKey(product)){
+                cart.put(product, cart.get(product) + 1);
+            }else{
+                cart.put(product, 1);
+            }
     }
 
+//    @Override
+//    public Product find(int id) {
+//        return cart.stream().filter(t -> t.getId() == id).findFirst().orElse(null);
+//    }
+//
+//    @Override
+//    public void remove(int id) {
+//        cart.remove(find(id));
+//    }
+//
     @Override
-    public Cart find(int id) {
-        return data.stream().filter(t -> t.getId() == id).findFirst().orElse(null);
+    public Map<Product, Integer> getAll() {
+        return this.cart;
     }
 
-    @Override
-    public void remove(int id) {
-        data.remove(find(id));
-    }
 
-    @Override
-    public List<Cart> getAll() {
-        return data;
+
+    public int getTotalNumberOfItems(){
+        return cart.size();
     }
 
 

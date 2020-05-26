@@ -6,11 +6,12 @@ import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CartDao {
-    void add(Cart cart);
-    Cart find(int id);
-    void remove(int id);
-
-    List<Cart> getAll();
+    void add(int id);
+//    Product find(int id);
+//    void remove(int id);
+//
+    Map<Product, Integer> getAll();
 }
