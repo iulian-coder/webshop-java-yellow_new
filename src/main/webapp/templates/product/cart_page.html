@@ -56,7 +56,7 @@
         <table class="table">
             <thead>
             <tr>
-                <th scope="col"><h2>Products in Cart</h2></th>
+                <th scope="col"><h2>Products in Cart</h2><span th:text="${totalNumberOfItems}+' Items'"></span></th>
                 <th scope="col">
 <!--                    <div>-->
 <!--                    <form method="post"-->
@@ -97,12 +97,12 @@
         </table>
         <div class="card" style="max-width: 800px;margin:0 auto;">
             <div class="card-header">
-                Total Price:
+               <h3>Total Price:</h3>
             </div>
             <div class="card-body">
                 <blockquote class="blockquote mb-0">
-                    <p th:text="${totalPrice}"></p>
-                    <footer th:text="${totalNumberOfItems}+'Items'"></footer>
+                    <p th:text="${totalPrice} +' USD'"></p>
+                    <footer></footer>
                 </blockquote>
             </div>
         </div>

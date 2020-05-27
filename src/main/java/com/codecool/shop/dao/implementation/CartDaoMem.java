@@ -1,6 +1,7 @@
 package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.CartDao;
+import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
@@ -67,10 +68,17 @@ public class CartDaoMem implements CartDao {
 //        return sum;
 //    }
 
-//    @Override
-//    public Product find(int id) {
-//        return cart.stream().filter(t -> t.getId() == id).findFirst().orElse(null);
-//    }
+    public void changeQuantity(int id, int newQuantity) {
+        ProductDao productList = ProductDaoMem.getInstance();
+        Product product = productList.find(id);
+        if(cart.containsKey(product)) {
+            if (newQuantity == 0) {
+                cart.remove(product);
+            } else {
+                cart.put(product, newQuantity);
+            }
+        }
+    }
 
     @Override
     public Map<Product, Integer> getAll() {

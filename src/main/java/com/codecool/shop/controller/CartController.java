@@ -33,25 +33,33 @@ public class CartController extends HttpServlet {
 
         int numberOfProducts = 0;
         double sum = 0;
-        for (Map.Entry<Product, Integer> entry: cartMap.entrySet()) {
-            sum += entry.getKey().getPriceDouble()*entry.getValue();
+        for (Map.Entry<Product, Integer> entry : cartMap.entrySet()) {
+            sum += entry.getKey().getPriceDouble() * entry.getValue();
 //            sum += Double.parseDouble(entry.getKey().getPrice().substring(0,entry.getKey().getPrice().length() - 4));
             numberOfProducts += entry.getValue();
         }
 
-        context.setVariable("cartMap",cartMap);
-        context.setVariable("totalPrice",sum);
-        context.setVariable("totalNumberOfItems",numberOfProducts);
+        context.setVariable("cartMap", cartMap);
+        context.setVariable("totalPrice", sum);
+        context.setVariable("totalNumberOfItems", numberOfProducts);
         engine.process("product/cart_page.html", context, resp.getWriter());
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CartDao addToCart = CartDaoMem.getInstance();
+        CartDao carDao = CartDaoMem.getInstance();
 
-        System.out.println("Adds item");
-        String id = req.getParameter("addToCart");
-        addToCart.add(Integer.parseInt(id));
+//        System.out.println("Adds item");
+        if (req.getParameter("addToCart") != null) {
+            String id = req.getParameter("addToCart");
+            carDao.add(Integer.parseInt(id));
+        }
+        if (req.getParameter("itemId")!=null && req.getParameter("changeQuantity")!=null) {
+            String itemIdToChangeQuantity = req.getParameter("itemId");
+            String newQuantity = req.getParameter("changeQuantity");
+            carDao.changeQuantity(Integer.parseInt(itemIdToChangeQuantity), Integer.parseInt(newQuantity));
+        }
         resp.sendRedirect("/");
     }
+
 }
