@@ -11,7 +11,7 @@ import java.util.Map;
 public interface CartDao {
     void add(int id);
 //    Product find(int id);
-//    void remove(int id);
+    void remove(int id);
 //
     Map<Product, Integer> getAll();
 }

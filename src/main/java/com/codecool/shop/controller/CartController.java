@@ -26,20 +26,22 @@ public class CartController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CartDao cartDao = CartDaoMem.getInstance();
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
         Map<Product, Integer> cartMap = cartDao.getAll();
 
+        int numberOfProducts = 0;
         double sum = 0;
-        for (Product entry : cartMap.keySet()) {
-            sum += Double.parseDouble(entry.getPrice().substring(0,entry.getPrice().length() - 4));
+        for (Map.Entry<Product, Integer> entry: cartMap.entrySet()) {
+            sum += entry.getKey().getPriceDouble()*entry.getValue();
+//            sum += Double.parseDouble(entry.getKey().getPrice().substring(0,entry.getKey().getPrice().length() - 4));
+            numberOfProducts += entry.getValue();
         }
-
 
         context.setVariable("cartMap",cartMap);
         context.setVariable("totalPrice",sum);
+        context.setVariable("totalNumberOfItems",numberOfProducts);
         engine.process("product/cart_page.html", context, resp.getWriter());
     }
 
