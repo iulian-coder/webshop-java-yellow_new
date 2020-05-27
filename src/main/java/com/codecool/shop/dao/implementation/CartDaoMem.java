@@ -40,13 +40,13 @@ public class CartDaoMem implements CartDao {
             }
     }
     
-    public int getTotalPrice(){
-        int sum = 0;
-        for (Product entry : cart.keySet()) {
-            sum += Integer.parseInt(entry.getPrice());
-        }
-        return sum;
-    }
+//    public int getTotalPrice(){
+//        int sum = 0;
+//        for (Product entry : cart.keySet()) {
+//            sum += Integer.parseInt(entry.getPrice());
+//        }
+//        return sum;
+//    }
 
 //    @Override
 //    public Product find(int id) {
