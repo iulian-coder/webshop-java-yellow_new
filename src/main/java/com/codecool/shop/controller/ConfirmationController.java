@@ -1,6 +1,5 @@
 package com.codecool.shop.controller;
 
-
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.CartDao;
 import com.codecool.shop.dao.implementation.CartDaoMem;
@@ -16,26 +15,26 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
-@WebServlet(urlPatterns = {"/cart/payment"})
-public class PaymentController extends HttpServlet {
+@WebServlet(urlPatterns = "/cart/payment/confirmation")
+public class ConfirmationController extends HttpServlet {
 
+    private String statusPayment = "no";
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String customerFirstName = req.getParameter("firstName");
-        String customerLastName = req.getParameter("lastName");
-        String customerPhone = req.getParameter("phone");
-        String customerEmail = req.getParameter("email");
-        String customerAddress = req.getParameter("address");
-        String customerAddress2 = req.getParameter("address2");
-
-        System.out.println(customerFirstName);
-
-        resp.sendRedirect("/cart/payment");
+        String ccName = req.getParameter("cc-name");
+        System.out.println(ccName);
+        if (ccName.equals("b")){
+            statusPayment ="confirmed";
+        } else {
+            statusPayment = "no";
+        }
+        resp.sendRedirect("/cart/payment/confirmation");
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         CartDao cartDao = CartDaoMem.getInstance();
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(getServletContext());
@@ -51,10 +50,14 @@ public class PaymentController extends HttpServlet {
             numberOfProducts += entry.getValue();
         }
 
+        context.setVariable("cartMap", cartMap);
         context.setVariable("totalPrice", sum);
         context.setVariable("totalNumberOfItems", numberOfProducts);
 
-        engine.process("paymentPage.html", context, resp.getWriter());
+
+        context.setVariable("paymentMessage", statusPayment);
+
+        engine.process("confirmationPage.html", context, resp.getWriter());
 
     }
 }
