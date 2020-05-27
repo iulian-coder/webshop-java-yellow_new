@@ -11,18 +11,6 @@ public class Cart extends BaseModel{
         this.cart = new ArrayList<>();
     }
 
-    public List<Product> getCart() {
-        return this.cart;
-    }
-
-//    public void addToCart(Product product){
-//        cart.add(product);
-//    }
-//
-//    public void removeFromCart(Product product){
-//        cart.remove(product);
-//    }
-
     @Override
     public String toString() {
         return "Cart{" +

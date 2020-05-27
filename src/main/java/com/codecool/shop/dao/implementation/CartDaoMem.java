@@ -41,32 +41,22 @@ public class CartDaoMem implements CartDao {
             }
     }
 
-
-    @Override
-    public void remove(int id) {
-        ProductDaoMem productsList = ProductDaoMem.getInstance();
-        Product product = productsList.find(id);
-        if(cart.containsKey(product)) {
-            if(cart.get(product) == 1) {
-                cart.remove(product);
-            } else {
-                cart.put(product, cart.get(product) - 1);
-            }
-        }
-    }
-
+//    @Override
+//    public void remove(int id) {
+//        ProductDaoMem productsList = ProductDaoMem.getInstance();
+//        Product product = productsList.find(id);
+//        if(cart.containsKey(product)) {
+//            if(cart.get(product) == 1) {
+//                cart.remove(product);
+//            } else {
+//                cart.put(product, cart.get(product) - 1);
+//            }
+//        }
+//    }
 
     public void deleteCart(){
         this.cart = new HashMap<>();
     }
-    
-//    public int getTotalPrice(){
-//        int sum = 0;
-//        for (Product entry : cart.keySet()) {
-//            sum += Integer.parseInt(entry.getPrice());
-//        }
-//        return sum;
-//    }
 
     public void changeQuantity(int id, int newQuantity) {
         ProductDao productList = ProductDaoMem.getInstance();
@@ -84,13 +74,5 @@ public class CartDaoMem implements CartDao {
     public Map<Product, Integer> getAll() {
         return this.cart;
     }
-
-
-
-    public int getTotalNumberOfItems(){
-        return cart.size();
-    }
-
-
 
 }

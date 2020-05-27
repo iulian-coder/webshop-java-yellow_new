@@ -35,7 +35,6 @@ public class CartController extends HttpServlet {
         double sum = 0;
         for (Map.Entry<Product, Integer> entry : cartMap.entrySet()) {
             sum += entry.getKey().getPriceDouble() * entry.getValue();
-//            sum += Double.parseDouble(entry.getKey().getPrice().substring(0,entry.getKey().getPrice().length() - 4));
             numberOfProducts += entry.getValue();
         }
 
@@ -49,7 +48,7 @@ public class CartController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CartDao carDao = CartDaoMem.getInstance();
 
-//        System.out.println("Adds item");
+
         if (req.getParameter("addToCart") != null) {
             String id = req.getParameter("addToCart");
             carDao.add(Integer.parseInt(id));
