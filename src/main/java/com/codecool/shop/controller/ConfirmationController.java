@@ -1,6 +1,5 @@
 package com.codecool.shop.controller;
 
-
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.CartDao;
 import com.codecool.shop.dao.implementation.CartDaoMem;
@@ -16,27 +15,57 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
-@WebServlet(urlPatterns = {"/cart/payment"})
-public class PaymentController extends HttpServlet {
+import java.io.FileWriter;
+import java.io.IOException;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
+@WebServlet(urlPatterns = "/cart/payment/confirmation")
+public class ConfirmationController extends HttpServlet {
+
+    CartDao cartDao = CartDaoMem.getInstance();
+    private String statusPayment = "no";
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String customerFirstName = req.getParameter("firstName");
-        String customerLastName = req.getParameter("lastName");
-        String customerPhone = req.getParameter("phone");
-        String customerEmail = req.getParameter("email");
-        String customerAddress = req.getParameter("address");
-        String customerAddress2 = req.getParameter("address2");
+        String ccName = req.getParameter("cc-name");
+        System.out.println(ccName);
+        if (ccName.equals("b")){
+            statusPayment ="confirmed";
+        } else {
+            statusPayment = "no";
+        }
+        resp.sendRedirect("/cart/payment/confirmation");
+    }
 
-        System.out.println(customerFirstName);
+    private void writeJson(){
+        JSONObject orderDetails = new JSONObject();
 
-        resp.sendRedirect("/cart/payment");
+        //Add data to json file
+        orderDetails.putAll(cartDao.getAll());
+        orderDetails.put("statusPayment", statusPayment);
+
+        //Write JSON file
+        try (FileWriter file = new FileWriter("orderDetails.json")) {
+
+            file.write(orderDetails.toJSONString());
+            file.flush();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void sendEmail(){
+//        TODO
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CartDao cartDao = CartDaoMem.getInstance();
+
+
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
@@ -51,10 +80,15 @@ public class PaymentController extends HttpServlet {
             numberOfProducts += entry.getValue();
         }
 
+        context.setVariable("cartMap", cartMap);
         context.setVariable("totalPrice", sum);
         context.setVariable("totalNumberOfItems", numberOfProducts);
 
-        engine.process("paymentPage.html", context, resp.getWriter());
+        writeJson();
+        context.setVariable("paymentMessage", statusPayment);
+
+        engine.process("confirmationPage.html", context, resp.getWriter());
 
     }
+
 }
