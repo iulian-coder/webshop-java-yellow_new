@@ -65,11 +65,11 @@
     <p>Please see below the order details</p>
     <ul th:each="element : ${cartMap}">
         <li th:text="${element.getKey().getName()}"></li>
-        <li th:text="'Qty de aflat'+${element.getValue()} + ${element.getKey().getPrice()}"></li>
+        <li th:text="${element.getValue()} + ' qty ' + ${element.getKey().getPrice()}"></li>
 
     </ul>
-    <p th:text="'You have ' + ${totalNumberOfItems} + ' item(s)'"></p>
-    <p th:text="'Total order is ' + ${totalPrice} + ' USD'"></p>
+    <p th:text="'You bought ' + ${totalNumberOfItems} + ' item(s)'"></p>
+    <p th:text="'Total order ' + ${totalPrice} + ' USD'"></p>
 </div>
 
 
