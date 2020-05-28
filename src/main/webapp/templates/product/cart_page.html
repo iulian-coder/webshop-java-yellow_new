@@ -40,14 +40,14 @@
                 <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/cart}">Cart</a>
+                <a class="nav-link" th:href="@{/cart}" th:text="'Cart '+${totalNumberOfItems} + ' items'" style="color: greenyellow"></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li>
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" href="#">Pricing</a>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>-->
+<!--            </li>-->
         </ul>
     </div>
 </nav>
@@ -56,7 +56,7 @@
         <table class="table">
             <thead>
             <tr>
-                <th scope="col"><h2>Products in Cart</h2><span th:text="${totalNumberOfItems}+' Items'"></span></th>
+                <th scope="col"><h2>Products in Cart</h2></th>
                 <th scope="col">
 <!--                    <div>-->
 <!--                    <form method="post"-->
@@ -95,7 +95,7 @@
             </tr>
             </tbody>
         </table>
-        <div class="card" style="max-width: 800px;margin:0 auto;">
+        <div class="card" style="margin:0 auto;">
             <div class="card-header">
                <h3>Total Price:</h3>
             </div>

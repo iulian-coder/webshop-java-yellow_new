@@ -42,6 +42,7 @@ public class CartController extends HttpServlet {
         context.setVariable("totalPrice", sum);
         context.setVariable("totalNumberOfItems", numberOfProducts);
         engine.process("product/cart_page.html", context, resp.getWriter());
+
     }
 
     @Override
