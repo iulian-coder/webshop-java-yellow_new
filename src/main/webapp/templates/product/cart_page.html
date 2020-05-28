@@ -80,7 +80,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title" th:text="${element.getKey().getName()}"></h5>
 <!--                                    <p class="card-text" th:text="${element.getKey().getDescription()}"></p>-->
-                                    <p class="card-text" th:text="${element.getKey().getPriceDouble()}*${element.getValue()}+ ${element.getKey().getDefaultCurrency()}"></p>
+                                    <p class="card-text" th:text="${element.getKey().getPriceDouble()}*${element.getValue()}+' '+ ${element.getKey().getDefaultCurrency()}"></p>
 <!--                                    <p class="card-text" th:text="${element.getValue()}"></p>-->
                                     <form action="/cart" method="post">
                                         <input type="number" min="0"  th:value="${element.getValue()}" name="changeQuantity">
