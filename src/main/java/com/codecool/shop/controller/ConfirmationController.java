@@ -4,6 +4,7 @@ import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.CartDao;
 import com.codecool.shop.dao.implementation.CartDaoMem;
 import com.codecool.shop.model.Product;
+import com.sun.tools.javac.comp.Todo;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -14,6 +15,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
+
+import java.io.FileWriter;
+import java.io.IOException;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 @WebServlet(urlPatterns = "/cart/payment/confirmation")
 public class ConfirmationController extends HttpServlet {
@@ -30,6 +37,28 @@ public class ConfirmationController extends HttpServlet {
             statusPayment = "no";
         }
         resp.sendRedirect("/cart/payment/confirmation");
+    }
+
+    private void writeJson(){
+        JSONObject orderDetails = new JSONObject();
+
+        //Add data to json file
+        orderDetails.put("nume", "Iulian");
+
+        //Write JSON file
+        try (FileWriter file = new FileWriter("orderDetails.json")) {
+
+            file.write(orderDetails.toJSONString());
+            file.flush();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void sendEmail(){
+//        TODO
     }
 
     @Override
@@ -54,10 +83,12 @@ public class ConfirmationController extends HttpServlet {
         context.setVariable("totalPrice", sum);
         context.setVariable("totalNumberOfItems", numberOfProducts);
 
-
+        writeJson();
+        System.out.println("Am scris json");
         context.setVariable("paymentMessage", statusPayment);
 
         engine.process("confirmationPage.html", context, resp.getWriter());
 
     }
+
 }
