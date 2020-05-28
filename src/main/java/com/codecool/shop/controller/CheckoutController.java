@@ -1,6 +1,9 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
+import com.codecool.shop.dao.CartDao;
+import com.codecool.shop.dao.implementation.CartDaoMem;
+import com.codecool.shop.model.Product;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -11,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.WebConnection;
 import java.io.IOException;
+import java.util.Map;
 
 @WebServlet(urlPatterns = {"/cart/checkout"})
 public class CheckoutController extends HttpServlet {
@@ -20,8 +24,6 @@ public class CheckoutController extends HttpServlet {
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext() );
-
-        context.setVariable("testString","Aici");
 
         engine.process("/checkoutPage.html", context,resp.getWriter());
 
