@@ -4,7 +4,6 @@ import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.CartDao;
 import com.codecool.shop.dao.implementation.CartDaoMem;
 import com.codecool.shop.model.Product;
-import com.sun.tools.javac.comp.Todo;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -25,6 +24,7 @@ import org.json.simple.JSONObject;
 @WebServlet(urlPatterns = "/cart/payment/confirmation")
 public class ConfirmationController extends HttpServlet {
 
+    CartDao cartDao = CartDaoMem.getInstance();
     private String statusPayment = "no";
 
     @Override
@@ -43,7 +43,8 @@ public class ConfirmationController extends HttpServlet {
         JSONObject orderDetails = new JSONObject();
 
         //Add data to json file
-        orderDetails.put("nume", "Iulian");
+        orderDetails.putAll(cartDao.getAll());
+        orderDetails.put("statusPayment", statusPayment);
 
         //Write JSON file
         try (FileWriter file = new FileWriter("orderDetails.json")) {
@@ -64,7 +65,7 @@ public class ConfirmationController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        CartDao cartDao = CartDaoMem.getInstance();
+
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
@@ -84,7 +85,6 @@ public class ConfirmationController extends HttpServlet {
         context.setVariable("totalNumberOfItems", numberOfProducts);
 
         writeJson();
-        System.out.println("Am scris json");
         context.setVariable("paymentMessage", statusPayment);
 
         engine.process("confirmationPage.html", context, resp.getWriter());
