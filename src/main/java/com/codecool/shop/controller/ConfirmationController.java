@@ -7,7 +7,19 @@ import com.codecool.shop.model.Product;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
+import java.util.*;
+import javax.mail.*;
+import javax.mail.internet.*;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +29,7 @@ import java.util.Map;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Properties;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -26,6 +39,7 @@ public class ConfirmationController extends HttpServlet {
 
     CartDao cartDao = CartDaoMem.getInstance();
     private String statusPayment = "no";
+
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -59,7 +73,46 @@ public class ConfirmationController extends HttpServlet {
     }
 
     private void sendEmail(){
-//        TODO
+
+        String toEmail = "codecoolbucurestitest@gmail.com"; //client Email
+        String subjectEmail = "Your order at Codecool Shop";
+        String messageEmail =  "Your order is confirmed";
+        String userGmail="codecoolbucurestitest@gmail.com"; //server Email
+        String pswGmail = "strlumina";
+        String host = "smtp.gmail.com";
+
+
+        Properties props = new Properties();
+
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+
+        Session session = Session.getInstance(props,new javax.mail.Authenticator()
+        {
+            protected PasswordAuthentication getPasswordAuthentication()
+            {
+                return new PasswordAuthentication(userGmail,pswGmail);
+            }
+        });
+
+        try {
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(userGmail));
+            message.addRecipient(Message.RecipientType.TO,new InternetAddress(toEmail));
+            message.setSubject(subjectEmail);
+            message.setText(messageEmail);
+
+            Transport.send(message);
+
+            System.out.println("E-mail sent successfully");
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -84,7 +137,8 @@ public class ConfirmationController extends HttpServlet {
         context.setVariable("totalPrice", sum);
         context.setVariable("totalNumberOfItems", numberOfProducts);
 
-        writeJson();
+//        writeJson();
+        sendEmail();
         context.setVariable("paymentMessage", statusPayment);
 
         engine.process("confirmationPage.html", context, resp.getWriter());
