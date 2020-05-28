@@ -137,8 +137,9 @@ public class ConfirmationController extends HttpServlet {
         context.setVariable("totalPrice", sum);
         context.setVariable("totalNumberOfItems", numberOfProducts);
 
-//        writeJson();
-        sendEmail();
+        writeJson();
+//        sendEmail();
+
         context.setVariable("paymentMessage", statusPayment);
 
         engine.process("confirmationPage.html", context, resp.getWriter());
