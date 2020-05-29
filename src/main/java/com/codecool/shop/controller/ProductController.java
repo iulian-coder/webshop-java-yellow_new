@@ -60,7 +60,7 @@ public class ProductController extends HttpServlet {
             supplierId=Integer.parseInt(req.getParameter("supplier"));
 
         }
-
+        context.setVariable("totalNumberOfItems", numberOfProducts);
         displayProducts(context, engine, resp, productCategoryDataStore, productDataStore,categoryId, supplierId, supplier);
 
     }

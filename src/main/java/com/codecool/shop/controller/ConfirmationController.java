@@ -47,6 +47,7 @@ public class ConfirmationController extends HttpServlet {
         System.out.println(ccName);
         if (ccName.equals("b")){
             statusPayment ="confirmed";
+            sendEmail();
         } else {
             statusPayment = "no";
         }
@@ -76,7 +77,7 @@ public class ConfirmationController extends HttpServlet {
 
         String toEmail = "codecoolbucurestitest@gmail.com"; //client Email
         String subjectEmail = "Your order at Codecool Shop";
-        String messageEmail =  "Your order is confirmed";
+        String messageEmail =  "Your order payment is " + statusPayment + "\n"+ cartDao.getAll();
         String userGmail="codecoolbucurestitest@gmail.com"; //server Email
         String pswGmail = "strlumina";
         String host = "smtp.gmail.com";
@@ -137,13 +138,13 @@ public class ConfirmationController extends HttpServlet {
         context.setVariable("totalPrice", sum);
         context.setVariable("totalNumberOfItems", numberOfProducts);
 
-        writeJson();
-//        sendEmail();
 
+        writeJson();
         context.setVariable("paymentMessage", statusPayment);
 
-        engine.process("confirmationPage.html", context, resp.getWriter());
 
+        engine.process("confirmationPage.html", context, resp.getWriter());
+        CartDaoMem.getInstance().deleteCart();
     }
 
 }
