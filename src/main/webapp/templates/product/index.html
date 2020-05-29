@@ -43,12 +43,12 @@
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/cart}" th:text="'Cart '+ ${totalNumberOfItems} + ' items'" style="color:greenyellow"></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li>
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" href="#">Pricing</a>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>-->
+<!--            </li>-->
         </ul>
     </div>
 </nav>
@@ -60,23 +60,46 @@
 
 <!-- select one category-->
 <div class="container">
-    <div>
-        <h5>Categories</h5>
-        <a href="index.html?category=1">Tablets</a>
-        <a href="index.html?category=2">Smartwatches</a>
-    </div>
+<!--    <div class="card">-->
+<!--        <h5>Categories</h5>-->
+<!--        <a href="index.html?category=1">Tablets</a>-->
+<!--        <a href="index.html?category=2">Smartwatches</a>-->
 
-    <div>
-        <h5>Suppliers</h5>
-        <a href="index.html?supplier=1">Amazon</a>
-        <a href="index.html?supplier=2">Lenovo</a>
-        <a href="index.html?supplier=3">Ebay</a>
-    </div>
-</div>
-<br>
-<br>
+<!--    <div class="card">-->
+<!--        <h5>Suppliers</h5>-->
+<!--        <a href="index.html?supplier=1">Amazon</a>-->
+<!--        <a href="index.html?supplier=2">Lenovo</a>-->
+<!--        <a href="index.html?supplier=3">Ebay</a>-->
 
-<div class="container-fluid">
+        <div class="btn-group">
+            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Categories
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="index.html?category=1">Tablets</a>
+                <a class="dropdown-item" href="index.html?category=2">Smartwatches</a>
+            </div>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-secondary btn-sm" type="button">
+                Suppliers
+            </button>
+            <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="index.html?supplier=1">Amazon</a>
+                <a class="dropdown-item" href="index.html?supplier=2">Lenovo</a>
+                <a class="dropdown-item" href="index.html?supplier=3">Ebay</a>
+            </div>
+        </div>
+        <br>
+<!--    </div>-->
+<!--</div>-->
+<!--<br>-->
+<!--<br>-->
+
+<!--<div class="container-fluid">-->
 <!--        <div class="card">-->
 <!--            <strong th:text="${category.name}"></strong>-->
 <!--        </div>-->

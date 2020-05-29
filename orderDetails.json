@@ -1,2 +1,1 @@
-{"statusPayment":"confirmed","id: 4, name: Apple T80, defaultPrice: 230.000000, defaultCurrency: USD, productCategory: Smartwatch, supplier: Amazon":2}
-
+{"id: 4, name: Apple T80, defaultPrice: 230.000000, defaultCurrency: USD, productCategory: Smartwatch, supplier: Ebay":1,"statusPayment":"confirmed","id: 2, name: Lenovo IdeaPad Miix 700, defaultPrice: 479.000000, defaultCurrency: USD, productCategory: Tablet, supplier: Lenovo":1}
