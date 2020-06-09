@@ -12,6 +12,8 @@
     <properties>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       <jetty.version>9.4.12.v20180830</jetty.version>
+
+
     </properties>
 
     <build>
@@ -42,9 +44,6 @@
                     <!-- a page load so disabled. -->
                     <!-- <reload>automatic</reload> -->
                     <!-- <scanIntervalSeconds>1</scanIntervalSeconds> -->
-                    <httpConnector>
-                        <port>8888</port>
-                    </httpConnector>
                 </configuration>
             </plugin>
         </plugins>
@@ -57,6 +56,11 @@
             <version>4.0.0</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.5</version>
+        </dependency>
         <!-- See comment at jetty plugin -->
         <!-- <dependency> -->
         <!--   <groupId>org.eclipse.jetty</groupId> -->
@@ -67,17 +71,6 @@
             <groupId>org.thymeleaf</groupId>
             <artifactId>thymeleaf</artifactId>
             <version>3.0.9.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>com.googlecode.json-simple</groupId>
-            <artifactId>json-simple</artifactId>
-            <version>1.1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>javax.mail</artifactId>
-            <version>1.6.2</version>
-           
         </dependency>
     </dependencies>
 </project>
