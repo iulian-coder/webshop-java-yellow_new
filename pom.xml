@@ -44,6 +44,9 @@
                     <!-- a page load so disabled. -->
                     <!-- <reload>automatic</reload> -->
                     <!-- <scanIntervalSeconds>1</scanIntervalSeconds> -->
+                    <httpConnector>
+                        <port>8888</port>
+                    </httpConnector>
                 </configuration>
             </plugin>
         </plugins>
@@ -71,6 +74,16 @@
             <groupId>org.thymeleaf</groupId>
             <artifactId>thymeleaf</artifactId>
             <version>3.0.9.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.6.2</version>
         </dependency>
     </dependencies>
 </project>

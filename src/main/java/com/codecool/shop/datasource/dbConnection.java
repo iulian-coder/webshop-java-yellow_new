@@ -30,11 +30,11 @@ public class dbConnection {
     }
 
 //    Optional testing connection
-//    public static void main(String[] args) throws SQLException {
-//        dbConnection dbConnection = new dbConnection();
-//
-//        dbConnection.connect();
-//        System.out.println("Merge?");
-//
-//    }
+    public static void main(String[] args) throws SQLException {
+        dbConnection dbConnection = new dbConnection();
+
+        dbConnection.connect();
+        System.out.println("Merge?");
+
+    }
 }
