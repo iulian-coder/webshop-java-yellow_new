@@ -97,6 +97,7 @@ body{
     padding: 30px;
 }
 .login-form h2 {
+    color: #636363;
     margin: 0 0 15px;
 }
 .form-control, .btn {
