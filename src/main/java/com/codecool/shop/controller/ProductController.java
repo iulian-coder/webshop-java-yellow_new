@@ -77,7 +77,12 @@ public class ProductController extends HttpServlet {
 
 
     private void displayProducts(WebContext context, TemplateEngine engine, HttpServletResponse resp, ProductCategoryDao productCategoryDataStore, ProductDao productDataStore, int categoryId, int supplierId, SupplierDao supplier) throws IOException {
-        context.setVariable("category", productCategoryDataStore.find(categoryId));
+        try {
+            context.setVariable("category", productCategoryDataStore.find(categoryId));
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         if (supplierId!=0) {
             try {
                 context.setVariable("supplier", supplier.find(supplierId));
@@ -85,7 +90,11 @@ public class ProductController extends HttpServlet {
                 e.printStackTrace();
             }
         }
-        context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(categoryId)));
+        try {
+            context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(categoryId)));
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
         if (supplierId!=0){
             try {
                 context.setVariable("products", productDataStore.getBy(supplier.find(supplierId)));

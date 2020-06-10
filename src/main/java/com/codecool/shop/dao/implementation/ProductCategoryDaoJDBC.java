@@ -31,8 +31,7 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
     }
 
     @Override
-    public void add(ProductCategory category) {
-        try {
+    public void add(ProductCategory category) throws SQLException{
             Connection connection = dataSource.getConnection();
             preparedStatement = connection.prepareStatement("INSERT INTO category (name, department, description) VALUES (?,?,?)");
             preparedStatement.setString(1, category.getName());
@@ -42,14 +41,10 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
             resultSet.close();
             preparedStatement.close();
             connection.close();
-        } catch (SQLException e) {
-            e.getStackTrace();
-        }
     }
 
     @Override
-    public ProductCategory find(int id) {
-        try {
+    public ProductCategory find(int id) throws SQLException{
             Connection connection = dataSource.getConnection();
             preparedStatement = connection.prepareStatement("SELECT * FROM category WHERE id=?");
             preparedStatement.setInt(1, id);
@@ -65,15 +60,11 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
             resultSet.close();
             preparedStatement.close();
             connection.close();
-        } catch (SQLException e) {
-            e.getStackTrace();
-        }
         return null;
     }
 
     @Override
-    public void remove(int id) {
-        try {
+    public void remove(int id) throws SQLException{
             Connection connection = dataSource.getConnection();
             preparedStatement = connection.prepareStatement("DELETE FROM category WHERE id=?");
             preparedStatement.setInt(1, id);
@@ -81,15 +72,10 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
             resultSet.close();
             preparedStatement.close();
             connection.close();
-        } catch (SQLException e) {
-            e.getStackTrace();
-        }
-
     }
 
     @Override
-    public List<ProductCategory> getAll() {
-        try {
+    public List<ProductCategory> getAll() throws SQLException{
             products.clear();
             Connection connection = dataSource.getConnection();
             preparedStatement = connection.prepareStatement("SELECT * FROM supplier");
@@ -107,9 +93,5 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
             preparedStatement.close();
             connection.close();
             return products;
-        } catch (SQLException e) {
-            e.getStackTrace();
-        }
-        return null;
     }
 }

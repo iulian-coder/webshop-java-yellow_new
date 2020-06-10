@@ -7,6 +7,7 @@ import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
+import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -60,7 +61,12 @@ public class CartDaoMem implements CartDao {
 
     public void changeQuantity(int id, int newQuantity) {
         ProductDao productList = ProductDaoMem.getInstance();
-        Product product = productList.find(id);
+        Product product = null;
+        try {
+            product = productList.find(id);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
         if(cart.containsKey(product)) {
             if (newQuantity == 0) {
                 cart.remove(product);

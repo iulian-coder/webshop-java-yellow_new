@@ -37,8 +37,7 @@ public class ProductDaoJDBC implements ProductDao {
     }
 
     @Override
-    public void add(Product product) {
-        try {
+    public void add(Product product) throws SQLException{
             Connection connection = dataSource.getConnection();
             preparedStatement = connection.prepareStatement("INSERT INTO product (name, price, currency, image, description, supplier_id, category_id) VALUES (?,?,?,?,?,?,?)");
             preparedStatement.setString(1, product.getName());
@@ -52,14 +51,10 @@ public class ProductDaoJDBC implements ProductDao {
             resultSet.close();
             preparedStatement.close();
             connection.close();
-        } catch (SQLException e) {
-            e.getStackTrace();
-        }
     }
 
     @Override
-    public Product find(int id) {
-        try {
+    public Product find(int id) throws SQLException{
             Connection connection = dataSource.getConnection();
             preparedStatement = connection.prepareStatement("SELECT * FROM product WHERE id=?");
             preparedStatement.setInt(1, id);
@@ -79,15 +74,11 @@ public class ProductDaoJDBC implements ProductDao {
             resultSet.close();
             preparedStatement.close();
             connection.close();
-        } catch (SQLException e) {
-            e.getStackTrace();
-        }
-        return null;
+            return null;
     }
 
     @Override
-    public void remove(int id) {
-        try {
+    public void remove(int id) throws SQLException{
             Connection connection = dataSource.getConnection();
             preparedStatement = connection.prepareStatement("DELETE FROM product WHERE id=?");
             preparedStatement.setInt(1, id);
@@ -95,15 +86,10 @@ public class ProductDaoJDBC implements ProductDao {
             resultSet.close();
             preparedStatement.close();
             connection.close();
-        } catch (SQLException e) {
-            e.getStackTrace();
-        }
-
     }
 
     @Override
-    public List<Product> getAll() {
-        try {
+    public List<Product> getAll() throws SQLException{
             products.clear();
             Connection connection = dataSource.getConnection();
             preparedStatement = connection.prepareStatement("SELECT * FROM product");
@@ -125,15 +111,10 @@ public class ProductDaoJDBC implements ProductDao {
             preparedStatement.close();
             connection.close();
             return products;
-        } catch (SQLException e) {
-            e.getStackTrace();
-        }
-        return null;
     }
 
     @Override
-    public List<Product> getBy(Supplier supplier) {
-        try{
+    public List<Product> getBy(Supplier supplier) throws SQLException{
         products.clear();
         Connection connection = dataSource.getConnection();
         preparedStatement = connection.prepareStatement("SELECT * FROM product WHERE supplier_id=?");
@@ -155,15 +136,10 @@ public class ProductDaoJDBC implements ProductDao {
             preparedStatement.close();
             connection.close();
             return products;
-        } catch (SQLException e) {
-            e.getStackTrace();
-        }
-        return null;
     }
 
     @Override
-    public List<Product> getBy(ProductCategory productCategory) {
-        try{
+    public List<Product> getBy(ProductCategory productCategory) throws SQLException{
             products.clear();
             Connection connection = dataSource.getConnection();
             preparedStatement = connection.prepareStatement("SELECT * FROM product WHERE category_id=?");
@@ -185,9 +161,5 @@ public class ProductDaoJDBC implements ProductDao {
             preparedStatement.close();
             connection.close();
             return products;
-        } catch (SQLException e) {
-            e.getStackTrace();
-        }
-        return null;
     }
 }
