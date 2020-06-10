@@ -18,8 +18,6 @@ public class dbConnection {
     private static String DbPassword;
     private InputStream inputStream;
 
-
-
     private String getPropValues() throws IOException {
         try {
             Properties prop = new Properties();
@@ -47,13 +45,16 @@ public class dbConnection {
 
 
     public static DataSource connect() throws SQLException, IOException {
+
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
         dbConnection dbConnection = new dbConnection();
         dbConnection.getPropValues();
 
+
         dataSource.setDatabaseName(DatabaseName);
         dataSource.setUser(DbUser);
         dataSource.setPassword(DbPassword);
+
 
         System.out.println("Trying to connect...");
         dataSource.getConnection().close();
@@ -61,5 +62,6 @@ public class dbConnection {
 
         return dataSource;
     }
+
 
 }

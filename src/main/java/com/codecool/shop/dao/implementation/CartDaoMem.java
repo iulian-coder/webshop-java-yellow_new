@@ -7,6 +7,7 @@ import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
+import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -41,18 +42,18 @@ public class CartDaoMem implements CartDao {
             }
     }
 
-//    @Override
-//    public void remove(int id) {
-//        ProductDaoMem productsList = ProductDaoMem.getInstance();
-//        Product product = productsList.find(id);
-//        if(cart.containsKey(product)) {
-//            if(cart.get(product) == 1) {
-//                cart.remove(product);
-//            } else {
-//                cart.put(product, cart.get(product) - 1);
-//            }
-//        }
-//    }
+    @Override
+    public void remove(int id) {
+        ProductDaoMem productsList = ProductDaoMem.getInstance();
+        Product product = productsList.find(id);
+        if(cart.containsKey(product)) {
+            if(cart.get(product) == 1) {
+                cart.remove(product);
+            } else {
+                cart.put(product, cart.get(product) - 1);
+            }
+        }
+    }
 
     public void deleteCart(){
         this.cart = new HashMap<>();
@@ -60,7 +61,12 @@ public class CartDaoMem implements CartDao {
 
     public void changeQuantity(int id, int newQuantity) {
         ProductDao productList = ProductDaoMem.getInstance();
-        Product product = productList.find(id);
+        Product product = null;
+        try {
+            product = productList.find(id);
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
         if(cart.containsKey(product)) {
             if (newQuantity == 0) {
                 cart.remove(product);

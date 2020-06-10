@@ -5,11 +5,8 @@ import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
+import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.config.TemplateEngineUtil;
-import com.codecool.shop.dao.implementation.SupplierDaoMem;
-import com.codecool.shop.dao.implementation.CartDaoMem;
 import com.codecool.shop.model.Product;
 
 import org.thymeleaf.TemplateEngine;
@@ -22,6 +19,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,10 +29,22 @@ public class ProductController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ProductDao productDataStore = ProductDaoMem.getInstance();
+//        ProductDao productDataStore = ProductDaoMem.getInstance();
+//        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+//        SupplierDao supplier = SupplierDaoMem.getInstance();
+
+        ProductDao productDataStore = null;
+        ProductCategoryDao productCategoryDataStore = null;
+        SupplierDao supplier = null;
+
+        try {
+            productDataStore = ProductDaoJDBC.getInstance();
+            productCategoryDataStore = ProductCategoryDaoJDBC.getInstance();
+            supplier = SupplierDaoJDBC.getInstance();
+        }catch(SQLException e){e.getStackTrace();}
+
         CartDao cartDao = CartDaoMem.getInstance();
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-        SupplierDao supplier = SupplierDaoMem.getInstance();
+
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         Map<Product, Integer> cartMap = cartDao.getAll();
@@ -61,18 +71,37 @@ public class ProductController extends HttpServlet {
 
         }
         context.setVariable("totalNumberOfItems", numberOfProducts);
-        displayProducts(context, engine, resp, productCategoryDataStore, productDataStore,categoryId, supplierId, supplier);
+        displayProducts(context, engine, resp, productCategoryDataStore,productDataStore, categoryId, supplierId, supplier);
 
     }
 
 
     private void displayProducts(WebContext context, TemplateEngine engine, HttpServletResponse resp, ProductCategoryDao productCategoryDataStore, ProductDao productDataStore, int categoryId, int supplierId, SupplierDao supplier) throws IOException {
-        context.setVariable("category", productCategoryDataStore.find(categoryId));
-        if (supplierId!=0)
-            context.setVariable("supplier", supplier.find(supplierId));
-        context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(categoryId)));
-        if (supplierId!=0)
-            context.setVariable("products", productDataStore.getBy(supplier.find(supplierId)));
+        try {
+            context.setVariable("category", productCategoryDataStore.find(categoryId));
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if (supplierId!=0) {
+            try {
+                context.setVariable("supplier", supplier.find(supplierId));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(categoryId)));
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        if (supplierId!=0){
+            try {
+                context.setVariable("products", productDataStore.getBy(supplier.find(supplierId)));
+            }catch(SQLException e) {
+                e.printStackTrace();
+            }
+        }
         engine.process("product/index.html", context, resp.getWriter());
     }
 
