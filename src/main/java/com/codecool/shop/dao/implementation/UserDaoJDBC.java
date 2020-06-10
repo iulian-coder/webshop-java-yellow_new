@@ -5,6 +5,7 @@ import com.codecool.shop.datasource.dbConnection;
 import com.codecool.shop.model.User;
 
 import javax.sql.DataSource;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,10 +20,10 @@ public class UserDaoJDBC implements UserDao {
     List<User> users = new ArrayList<>();
     private static UserDaoJDBC instance = null;
 
-    public UserDaoJDBC() throws SQLException {
+    public UserDaoJDBC() throws SQLException, IOException {
     }
 
-    public static UserDaoJDBC getInstance() throws SQLException {
+    public static UserDaoJDBC getInstance() throws SQLException, IOException {
         if (instance == null) {
             instance = new UserDaoJDBC();
         }

@@ -79,27 +79,35 @@ public class ProductController extends HttpServlet {
     private void displayProducts(WebContext context, TemplateEngine engine, HttpServletResponse resp, ProductCategoryDao productCategoryDataStore, ProductDao productDataStore, int categoryId, int supplierId, SupplierDao supplier) throws IOException {
         try {
             context.setVariable("category", productCategoryDataStore.find(categoryId));
-        }catch (SQLException e) {
-            e.printStackTrace();
+        }catch (Exception exc) {
+            if (exc instanceof IOException || exc instanceof SQLException) {
+                exc.printStackTrace();
+            }
         }
 
         if (supplierId!=0) {
             try {
                 context.setVariable("supplier", supplier.find(supplierId));
-            } catch (SQLException e) {
-                e.printStackTrace();
+            } catch (Exception exc) {
+                if (exc instanceof IOException || exc instanceof SQLException) {
+                    exc.printStackTrace();
+                }
             }
         }
         try {
             context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(categoryId)));
-        }catch (SQLException e){
-            e.printStackTrace();
+        }catch (Exception exc) {
+            if (exc instanceof IOException || exc instanceof SQLException) {
+                exc.printStackTrace();
+            }
         }
         if (supplierId!=0){
             try {
                 context.setVariable("products", productDataStore.getBy(supplier.find(supplierId)));
-            }catch(SQLException e) {
-                e.printStackTrace();
+            }catch (Exception exc) {
+                if (exc instanceof IOException || exc instanceof SQLException) {
+                    exc.printStackTrace();
+                }
             }
         }
         engine.process("product/index.html", context, resp.getWriter());

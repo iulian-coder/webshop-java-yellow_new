@@ -6,6 +6,7 @@ import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
 import javax.sql.DataSource;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,10 +21,10 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
     List<ProductCategory> products = new ArrayList<>();
     private static ProductCategoryDaoJDBC instance = null;
 
-    public ProductCategoryDaoJDBC() throws SQLException {
+    public ProductCategoryDaoJDBC() throws SQLException, IOException {
     }
 
-    public static ProductCategoryDaoJDBC getInstance() throws SQLException {
+    public static ProductCategoryDaoJDBC getInstance() throws SQLException, IOException {
         if (instance == null) {
             instance = new ProductCategoryDaoJDBC();
         }
