@@ -6,15 +6,16 @@ public class Product extends BaseModel {
 
     private float defaultPrice;
     private Currency defaultCurrency;
+    private String currency;
     private ProductCategory productCategory;
     private Supplier supplier;
     private String image;
 
 
-    public Product(String name, String description, float defaultPrice, Currency defaultCurrency, ProductCategory productCategory, Supplier supplier, String image) {
+    public Product(String name, String description, float defaultPrice, String currency, ProductCategory productCategory, Supplier supplier, String image) {
         super(name, description);
         this.defaultPrice = defaultPrice;
-        this.defaultCurrency = defaultCurrency;
+        this.currency = currency;
         this.productCategory = productCategory;
         this.supplier = supplier;
         this.image = image;

@@ -129,11 +129,59 @@ public class ProductDaoJDBC implements ProductDao {
 
     @Override
     public List<Product> getBy(Supplier supplier) {
+        try{
+        products.clear();
+        connection = dataSource.getConnection();
+        preparedStatement = connection.prepareStatement("SELECT * FROM product WHERE supplier_id=?");
+        preparedStatement.setInt(1, supplier.getId());
+        resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                Float price = resultSet.getFloat("price");
+                String currency = resultSet.getString("currency");
+                String image = resultSet.getString("image");
+                String description = resultSet.getString("description");
+                int categoryId = resultSet.getInt("category_id");
+                Product product = new Product(name, description, price, currency, productCategoryDao.find(categoryId), supplierDao.find(supplier.getId()), image);
+                product.setId(id);
+                products.add(product);
+            }
+            resultSet.close();
+            preparedStatement.close();
+            connection.close();
+            return products;
+        } catch (SQLException e) {
+        }
         return null;
     }
 
     @Override
     public List<Product> getBy(ProductCategory productCategory) {
+        try{
+            products.clear();
+            connection = dataSource.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT * FROM product WHERE category_id=?");
+            preparedStatement.setInt(1, productCategory.getId());
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                Float price = resultSet.getFloat("price");
+                String currency = resultSet.getString("currency");
+                String image = resultSet.getString("image");
+                String description = resultSet.getString("description");
+                int supplierId = resultSet.getInt("supplier_id");
+                Product product = new Product(name, description, price, currency, productCategoryDao.find(productCategory.getId()), supplierDao.find(supplierId), image);
+                product.setId(id);
+                products.add(product);
+            }
+            resultSet.close();
+            preparedStatement.close();
+            connection.close();
+            return products;
+        } catch (SQLException e) {
+        }
         return null;
     }
 }
