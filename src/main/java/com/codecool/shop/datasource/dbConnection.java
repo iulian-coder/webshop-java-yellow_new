@@ -14,13 +14,13 @@ import static java.sql.DriverManager.println;
 
 public class dbConnection {
 
-    private DataSource connect() throws SQLException {
+    public static DataSource connect() throws SQLException {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
 
         // Done
         dataSource.setDatabaseName("codecoolshop");
-        dataSource.setUser("iulian");
-        dataSource.setPassword("vlad");
+        dataSource.setUser("andreeanc");
+        dataSource.setPassword("codecool");
 
         System.out.println("Trying to connect...");
         dataSource.getConnection().close();
@@ -30,11 +30,11 @@ public class dbConnection {
     }
 
 //    Optional testing connection
-    public static void main(String[] args) throws SQLException {
-        dbConnection dbConnection = new dbConnection();
-
-        dbConnection.connect();
-        System.out.println("Merge?");
-
-    }
+//    public static void main(String[] args) throws SQLException {
+//        dbConnection dbConnection = new dbConnection();
+//
+//        dbConnection.connect();
+//        System.out.println("Merge?");
+//
+//    }
 }

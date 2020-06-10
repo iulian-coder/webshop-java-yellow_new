@@ -10,7 +10,7 @@ import java.util.Map;
 
 public interface CartDao {
     void add(int id);
-//    void remove(int id);
+    void remove(int id);
     void changeQuantity(int i, int id);
     Map<Product, Integer> getAll();
 }

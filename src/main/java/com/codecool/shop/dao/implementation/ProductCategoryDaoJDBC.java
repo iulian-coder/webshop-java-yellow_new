@@ -1,6 +1,7 @@
 package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.ProductCategoryDao;
+import com.codecool.shop.datasource.dbConnection;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
@@ -13,17 +14,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductCategoryDaoJDBC implements ProductCategoryDao {
-    DataSource dataSource;
-    Connection connection = null;
+    DataSource dataSource = dbConnection.connect();
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
     List<ProductCategory> products = new ArrayList<>();
     private static ProductCategoryDaoJDBC instance = null;
 
-    public ProductCategoryDaoJDBC() {
+    public ProductCategoryDaoJDBC() throws SQLException {
     }
 
-    public static ProductCategoryDaoJDBC getInstance() {
+    public static ProductCategoryDaoJDBC getInstance() throws SQLException {
         if (instance == null) {
             instance = new ProductCategoryDaoJDBC();
         }
@@ -33,7 +33,7 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
     @Override
     public void add(ProductCategory category) {
         try {
-            connection = dataSource.getConnection();
+            Connection connection = dataSource.getConnection();
             preparedStatement = connection.prepareStatement("INSERT INTO category (name, department, description) VALUES (?,?,?)");
             preparedStatement.setString(1, category.getName());
             preparedStatement.setString(2, category.getDepartment());
@@ -43,13 +43,14 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
             preparedStatement.close();
             connection.close();
         } catch (SQLException e) {
+            e.getStackTrace();
         }
     }
 
     @Override
     public ProductCategory find(int id) {
         try {
-            connection = dataSource.getConnection();
+            Connection connection = dataSource.getConnection();
             preparedStatement = connection.prepareStatement("SELECT * FROM category WHERE id=?");
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
@@ -65,6 +66,7 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
             preparedStatement.close();
             connection.close();
         } catch (SQLException e) {
+            e.getStackTrace();
         }
         return null;
     }
@@ -72,7 +74,7 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
     @Override
     public void remove(int id) {
         try {
-            connection = dataSource.getConnection();
+            Connection connection = dataSource.getConnection();
             preparedStatement = connection.prepareStatement("DELETE FROM category WHERE id=?");
             preparedStatement.setInt(1, id);
             preparedStatement.executeQuery();
@@ -80,6 +82,7 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
             preparedStatement.close();
             connection.close();
         } catch (SQLException e) {
+            e.getStackTrace();
         }
 
     }
@@ -88,7 +91,7 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
     public List<ProductCategory> getAll() {
         try {
             products.clear();
-            connection = dataSource.getConnection();
+            Connection connection = dataSource.getConnection();
             preparedStatement = connection.prepareStatement("SELECT * FROM supplier");
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -105,6 +108,7 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
             connection.close();
             return products;
         } catch (SQLException e) {
+            e.getStackTrace();
         }
         return null;
     }

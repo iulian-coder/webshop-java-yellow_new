@@ -3,6 +3,7 @@ package com.codecool.shop.dao.implementation;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.datasource.dbConnection;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
@@ -17,8 +18,7 @@ import java.util.Currency;
 import java.util.List;
 
 public class ProductDaoJDBC implements ProductDao {
-    DataSource dataSource;
-    Connection connection = null;
+    DataSource dataSource = dbConnection.connect();
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
     List<Product> products = new ArrayList<>();
@@ -26,10 +26,10 @@ public class ProductDaoJDBC implements ProductDao {
     ProductCategoryDao productCategoryDao = ProductCategoryDaoJDBC.getInstance();
     private static ProductDaoJDBC instance =null;
 
-    public ProductDaoJDBC() {
+    public ProductDaoJDBC() throws SQLException {
     }
 
-    public static ProductDaoJDBC getInstance() {
+    public static ProductDaoJDBC getInstance() throws SQLException {
         if (instance == null) {
             instance = new ProductDaoJDBC();
         }
@@ -39,11 +39,11 @@ public class ProductDaoJDBC implements ProductDao {
     @Override
     public void add(Product product) {
         try {
-            connection = dataSource.getConnection();
+            Connection connection = dataSource.getConnection();
             preparedStatement = connection.prepareStatement("INSERT INTO product (name, price, currency, image, description, supplier_id, category_id) VALUES (?,?,?,?,?,?,?)");
             preparedStatement.setString(1, product.getName());
             preparedStatement.setFloat(2, product.getDefaultPrice());
-            preparedStatement.setString(3, product.getDefaultCurrency().toString());
+            preparedStatement.setString(3, product.getDefaultCurrency());
             preparedStatement.setString(4, product.getImage());
             preparedStatement.setString(5, product.getDescription());
             preparedStatement.setInt(6, product.getSupplier().getId());
@@ -53,13 +53,14 @@ public class ProductDaoJDBC implements ProductDao {
             preparedStatement.close();
             connection.close();
         } catch (SQLException e) {
+            e.getStackTrace();
         }
     }
 
     @Override
     public Product find(int id) {
         try {
-            connection = dataSource.getConnection();
+            Connection connection = dataSource.getConnection();
             preparedStatement = connection.prepareStatement("SELECT * FROM product WHERE id=?");
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
@@ -79,6 +80,7 @@ public class ProductDaoJDBC implements ProductDao {
             preparedStatement.close();
             connection.close();
         } catch (SQLException e) {
+            e.getStackTrace();
         }
         return null;
     }
@@ -86,7 +88,7 @@ public class ProductDaoJDBC implements ProductDao {
     @Override
     public void remove(int id) {
         try {
-            connection = dataSource.getConnection();
+            Connection connection = dataSource.getConnection();
             preparedStatement = connection.prepareStatement("DELETE FROM product WHERE id=?");
             preparedStatement.setInt(1, id);
             preparedStatement.executeQuery();
@@ -94,6 +96,7 @@ public class ProductDaoJDBC implements ProductDao {
             preparedStatement.close();
             connection.close();
         } catch (SQLException e) {
+            e.getStackTrace();
         }
 
     }
@@ -102,7 +105,7 @@ public class ProductDaoJDBC implements ProductDao {
     public List<Product> getAll() {
         try {
             products.clear();
-            connection = dataSource.getConnection();
+            Connection connection = dataSource.getConnection();
             preparedStatement = connection.prepareStatement("SELECT * FROM product");
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -123,6 +126,7 @@ public class ProductDaoJDBC implements ProductDao {
             connection.close();
             return products;
         } catch (SQLException e) {
+            e.getStackTrace();
         }
         return null;
     }
@@ -131,7 +135,7 @@ public class ProductDaoJDBC implements ProductDao {
     public List<Product> getBy(Supplier supplier) {
         try{
         products.clear();
-        connection = dataSource.getConnection();
+        Connection connection = dataSource.getConnection();
         preparedStatement = connection.prepareStatement("SELECT * FROM product WHERE supplier_id=?");
         preparedStatement.setInt(1, supplier.getId());
         resultSet = preparedStatement.executeQuery();
@@ -152,6 +156,7 @@ public class ProductDaoJDBC implements ProductDao {
             connection.close();
             return products;
         } catch (SQLException e) {
+            e.getStackTrace();
         }
         return null;
     }
@@ -160,7 +165,7 @@ public class ProductDaoJDBC implements ProductDao {
     public List<Product> getBy(ProductCategory productCategory) {
         try{
             products.clear();
-            connection = dataSource.getConnection();
+            Connection connection = dataSource.getConnection();
             preparedStatement = connection.prepareStatement("SELECT * FROM product WHERE category_id=?");
             preparedStatement.setInt(1, productCategory.getId());
             resultSet = preparedStatement.executeQuery();
@@ -181,6 +186,7 @@ public class ProductDaoJDBC implements ProductDao {
             connection.close();
             return products;
         } catch (SQLException e) {
+            e.getStackTrace();
         }
         return null;
     }

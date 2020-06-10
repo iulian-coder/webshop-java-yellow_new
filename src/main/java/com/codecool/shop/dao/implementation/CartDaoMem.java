@@ -41,18 +41,18 @@ public class CartDaoMem implements CartDao {
             }
     }
 
-//    @Override
-//    public void remove(int id) {
-//        ProductDaoMem productsList = ProductDaoMem.getInstance();
-//        Product product = productsList.find(id);
-//        if(cart.containsKey(product)) {
-//            if(cart.get(product) == 1) {
-//                cart.remove(product);
-//            } else {
-//                cart.put(product, cart.get(product) - 1);
-//            }
-//        }
-//    }
+    @Override
+    public void remove(int id) {
+        ProductDaoMem productsList = ProductDaoMem.getInstance();
+        Product product = productsList.find(id);
+        if(cart.containsKey(product)) {
+            if(cart.get(product) == 1) {
+                cart.remove(product);
+            } else {
+                cart.put(product, cart.get(product) - 1);
+            }
+        }
+    }
 
     public void deleteCart(){
         this.cart = new HashMap<>();
