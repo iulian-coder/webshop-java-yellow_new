@@ -1,10 +1,7 @@
 package com.codecool.shop.controller;
 
-import com.codecool.shop.dao.CartDao;
-import com.codecool.shop.dao.ProductCategoryDao;
-import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.*;
 
-import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.model.Product;
@@ -18,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -38,8 +36,37 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        UserDao userDao = null;
+        String passwordDB = null;
 
-        resp.sendRedirect("/");
+        try {
+            userDao = UserDaoJDBC.getInstance();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        String username = req.getParameter("username");
+        String password = req.getParameter("password");
+
+        try {
+            passwordDB = userDao.getPasswordByUsername(username);
+            System.out.println(passwordDB);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if (password.equals(passwordDB)) {
+
+            System.out.println("Successfully logged in");
+            HttpSession session = req.getSession();
+            System.out.println("Session created");
+            session.setAttribute("username", username);
+            String sessionUsername = (String)session.getAttribute("username");
+
+            resp.sendRedirect("/");
+            System.out.println(sessionUsername);
+        } else {
+            resp.sendRedirect("/login");
+        }
 
     }
 
