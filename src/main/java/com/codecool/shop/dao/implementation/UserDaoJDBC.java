@@ -32,24 +32,26 @@ public class UserDaoJDBC implements UserDao {
 
     @Override
     public void add(User user) throws SQLException {
-        Connection connection = dataSource.getConnection();
-        preparedStatement = connection.prepareStatement("INSERT INTO users (username, password, first_name, last_name, phone_number, email, billing_address, shipping_address) VALUES (?,?,?,?,?,?,?,?)");
-        preparedStatement.setString(1, user.getUsername());
-        preparedStatement.setString(2, user.getPassword());
-        preparedStatement.setString(3, user.getFirstName());
-        preparedStatement.setString(4, user.getLastName());
-        preparedStatement.setString(5, user.getPhone());
-        preparedStatement.setString(6, user.getEmail());
-        preparedStatement.setString(7, user.getBillingAddress());
-        preparedStatement.setString(8, user.getShippingAddress());
-        preparedStatement.executeQuery();
-        resultSet.close();
-        preparedStatement.close();
-        connection.close();
+        String sql = "INSERT INTO users (username, password, first_name, last_name, phone_number, email, billing_address, shipping_address) VALUES (?,?,?,?,?,?,?,?)";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
+            preparedStatement.setString(1, user.getUsername());
+            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setString(3, user.getFirstName());
+            preparedStatement.setString(4, user.getLastName());
+            preparedStatement.setString(5, user.getPhone());
+            preparedStatement.setString(6, user.getEmail());
+            preparedStatement.setString(7, user.getBillingAddress());
+            preparedStatement.setString(8, user.getShippingAddress());
+            preparedStatement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public User find(int id) throws SQLException {
+
         Connection connection = dataSource.getConnection();
         preparedStatement = connection.prepareStatement("SELECT * FROM users WHERE id=?");
         preparedStatement.setInt(1, id);
@@ -87,9 +89,11 @@ public class UserDaoJDBC implements UserDao {
     @Override
     public List<User> getAll() throws SQLException {
         users.clear();
+
         Connection connection = dataSource.getConnection();
         preparedStatement = connection.prepareStatement("SELECT * FROM users");
         resultSet = preparedStatement.executeQuery();
+
         while (resultSet.next()){
             int id = resultSet.getInt("id");
             String username =resultSet.getString("username");
@@ -108,5 +112,22 @@ public class UserDaoJDBC implements UserDao {
         preparedStatement.close();
         connection.close();
         return users;
+    }
+
+    @Override
+    public String getPasswordByUsername(String username) throws SQLException {
+        String password = "";
+        Connection connection = dataSource.getConnection();
+        preparedStatement = connection.prepareStatement("SELECT password FROM users WHERE username=?");
+        preparedStatement.setString(1, username);
+        resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            password = resultSet.getString("password");
+        }
+        resultSet.close();
+        preparedStatement.close();
+        connection.close();
+        return password;
+
     }
 }
