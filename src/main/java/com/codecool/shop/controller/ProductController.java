@@ -40,7 +40,6 @@ public class ProductController extends HttpServlet {
 
         if(session!=null) {
             String sessionUsername = (String)session.getAttribute("username");
-            System.out.println("index " + sessionUsername);
         }
 
         ProductDao productDataStore = null;

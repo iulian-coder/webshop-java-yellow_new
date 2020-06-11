@@ -40,7 +40,16 @@
                 <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/cart}" th:text="'Cart '+${totalNumberOfItems} + ' items'" style="color: greenyellow"></a>
+                <a class="nav-link" th:href="@{/cart}" th:text="Cart" style="color: greenyellow"></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/registration}" th:text="SignUp" style="color:greenyellow"></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/login}" th:text="Login" style="color:greenyellow"></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/logout}" th:text="Logout" style="color:greenyellow"></a>
             </li>
 <!--            <li class="nav-item">-->
 <!--                <a class="nav-link" href="#">Pricing</a>-->
@@ -111,5 +120,6 @@
                 <button class="btn btn-success btn-lg btn-block" type="submit">Proceed to checkout</button>
             </form>
         </div>
+<div th:replace="footer.html :: copy"></div>
 </body>
 </html>

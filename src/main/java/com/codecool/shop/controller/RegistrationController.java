@@ -55,21 +55,13 @@ public class RegistrationController extends HttpServlet {
         String lastName = req.getParameter("last_name");
         String username = req.getParameter("username");
         String email = req.getParameter("email");
-        String phone = req.getParameter("phone_number");
+//        String phone = req.getParameter("phone_number");
         String password = req.getParameter("password");
-        String billingAddress = req.getParameter("billing_address");
-        String shippingAddress = req.getParameter("shipping_address");
+//        String billingAddress = req.getParameter("billing_address");
+//        String shippingAddress = req.getParameter("shipping_address");
 
-        User user =new User(username, password, firstName, lastName, phone, email, billingAddress, shippingAddress);
+        User user =new User(username, password, firstName, lastName, email);
 
-        System.out.println(firstName);
-        System.out.println(lastName);
-        System.out.println(username);
-        System.out.println(email);
-        System.out.println(phone);
-        System.out.println(password);
-        System.out.println(billingAddress);
-        System.out.println(shippingAddress);
 
         try {
             userDao.add(user);
@@ -79,15 +71,15 @@ public class RegistrationController extends HttpServlet {
 
         System.out.println("New user added");
 
-        sendEmail();
+        sendEmail(email);
 
         resp.sendRedirect("/login");
 
     }
 
-    private void sendEmail(){
+    private void sendEmail(String email){
 
-        String toEmail = "andreea.grosu87@gmail.com"; //client Email
+        String toEmail = email; //client Email
         String subjectEmail = "Welcome at Codecool Shop";
         String messageEmail =  "We are very happy to have you here! Happy shopping!";
         String userGmail="codecoolbucurestitest@gmail.com"; //server Email
