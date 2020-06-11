@@ -65,7 +65,7 @@ public class UserDaoJDBC implements UserDao {
             String email = resultSet.getString("email");
             String billingAddress = resultSet.getString("billing_address");
             String shippingAddress = resultSet.getString("shipping_address");
-            User user =new User(username, password, firstName, lastName, phone, email, billingAddress, shippingAddress);
+            User user =new User(username, password, firstName, lastName,email);
             user.setId(id);
             return user;
         }
@@ -100,11 +100,11 @@ public class UserDaoJDBC implements UserDao {
             String password = resultSet.getString("password");
             String firstName = resultSet.getString("first_name");
             String lastName = resultSet.getString("last_name");
-            String phone = resultSet.getString("phone_number");
+//            String phone = resultSet.getString("phone_number");
             String email = resultSet.getString("email");
-            String billingAddress = resultSet.getString("billing_address");
-            String shippingAddress = resultSet.getString("shipping_address");
-            User user =new User(username, password, firstName, lastName, phone, email, billingAddress, shippingAddress);
+//            String billingAddress = resultSet.getString("billing_address");
+//            String shippingAddress = resultSet.getString("shipping_address");
+            User user =new User(username, password, firstName, lastName, email);
             user.setId(id);
             users.add(user);
         }

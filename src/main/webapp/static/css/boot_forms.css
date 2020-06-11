@@ -1,5 +1,5 @@
 body{
-    color: #fff;
+    /*color: #fff;*/
     background: #63738a;
     font-family: 'Roboto', sans-serif;
 }
@@ -107,3 +107,10 @@ body{
 .btn {
     font-size: 15px;
     font-weight: bold;
+}
+
+footer {
+    height: 50px;
+    flex-shrink: 0;
+    background-color: #134c7d;
+}
