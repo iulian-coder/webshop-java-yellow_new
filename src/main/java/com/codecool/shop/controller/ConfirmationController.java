@@ -7,6 +7,7 @@ import com.codecool.shop.model.Product;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
+import java.sql.SQLException;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -47,18 +48,22 @@ public class ConfirmationController extends HttpServlet {
         System.out.println(ccName);
         if (ccName.equals("b")){
             statusPayment ="confirmed";
-            sendEmail();
+            try {
+                sendEmail();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         } else {
             statusPayment = "no";
         }
         resp.sendRedirect("/cart/payment/confirmation");
     }
 
-    private void writeJson(){
+    private void writeJson() throws SQLException {
         JSONObject orderDetails = new JSONObject();
 
         //Add data to json file
-        orderDetails.putAll(cartDao.getAll());
+        orderDetails.putAll(cartDao.getAllDaoMem());
         orderDetails.put("statusPayment", statusPayment);
 
         //Write JSON file
@@ -73,7 +78,7 @@ public class ConfirmationController extends HttpServlet {
 
     }
 
-    private void sendEmail(){
+    private void sendEmail() throws SQLException {
 
         String toEmail = "codecoolbucurestitest@gmail.com"; //client Email
         String subjectEmail = "Your order at Codecool Shop";
@@ -124,7 +129,8 @@ public class ConfirmationController extends HttpServlet {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
-        Map<Product, Integer> cartMap = cartDao.getAll();
+        Map<Product, Integer> cartMap = null;
+        cartMap = cartDao.getAllDaoMem();
 
         int numberOfProducts = 0;
         double sum = 0;
@@ -139,7 +145,11 @@ public class ConfirmationController extends HttpServlet {
         context.setVariable("totalNumberOfItems", numberOfProducts);
 
 
-        writeJson();
+        try {
+            writeJson();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         context.setVariable("paymentMessage", statusPayment);
 
 

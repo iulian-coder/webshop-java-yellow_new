@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,7 +46,8 @@ public class PaymentController extends HttpServlet {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
-        Map<Product, Integer> cartMap = cartDao.getAll();
+        Map<Product, Integer> cartMap = null;
+        cartMap = cartDao.getAllDaoMem();
 
 
 //        HashMap<List,Map> hashMap = new HashMap<List, Map>();

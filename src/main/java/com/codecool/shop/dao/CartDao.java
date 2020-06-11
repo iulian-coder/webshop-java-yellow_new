@@ -5,12 +5,14 @@ import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
 public interface CartDao {
-    void add(int id);
+    void add(int id) throws SQLException;
     void remove(int id);
     void changeQuantity(int i, int id);
-    Map<Product, Integer> getAll();
+    List <Cart> getAll() throws SQLException;
+    Map<Product, Integer> getAllDaoMem();
 }
