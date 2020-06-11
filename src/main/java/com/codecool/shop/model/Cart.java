@@ -12,14 +12,16 @@ public class Cart{
 //    private Product product;
     private int productId;
     private String productName;
+    private String productImage;
     private float price;
     private int quantity;
     private float total;
 
 
-    public Cart( int productId,String productName,float price, int quantity, float total) {
+    public Cart( int productId,String productName, String productImage, float price, int quantity, float total) {
         this.productId = productId;
         this.productName = productName;
+        this.productImage = productImage;
         this.price = price;
         this.quantity = quantity;
         this.total = total;
@@ -89,6 +91,14 @@ public class Cart{
         this.total = total;
     }
 
+    public String getProductImage() {
+        return productImage;
+    }
+
+    public void setProductImage(String productImage) {
+        this.productImage = productImage;
+    }
+
     @Override
     public String toString() {
         return "Cart{" +
@@ -97,6 +107,7 @@ public class Cart{
                 ", creationData=" + creationData +
                 ", productId=" + productId +
                 ", productName='" + productName + '\'' +
+                ", productImage='" + productImage + '\'' +
                 ", price=" + price +
                 ", quantity=" + quantity +
                 ", total=" + total +
