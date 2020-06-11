@@ -69,7 +69,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="element: ${cartMap}">
+            <tr th:each="element, iterStat: ${cartList}">
                 <td>
                     <div class="card mb-3" style="max-width: 800px;margin:0 auto;">
                         <div class="row no-gutters">
@@ -78,16 +78,16 @@
 <!--                            </div>-->
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h5 class="card-title" th:text="${element.getKey().getName()}"></h5>
+                                    <h5 class="card-title" th:text="${element.getProductName()}"></h5>
 <!--                                    <p class="card-text" th:text="${element.getKey().getDescription()}"></p>-->
-                                    <p class="card-text" th:text="${element.getKey().getPriceDouble()}*${element.getValue()}+' '+ ${element.getKey().getDefaultCurrency()}"></p>
+                                    <p class="card-text" th:text="${element.getTotal() + ' USD'}"></p>
 
-<!--                                    <p class="card-text" th:text="${element.getValue()}"></p>-->
-                                    <form action="/cart" method="post">
-                                        <input type="number" min="0"  th:value="${element.getValue()}" name="changeQuantity">
-                                        <input type="hidden" onkeydown="return false" th:value="${element.getKey().getId()}" name="itemId">
-                                        <input class="btn btn-success" type="Submit" value="Change Quantity">
-                                    </form>
+                                    <p class="card-text" th:text="${element.getQuantity() + ' Quantity'}"></p>
+<!--                                    <form action="/cart" method="post">-->
+<!--                                        <input type="number" min="0"  th:value="${element.getValue()}" name="changeQuantity">-->
+<!--                                        <input type="hidden" onkeydown="return false" th:value="${element.getKey().getId()}" name="itemId">-->
+<!--                                        <input class="btn btn-success" type="Submit" value="Change Quantity">-->
+<!--                                    </form>-->
                                 </div>
                             </div>
                         </div>
