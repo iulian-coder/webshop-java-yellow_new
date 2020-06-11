@@ -77,7 +77,12 @@ public class CartDaoMem implements CartDao {
     }
 
     @Override
-    public Map<Product, Integer> getAll() {
+    public List<Cart> getAll() throws SQLException {
+        return null;
+    }
+
+    @Override
+    public Map<Product, Integer> getAllDaoMem() {
         return this.cart;
     }
 
