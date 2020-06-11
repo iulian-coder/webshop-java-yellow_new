@@ -60,3 +60,8 @@
 {
     margin: 0 0 11px;
 }
+@media only screen and ( max-width: 725px ) {
+    img.responsive {
+        height: 150px;
+        width: 200px; }
+}

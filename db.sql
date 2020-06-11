@@ -7,7 +7,7 @@ CREATE TABLE users
     first_name       VARCHAR(20)        NOT NULL,
     last_name        VARCHAR(20)        NOT NULL,
     phone_number     VARCHAR(14)        NOT NULL,
-    email            VARCHAR(20) UNIQUE NOT NULL,
+    email            VARCHAR(40) UNIQUE NOT NULL,
     billing_address  VARCHAR(255),
     shipping_address VARCHAR(255)
 );
