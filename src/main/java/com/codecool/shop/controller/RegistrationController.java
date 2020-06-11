@@ -11,6 +11,12 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 import com.codecool.shop.model.ProductCategory;
 
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,6 +27,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 @WebServlet(urlPatterns = {"/registration"})
 public class RegistrationController extends HttpServlet {
@@ -72,7 +79,52 @@ public class RegistrationController extends HttpServlet {
 
         System.out.println("New user added");
 
+        sendEmail();
+
         resp.sendRedirect("/login");
+
+    }
+
+    private void sendEmail(){
+
+        String toEmail = "andreea.grosu87@gmail.com"; //client Email
+        String subjectEmail = "Welcome at Codecool Shop";
+        String messageEmail =  "We are very happy to have you here! Happy shopping!";
+        String userGmail="codecoolbucurestitest@gmail.com"; //server Email
+        String pswGmail = "strlumina";
+        String host = "smtp.gmail.com";
+
+
+        Properties props = new Properties();
+
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+
+        Session session = Session.getInstance(props,new javax.mail.Authenticator()
+        {
+            protected PasswordAuthentication getPasswordAuthentication()
+            {
+                return new PasswordAuthentication(userGmail,pswGmail);
+            }
+        });
+
+        try {
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(userGmail));
+            message.addRecipient(Message.RecipientType.TO,new InternetAddress(toEmail));
+            message.setSubject(subjectEmail);
+            message.setText(messageEmail);
+
+            Transport.send(message);
+
+            System.out.println("E-mail sent successfully");
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
     }
 

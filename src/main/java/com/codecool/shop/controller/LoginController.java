@@ -25,11 +25,14 @@ import java.util.Map;
 @WebServlet(urlPatterns = {"/login"})
 public class LoginController extends HttpServlet {
 
+//    String message = null;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
+//        displayMessage(context, engine, resp, message);
         engine.process("login.html", context, resp.getWriter());
 
     }
@@ -65,9 +68,18 @@ public class LoginController extends HttpServlet {
             resp.sendRedirect("/");
             System.out.println(sessionUsername);
         } else {
+//            message = "Invalid credentials";
             resp.sendRedirect("/login");
         }
 
     }
+
+//    private void displayMessage(WebContext context, TemplateEngine engine, HttpServletResponse response, String message) throws IOException {
+//        try {
+//            context.setVariable("message", message);
+//        }catch (Exception exc) {
+//            System.out.println("error");
+//        }
+//    }
 
 }
