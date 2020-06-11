@@ -84,11 +84,11 @@
                                     <p class="card-text" th:text="${element.getTotal() + ' USD'}"></p>
 
                                     <p class="card-text" th:text="${element.getQuantity() + ' Quantity'}"></p>
-<!--                                    <form action="/cart" method="post">-->
-<!--                                        <input type="number" min="0"  th:value="${element.getValue()}" name="changeQuantity">-->
-<!--                                        <input type="hidden" onkeydown="return false" th:value="${element.getKey().getId()}" name="itemId">-->
-<!--                                        <input class="btn btn-success" type="Submit" value="Change Quantity">-->
-<!--                                    </form>-->
+                                    <form action="/cart" method="post">
+                                        <input type="number" min="0"  th:value="${element.getQuantity()}" name="changeQuantity">
+                                        <input type="hidden" onkeydown="return false" th:value="${element.getProductId()}" name="itemId">
+                                        <input class="btn btn-success" type="Submit" value="Change Quantity">
+                                    </form>
                                 </div>
                             </div>
                         </div>

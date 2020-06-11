@@ -11,7 +11,9 @@ import java.util.Map;
 
 public interface CartDao {
     void add(int id) throws SQLException;
-    void remove(int id);
+    void remove(int id) throws SQLException;
+    void removeProduct(int id) throws SQLException;
+    int get(int id) throws SQLException;
     void changeQuantity(int i, int id);
     List <Cart> getAll() throws SQLException;
     Map<Product, Integer> getAllDaoMem();

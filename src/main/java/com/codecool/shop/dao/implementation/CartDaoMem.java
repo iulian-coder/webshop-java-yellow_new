@@ -86,4 +86,13 @@ public class CartDaoMem implements CartDao {
         return this.cart;
     }
 
+    @Override
+    public void removeProduct(int id) throws SQLException {
+
+    }
+
+    @Override
+    public int get(int id) throws SQLException {
+        return 0;
+    }
 }

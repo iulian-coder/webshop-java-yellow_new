@@ -49,8 +49,39 @@ public class CartDaoJDBC implements CartDao {
     }
 
     @Override
-    public void remove(int id) {
+    public void remove(int id) throws SQLException{
+        Connection connection = dataSource.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM product_cart WHERE cart_id=?");
+        preparedStatement.setInt(1, id);
+        preparedStatement.executeQuery();
+        preparedStatement.close();
+        connection.close();
+    }
 
+    @Override
+    public void removeProduct(int id) throws SQLException{
+        Connection connection = dataSource.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM product_cart WHERE product_id=?");
+        preparedStatement.setInt(1, id);
+        preparedStatement.executeQuery();
+        preparedStatement.close();
+        connection.close();
+    }
+
+    @Override
+    public int get(int id) throws SQLException {
+
+        Connection connection = dataSource.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT count(product_id) AS quantity FROM product_cart WHERE product_id=?");
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            return resultSet.getInt("quantity");
+        }
+        resultSet.close();
+        preparedStatement.close();
+        connection.close();
+        return 0;
     }
 
     @Override

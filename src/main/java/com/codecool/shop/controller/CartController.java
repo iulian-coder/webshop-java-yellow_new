@@ -56,7 +56,7 @@ public class CartController extends HttpServlet {
         float sum = 0;
         int numberOfProducts = 0;
         for (int i = 0; i < templist.size(); i++) {
-            sum +=templist.get(i).getTotal();
+            sum += templist.get(i).getTotal();
             numberOfProducts += templist.get(i).getQuantity();
         }
         context.setVariable("cartList", templist);
@@ -82,15 +82,36 @@ public class CartController extends HttpServlet {
                 String id = req.getParameter("addToCart");
                 carDao.add(Integer.parseInt(id));
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        try{
-        if (req.getParameter("itemId")!=null && req.getParameter("changeQuantity")!=null) {
-            String itemIdToChangeQuantity = req.getParameter("itemId");
-            String newQuantity = req.getParameter("changeQuantity");
-            carDao.changeQuantity(Integer.parseInt(itemIdToChangeQuantity), Integer.parseInt(newQuantity));
-        }}catch (Exception e){
+        try {
+            if (req.getParameter("itemId") != null && req.getParameter("changeQuantity") != null) {
+                String itemIdToChangeQuantity = req.getParameter("itemId");
+                String newQuantity = req.getParameter("changeQuantity");
+                if (Integer.parseInt(newQuantity) == 0) {
+                    carDao.removeProduct(Integer.parseInt(itemIdToChangeQuantity));
+                }
+                if (Integer.parseInt(newQuantity) > 0) {
+                    if (Integer.parseInt(newQuantity) >= carDao.get(Integer.parseInt(itemIdToChangeQuantity))) {
+                        int quantityDifference = Integer.parseInt(newQuantity) - carDao.get(Integer.parseInt(itemIdToChangeQuantity));
+
+                        for (int i = 1; i <= quantityDifference; i++) {
+                            carDao.add(Integer.parseInt(itemIdToChangeQuantity));
+                        }
+//                    }else{
+//                        carDao.removeProduct(Integer.parseInt(itemIdToChangeQuantity));
+//                        int quantityDifference = carDao.get(Integer.parseInt(itemIdToChangeQuantity))-Integer.parseInt(newQuantity);
+//                        for (int i = 1; i <= quantityDifference; i++) {
+//                            carDao.add(Integer.parseInt(itemIdToChangeQuantity));
+//                        }
+                    }
+
+                }
+
+
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
         resp.sendRedirect("/");

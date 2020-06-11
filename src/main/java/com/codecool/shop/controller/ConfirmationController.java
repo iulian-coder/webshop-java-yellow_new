@@ -2,6 +2,7 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.CartDao;
+import com.codecool.shop.dao.implementation.CartDaoJDBC;
 import com.codecool.shop.dao.implementation.CartDaoMem;
 import com.codecool.shop.model.Product;
 import org.thymeleaf.TemplateEngine;
@@ -144,6 +145,12 @@ public class ConfirmationController extends HttpServlet {
         context.setVariable("totalPrice", sum);
         context.setVariable("totalNumberOfItems", numberOfProducts);
 
+        CartDao cartDao = null;
+        try {
+            cartDao = CartDaoJDBC.getInstance();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
         try {
             writeJson();
@@ -154,7 +161,11 @@ public class ConfirmationController extends HttpServlet {
 
 
         engine.process("confirmationPage.html", context, resp.getWriter());
-        CartDaoMem.getInstance().deleteCart();
+        try{
+        cartDao.remove(1);}
+        catch(SQLException e){
+            e.printStackTrace();
+        }
     }
 
 }
