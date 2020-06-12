@@ -15,11 +15,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Currency;
 import java.util.List;
 
 public class ProductDaoJDBC implements ProductDao {
-    DataSource dataSource = dbConnection.connect();
+    DataSource dataSource = dbConnection.getInstance().getDataSource();
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
     List<Product> products = new ArrayList<>();

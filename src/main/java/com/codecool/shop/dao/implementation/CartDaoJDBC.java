@@ -1,14 +1,12 @@
 package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.CartDao;
-import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.datasource.dbConnection;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Product;
 
 import javax.sql.DataSource;
 import java.io.IOException;
-import java.lang.ref.SoftReference;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 public class CartDaoJDBC implements CartDao {
-    private final DataSource dataSource = dbConnection.connect();
+    private final DataSource dataSource = dbConnection.getInstance().getDataSource();
     //    ProductDao productDao = new ProductDaoJDBC.getInstance();
     private static CartDaoJDBC instance = null;
 
