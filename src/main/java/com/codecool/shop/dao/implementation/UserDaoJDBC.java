@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBC implements UserDao {
-    DataSource dataSource = dbConnection.connect();
+    DataSource dataSource = dbConnection.getInstance().getDataSource();
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
     List<User> users = new ArrayList<>();

@@ -2,7 +2,6 @@ package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.datasource.dbConnection;
-import com.codecool.shop.model.Product;
 import com.codecool.shop.model.Supplier;
 
 import javax.sql.DataSource;
@@ -15,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SupplierDaoJDBC implements SupplierDao {
-    DataSource dataSource = dbConnection.connect();
+    DataSource dataSource = dbConnection.getInstance().getDataSource();
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
     List<Supplier> products = new ArrayList<>();
