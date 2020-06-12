@@ -3,10 +3,10 @@ CREATE TABLE users
 (
     id               serial primary key NOT NULL,
     username         varchar(20) UNIQUE NOT NULL,
-    password         varchar(20)        NOT NULL,
+    password         varchar(40)        NOT NULL,
     first_name       VARCHAR(20)        NOT NULL,
     last_name        VARCHAR(20)        NOT NULL,
-    phone_number     VARCHAR(14)        NOT NULL,
+    phone_number     VARCHAR(14),
     email            VARCHAR(40) UNIQUE NOT NULL,
     billing_address  VARCHAR(255),
     shipping_address VARCHAR(255)

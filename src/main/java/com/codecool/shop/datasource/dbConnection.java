@@ -12,18 +12,31 @@ import java.util.Properties;
 
 
 public class dbConnection {
-
+    private static dbConnection dbConnection;
+    private DataSource dataSource;
     private static String DatabaseName;
     private static String DbUser;
     private static String DbPassword;
-    private InputStream inputStream;
+    private static InputStream inputStream;
 
-    private String getPropValues() throws IOException {
+    private dbConnection() throws IOException {
+
+        PGSimpleDataSource dataSource = new PGSimpleDataSource();
+        getPropValues();
+
+        dataSource.setDatabaseName(DatabaseName);
+        dataSource.setUser(DbUser);
+        dataSource.setPassword(DbPassword);
+        this.dataSource = dataSource;
+
+    }
+
+    private static String getPropValues() throws IOException {
         try {
             Properties prop = new Properties();
             String propFileName = "connection.properties";
 
-            inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+            inputStream = dbConnection.class.getClassLoader().getResourceAsStream(propFileName);
 
             if (inputStream != null) {
                 prop.load(inputStream);
@@ -44,23 +57,16 @@ public class dbConnection {
     }
 
 
-    public static DataSource connect() throws SQLException, IOException {
+    public static dbConnection getInstance() throws SQLException, IOException {
 
-        PGSimpleDataSource dataSource = new PGSimpleDataSource();
-        dbConnection dbConnection = new dbConnection();
-        dbConnection.getPropValues();
+        if(dbConnection == null){
+            dbConnection = new dbConnection();
+        }
+        return dbConnection;
+    }
 
-
-        dataSource.setDatabaseName(DatabaseName);
-        dataSource.setUser(DbUser);
-        dataSource.setPassword(DbPassword);
-
-
-        System.out.println("Trying to connect...");
-        dataSource.getConnection().close();
-        System.out.println("Connection OK");
-
-        return dataSource;
+    public DataSource getDataSource(){
+        return this.dataSource;
     }
 
 

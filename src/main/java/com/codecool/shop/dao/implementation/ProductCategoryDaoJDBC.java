@@ -3,7 +3,6 @@ package com.codecool.shop.dao.implementation;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.datasource.dbConnection;
 import com.codecool.shop.model.ProductCategory;
-import com.codecool.shop.model.Supplier;
 
 import javax.sql.DataSource;
 import java.io.IOException;
@@ -15,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductCategoryDaoJDBC implements ProductCategoryDao {
-    DataSource dataSource = dbConnection.connect();
+    DataSource dataSource = dbConnection.getInstance().getDataSource();
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
     List<ProductCategory> products = new ArrayList<>();
