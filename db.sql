@@ -6,7 +6,7 @@ CREATE TABLE users
     password         varchar(40)        NOT NULL,
     first_name       VARCHAR(20)        NOT NULL,
     last_name        VARCHAR(20)        NOT NULL,
-    phone_number     VARCHAR(14),
+    phone_number     VARCHAR(14)                ,
     email            VARCHAR(40) UNIQUE NOT NULL,
     billing_address  VARCHAR(255),
     shipping_address VARCHAR(255)
