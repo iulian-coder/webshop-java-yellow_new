@@ -55,12 +55,12 @@ public class RegistrationController extends HttpServlet {
         String lastName = req.getParameter("last_name");
         String username = req.getParameter("username");
         String email = req.getParameter("email");
-//        String phone = req.getParameter("phone_number");
+        String phone = "None";
         String password = req.getParameter("password");
-//        String billingAddress = req.getParameter("billing_address");
-//        String shippingAddress = req.getParameter("shipping_address");
+        String billingAddress = "None";
+        String shippingAddress = "None";
 
-        User user =new User(username, password, firstName, lastName, email);
+        User user =new User(username, password, firstName, lastName, email, phone, billingAddress, shippingAddress);
 
 
         try {

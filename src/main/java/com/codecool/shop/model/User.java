@@ -11,15 +11,15 @@ public class User {
     private String billingAddress;
     private String shippingAddress;
 
-    public User(String username, String password, String firstName, String lastName, String email) {
+    public User(String username, String password, String firstName, String lastName, String email, String phone, String billingAddress, String shippingAddress) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-//        this.phone = phone;
+        this.phone = phone;
         this.email = email;
-//        this.billingAddress = billingAddress;
-//        this.shippingAddress = shippingAddress;
+        this.billingAddress = billingAddress;
+        this.shippingAddress = shippingAddress;
     }
 
     public int getId() {
