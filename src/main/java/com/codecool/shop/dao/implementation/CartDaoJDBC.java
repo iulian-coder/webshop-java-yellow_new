@@ -57,7 +57,7 @@ public class CartDaoJDBC implements CartDao {
 
             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM product_cart WHERE cart_id=?");
             preparedStatement.setInt(1, id);
-            preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -71,7 +71,7 @@ public class CartDaoJDBC implements CartDao {
 
             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM product_cart WHERE product_id=?");
             preparedStatement.setInt(1, id);
-            preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
             preparedStatement.close();
 
         } catch (SQLException e) {

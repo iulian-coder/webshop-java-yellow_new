@@ -43,7 +43,7 @@ public class UserDaoJDBC implements UserDao {
             preparedStatement.setString(6, user.getEmail());
             preparedStatement.setString(7, user.getBillingAddress());
             preparedStatement.setString(8, user.getShippingAddress());
-            preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
             throw e;
@@ -84,7 +84,7 @@ public class UserDaoJDBC implements UserDao {
 
             preparedStatement = connection.prepareStatement("DELETE FROM users WHERE id=?");
             preparedStatement.setInt(1, id);
-            preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
             resultSet.close();
             preparedStatement.close();
 
