@@ -46,88 +46,105 @@ public class UserDaoJDBC implements UserDao {
             preparedStatement.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw e;
         }
     }
 
     @Override
     public User find(int id) throws SQLException {
+        try (Connection connection = dataSource.getConnection();) {
 
-        Connection connection = dataSource.getConnection();
-        preparedStatement = connection.prepareStatement("SELECT * FROM users WHERE id=?");
-        preparedStatement.setInt(1, id);
-        resultSet = preparedStatement.executeQuery();
-        while(resultSet.next()){
-            String username =resultSet.getString("username");
-            String password = resultSet.getString("password");
-            String firstName = resultSet.getString("first_name");
-            String lastName = resultSet.getString("last_name");
-            String phone = resultSet.getString("phone_number");
-            String email = resultSet.getString("email");
-            String billingAddress = resultSet.getString("billing_address");
-            String shippingAddress = resultSet.getString("shipping_address");
-            User user =new User(username, password, firstName, lastName,email);
-            user.setId(id);
-            return user;
+            preparedStatement = connection.prepareStatement("SELECT * FROM users WHERE id=?");
+            preparedStatement.setInt(1, id);
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                String username =resultSet.getString("username");
+                String password = resultSet.getString("password");
+                String firstName = resultSet.getString("first_name");
+                String lastName = resultSet.getString("last_name");
+                String phone = resultSet.getString("phone_number");
+                String email = resultSet.getString("email");
+                String billingAddress = resultSet.getString("billing_address");
+                String shippingAddress = resultSet.getString("shipping_address");
+                User user =new User(username, password, firstName, lastName,email);
+                user.setId(id);
+                return user;
+            }
+            resultSet.close();
+            return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
         }
-        resultSet.close();
-        preparedStatement.close();
-        connection.close();
-        return null;
     }
 
     @Override
     public void remove(int id) throws SQLException {
-        Connection connection = dataSource.getConnection();
-        preparedStatement = connection.prepareStatement("DELETE FROM users WHERE id=?");
-        preparedStatement.setInt(1, id);
-        preparedStatement.executeQuery();
-        resultSet.close();
-        preparedStatement.close();
-        connection.close();
+        try (Connection connection = dataSource.getConnection();) {
+
+            preparedStatement = connection.prepareStatement("DELETE FROM users WHERE id=?");
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeQuery();
+            resultSet.close();
+            preparedStatement.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
     }
 
     @Override
     public List<User> getAll() throws SQLException {
         users.clear();
+        try (Connection connection = dataSource.getConnection();) {
 
-        Connection connection = dataSource.getConnection();
-        preparedStatement = connection.prepareStatement("SELECT * FROM users");
-        resultSet = preparedStatement.executeQuery();
+            preparedStatement = connection.prepareStatement("SELECT * FROM users");
+            resultSet = preparedStatement.executeQuery();
 
-        while (resultSet.next()){
-            int id = resultSet.getInt("id");
-            String username =resultSet.getString("username");
-            String password = resultSet.getString("password");
-            String firstName = resultSet.getString("first_name");
-            String lastName = resultSet.getString("last_name");
-//            String phone = resultSet.getString("phone_number");
-            String email = resultSet.getString("email");
-//            String billingAddress = resultSet.getString("billing_address");
-//            String shippingAddress = resultSet.getString("shipping_address");
-            User user =new User(username, password, firstName, lastName, email);
-            user.setId(id);
-            users.add(user);
+            while (resultSet.next()){
+                int id = resultSet.getInt("id");
+                String username =resultSet.getString("username");
+                String password = resultSet.getString("password");
+                String firstName = resultSet.getString("first_name");
+                String lastName = resultSet.getString("last_name");
+    //            String phone = resultSet.getString("phone_number");
+                String email = resultSet.getString("email");
+    //            String billingAddress = resultSet.getString("billing_address");
+    //            String shippingAddress = resultSet.getString("shipping_address");
+                User user =new User(username, password, firstName, lastName, email);
+                user.setId(id);
+                users.add(user);
+            }
+            resultSet.close();
+            preparedStatement.close();
+            return users;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
         }
-        resultSet.close();
-        preparedStatement.close();
-        connection.close();
-        return users;
     }
 
     @Override
     public String getPasswordByUsername(String username) throws SQLException {
         String password = "";
-        Connection connection = dataSource.getConnection();
-        preparedStatement = connection.prepareStatement("SELECT password FROM users WHERE username=?");
-        preparedStatement.setString(1, username);
-        resultSet = preparedStatement.executeQuery();
-        while (resultSet.next()) {
-            password = resultSet.getString("password");
-        }
-        resultSet.close();
-        preparedStatement.close();
-        connection.close();
-        return password;
+        try (Connection connection = dataSource.getConnection();) {
 
+            preparedStatement = connection.prepareStatement("SELECT password FROM users WHERE username=?");
+            preparedStatement.setString(1, username);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                password = resultSet.getString("password");
+            }
+            resultSet.close();
+            preparedStatement.close();
+            connection.close();
+            return password;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
     }
 }
