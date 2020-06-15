@@ -30,31 +30,33 @@
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">CodecoolShop</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/cart}" th:text="Cart" style="color:greenyellow"></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/registration}" th:text="SignUp" style="color:greenyellow"></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/login}" th:text="Login" style="color:greenyellow"></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/logout}" th:text="Logout" style="color:greenyellow"></a>
-            </li>
-        </ul>
-    </div>
-</nav>
+<!--<nav class="navbar navbar-expand-lg navbar-dark bg-dark">-->
+<!--    <a class="navbar-brand" href="#">CodecoolShop</a>-->
+<!--    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--        <span class="navbar-toggler-icon"></span>-->
+<!--    </button>-->
+<!--    <div class="collapse navbar-collapse" id="navbarNav">-->
+<!--        <ul class="navbar-nav">-->
+<!--            <li class="nav-item active">-->
+<!--                <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" th:href="@{/cart}" th:text="Cart" style="color:greenyellow"></a>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" th:href="@{/registration}" th:text="SignUp" style="color:greenyellow"></a>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" th:href="@{/login}" th:text="Login" style="color:greenyellow"></a>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" th:href="@{/logout}" th:text="Logout" style="color:greenyellow"></a>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </div>-->
+<!--</nav>-->
+
+<nav th:insert="navbar.html :: navbar"></nav>
 
     <div class="container">
         <div class="login-form">
