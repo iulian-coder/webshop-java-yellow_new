@@ -37,7 +37,7 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
             preparedStatement.setString(1, category.getName());
             preparedStatement.setString(2, category.getDepartment());
             preparedStatement.setString(3, category.getDescription());
-            preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -73,7 +73,7 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
         try (Connection connection = dataSource.getConnection();) {
             preparedStatement = connection.prepareStatement("DELETE FROM category WHERE id=?");
             preparedStatement.setInt(1, id);
-            preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
             resultSet.close();
             preparedStatement.close();
         } catch (SQLException e) {

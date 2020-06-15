@@ -49,7 +49,7 @@ public class ProductDaoJDBC implements ProductDao {
             preparedStatement.setString(5, product.getDescription());
             preparedStatement.setInt(6, product.getSupplier().getId());
             preparedStatement.setInt(7, product.getProductCategory().getId());
-            preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
             resultSet.close();
             preparedStatement.close();
         } catch (SQLException e) {
@@ -92,7 +92,7 @@ public class ProductDaoJDBC implements ProductDao {
 
             preparedStatement = connection.prepareStatement("DELETE FROM product WHERE id=?");
             preparedStatement.setInt(1, id);
-            preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
             resultSet.close();
             preparedStatement.close();
         } catch (SQLException e) {

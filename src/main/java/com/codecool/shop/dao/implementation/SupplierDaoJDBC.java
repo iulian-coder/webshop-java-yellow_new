@@ -37,7 +37,7 @@ public class SupplierDaoJDBC implements SupplierDao {
             preparedStatement = connection.prepareStatement("INSERT INTO supplier (name, description) VALUES (?,?)");
             preparedStatement.setString(1, supplier.getName());
             preparedStatement.setString(2, supplier.getDescription());
-            preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
             resultSet.close();
             preparedStatement.close();
         } catch (SQLException e) {
@@ -75,7 +75,7 @@ public class SupplierDaoJDBC implements SupplierDao {
 
             preparedStatement = connection.prepareStatement("DELETE FROM supplier WHERE id=?");
             preparedStatement.setInt(1, id);
-            preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
             resultSet.close();
             preparedStatement.close();
         } catch (SQLException e) {
