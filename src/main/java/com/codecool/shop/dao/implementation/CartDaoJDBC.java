@@ -4,6 +4,7 @@ import com.codecool.shop.dao.CartDao;
 import com.codecool.shop.datasource.dbConnection;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Product;
+import com.codecool.shop.model.Supplier;
 
 import javax.sql.DataSource;
 import java.io.IOException;
@@ -20,6 +21,7 @@ public class CartDaoJDBC implements CartDao {
     //    ProductDao productDao = new ProductDaoJDBC.getInstance();
     private static CartDaoJDBC instance = null;
 
+
     public CartDaoJDBC() throws IOException, SQLException {
 
     }
@@ -31,6 +33,55 @@ public class CartDaoJDBC implements CartDao {
         return instance;
     }
 
+
+    @Override
+    public void addNewCart(Cart cart) throws SQLException{
+        try (Connection connection = dataSource.getConnection();) {
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO cart (user_id) VALUES (?)");
+            preparedStatement.setInt(1, cart.getUserId());
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    @Override
+    public Cart find(int id) throws SQLException{
+        try (Connection connection = dataSource.getConnection();) {
+
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM cart WHERE id=?");
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                int userId =resultSet.getInt("user_id");
+                Cart cart =new Cart(userId);
+                cart.setId(id);
+                return cart;
+            }
+            resultSet.close();
+            preparedStatement.close();
+            return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    @Override
+    public void removeCart(int id) throws SQLException{
+        try (Connection connection = dataSource.getConnection();) {
+
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM cart WHERE cart_id=?");
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
 
     @Override
     public void add(int id) throws SQLException {
@@ -50,6 +101,7 @@ public class CartDaoJDBC implements CartDao {
             throw e;
         }
     }
+
 
     @Override
     public void remove(int id) throws SQLException{

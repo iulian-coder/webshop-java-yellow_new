@@ -82,6 +82,10 @@ public class CartDaoMem implements CartDao {
     }
 
     @Override
+    public void removeCart(int id) throws SQLException {
+    }
+
+    @Override
     public Map<Product, Integer> getAllDaoMem() {
         return this.cart;
     }
@@ -94,5 +98,15 @@ public class CartDaoMem implements CartDao {
     @Override
     public int get(int id) throws SQLException {
         return 0;
+    }
+
+    @Override
+    public Cart find(int id) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public void addNewCart(Cart cart) throws SQLException{
+
     }
 }

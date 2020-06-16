@@ -10,7 +10,11 @@ import java.util.List;
 import java.util.Map;
 
 public interface CartDao {
+    void addNewCart(Cart cart) throws SQLException;
+    Cart find(int id) throws SQLException;
     void add(int id) throws SQLException;
+    void removeCart(int id) throws SQLException;
+
     void remove(int id) throws SQLException;
     void removeProduct(int id) throws SQLException;
     int get(int id) throws SQLException;

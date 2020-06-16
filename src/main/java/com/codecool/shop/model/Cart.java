@@ -2,12 +2,14 @@ package com.codecool.shop.model;
 
 import javax.xml.crypto.Data;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Cart{
 
     private int id;
     private User user;
+    private int userId;
     private Data creationData;
 //    private Product product;
     private int productId;
@@ -25,6 +27,18 @@ public class Cart{
         this.price = price;
         this.quantity = quantity;
         this.total = total;
+    }
+
+    public Cart(int userId) {
+        this.userId = user.getId();
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public int getId() {

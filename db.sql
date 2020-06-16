@@ -61,12 +61,18 @@ CREATE TABLE product_cart
 DROP TABLE IF exists public.orders;
 CREATE TABLE orders
 (
-    id          serial primary key NOT NULL,
-    date        timestamp          NOT NULL DEFAULT now(),
-    cart_id     INTEGER REFERENCES cart (id) ON DELETE CASCADE,
-    user_id     INTEGER REFERENCES users (id) ON DELETE CASCADE,
-    status      varchar(20)                 default null,
-    total_price int                not NULL
+    id               SERIAL PRIMARY KEY NOT NULL,
+    date               TIMESTAMP          DEFAULT NOW(),
+    cart_id          INTEGER REFERENCES cart (id) ON DELETE CASCADE,
+    user_id          INTEGER REFERENCES users (id) ON DELETE CASCADE,
+    status           VARCHAR(20) DEFAULT 'new',
+    first_name       VARCHAR(50),
+    last_name        VARCHAR(50),
+    phone            VARCHAR(20),
+    email            VARCHAR(50),
+    billing_address  VARCHAR(100),
+    shipping_address VARCHAR(100),
+    total_price      FLOAT(5)
 );
 
 INSERT INTO supplier (name, description)
