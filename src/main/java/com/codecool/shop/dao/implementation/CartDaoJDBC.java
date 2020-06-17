@@ -143,5 +143,27 @@ public class CartDaoJDBC implements CartDao {
         return null;
     }
 
+    @Override
+    public Cart find(int id) throws SQLException{
+        try (Connection connection = dataSource.getConnection();) {
+
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM cart WHERE id=?");
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                int userId =resultSet.getInt("user_id");
+                Cart cart =new Cart(userId);
+                cart.setId(id);
+                return cart;
+            }
+            resultSet.close();
+            preparedStatement.close();
+            return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
 
 }

@@ -49,11 +49,11 @@ public class ConfirmationController extends HttpServlet {
         System.out.println(ccName);
         if (ccName.equals("b")){
             statusPayment ="confirmed";
-            try {
-                sendEmail();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
+//            try {
+//                sendEmail();
+//            } catch (SQLException throwables) {
+//                throwables.printStackTrace();
+//            }
         } else {
             statusPayment = "no";
         }
@@ -79,48 +79,49 @@ public class ConfirmationController extends HttpServlet {
 
     }
 
-    private void sendEmail() throws SQLException {
 
-        String toEmail = "codecoolbucurestitest@gmail.com"; //client Email
-        String subjectEmail = "Your order at Codecool Shop";
-        String messageEmail =  "Your order payment is " + statusPayment + "\n"+ cartDao.getAll();
-        String userGmail="codecoolbucurestitest@gmail.com"; //server Email
-        String pswGmail = "strlumina";
-        String host = "smtp.gmail.com";
-
-
-        Properties props = new Properties();
-
-        props.put("mail.smtp.host", host);
-        props.put("mail.smtp.port", "587");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-
-        Session session = Session.getInstance(props,new javax.mail.Authenticator()
-        {
-            protected PasswordAuthentication getPasswordAuthentication()
-            {
-                return new PasswordAuthentication(userGmail,pswGmail);
-            }
-        });
-
-        try {
-            MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(userGmail));
-            message.addRecipient(Message.RecipientType.TO,new InternetAddress(toEmail));
-            message.setSubject(subjectEmail);
-            message.setText(messageEmail);
-
-            Transport.send(message);
-
-            System.out.println("E-mail sent successfully");
-
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-    }
+//    private void sendEmail() throws SQLException {
+//
+//        String toEmail = "codecoolbucurestitest@gmail.com"; //client Email
+//        String subjectEmail = "Your order at Codecool Shop";
+//        String messageEmail =  "Your order payment is " + statusPayment + "\n"+ cartDao.getAll();
+//        String userGmail="codecoolbucurestitest@gmail.com"; //server Email
+//        String pswGmail = "strlumina";
+//        String host = "smtp.gmail.com";
+//
+//
+//        Properties props = new Properties();
+//
+//        props.put("mail.smtp.host", host);
+//        props.put("mail.smtp.port", "587");
+//        props.put("mail.smtp.auth", "true");
+//        props.put("mail.smtp.starttls.enable", "true");
+//
+//        Session session = Session.getInstance(props,new javax.mail.Authenticator()
+//        {
+//            protected PasswordAuthentication getPasswordAuthentication()
+//            {
+//                return new PasswordAuthentication(userGmail,pswGmail);
+//            }
+//        });
+//
+//        try {
+//            MimeMessage message = new MimeMessage(session);
+//            message.setFrom(new InternetAddress(userGmail));
+//            message.addRecipient(Message.RecipientType.TO,new InternetAddress(toEmail));
+//            message.setSubject(subjectEmail);
+//            message.setText(messageEmail);
+//
+//            Transport.send(message);
+//
+//            System.out.println("E-mail sent successfully");
+//
+//
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//
+//    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
