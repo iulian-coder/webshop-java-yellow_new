@@ -20,8 +20,8 @@ public class Order {
     private float total;
 
     public Order(int cartId, int userId, String firstName, String lastName, String phone, String email, String billingAddress, String shippingAdress, float total) {
-        this.cartId = cart.getId();
-        this.userId = user.getId();
+        this.cartId = cartId;
+        this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
@@ -32,6 +32,7 @@ public class Order {
     }
 
     public int getCartId() {
+
         return cartId;
     }
 

@@ -4,11 +4,11 @@ import com.codecool.shop.dao.*;
 
 import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.config.TemplateEngineUtil;
-import com.codecool.shop.model.Product;
 
+import com.codecool.shop.model.Cart;
+import com.codecool.shop.model.User;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
-import com.codecool.shop.model.ProductCategory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,9 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @WebServlet(urlPatterns = {"/login"})
 public class LoginController extends HttpServlet {
@@ -34,16 +31,17 @@ public class LoginController extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
 //        displayMessage(context, engine, resp, message);
         engine.process("login.html", context, resp.getWriter());
-
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserDao userDao = null;
         String passwordDB = null;
+        CartDao cartDao = null;
 
         try {
             userDao = UserDaoJDBC.getInstance();
+            cartDao = CartDaoJDBC.getInstance();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -65,6 +63,7 @@ public class LoginController extends HttpServlet {
             session.setAttribute("username", username);
             String sessionUsername = (String)session.getAttribute("username");
 
+            addNewCartForUser(cartDao, userDao, sessionUsername);
             resp.sendRedirect("/");
             System.out.println(sessionUsername);
         } else {
@@ -81,5 +80,15 @@ public class LoginController extends HttpServlet {
 //            System.out.println("error");
 //        }
 //    }
+
+    private void addNewCartForUser(CartDao cartDao, UserDao userDao, String sessionUsername){
+        try{
+            User user = userDao.getUserbyUsername(sessionUsername);
+            cartDao.addNewCart(user.getId());
+            System.out.println("am creat cart");
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
 
 }

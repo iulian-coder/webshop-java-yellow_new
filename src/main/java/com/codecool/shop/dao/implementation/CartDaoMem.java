@@ -106,7 +106,12 @@ public class CartDaoMem implements CartDao {
     }
 
     @Override
-    public void addNewCart(Cart cart) throws SQLException{
+    public void addNewCart(int user_id){
 
+    }
+
+    @Override
+    public Cart findByUserId(int userId) throws SQLException{
+    return null;
     }
 }

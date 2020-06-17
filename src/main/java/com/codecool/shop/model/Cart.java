@@ -30,7 +30,7 @@ public class Cart{
     }
 
     public Cart(int userId) {
-        this.userId = user.getId();
+        this.userId = userId;
     }
 
     public int getUserId() {

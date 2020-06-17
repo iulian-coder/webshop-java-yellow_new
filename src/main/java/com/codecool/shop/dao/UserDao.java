@@ -15,4 +15,5 @@ public interface UserDao {
     List<User> getAll() throws SQLException;
 
     String getPasswordByUsername(String username) throws SQLException;
+    User getUserbyUsername(String username) throws SQLException;
 }
