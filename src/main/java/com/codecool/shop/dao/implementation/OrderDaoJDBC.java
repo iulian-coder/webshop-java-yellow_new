@@ -30,11 +30,12 @@ public class OrderDaoJDBC implements OrderDao {
     public void add(Order order) throws SQLException {
         try (Connection connection = dataSource.getConnection();) {
 
-            String sql = "INSERT INTO orders (cart_id, user_id, total_price) VALUES (?,?,?)";
+            String sql = "INSERT INTO orders (cart_id, user_id, status, total_price) VALUES (?,?,?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1,  order.getCartId());
             preparedStatement.setInt(2, order.getUserId());
-            preparedStatement.setFloat(3, order.getTotal());
+            preparedStatement.setString(3, order.getStatus());
+            preparedStatement.setFloat(4, order.getTotal());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

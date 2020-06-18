@@ -64,7 +64,9 @@ public class RegistrationController extends HttpServlet {
 
 
         try {
+            assert userDao != null;
             userDao.add(user);
+            System.out.println("New user added");
         } catch (SQLException e) {
             e.printStackTrace();
         }

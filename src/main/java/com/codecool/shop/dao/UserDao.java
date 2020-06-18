@@ -12,7 +12,7 @@ public interface UserDao {
     User find(int id) throws SQLException;
     void remove(int id) throws SQLException;
     void update(User user) throws SQLException;
-    User getUserbyUsername(String username) throws SQLException;
+    User getUserByUsername(String username) throws SQLException;
     List<User> getAll() throws SQLException;
 
     String getPasswordByUsername(String username) throws SQLException;

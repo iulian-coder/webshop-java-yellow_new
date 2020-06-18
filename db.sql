@@ -65,8 +65,8 @@ CREATE TABLE orders
     date        timestamp          NOT NULL DEFAULT now(),
     cart_id     INTEGER REFERENCES cart (id) ON DELETE CASCADE,
     user_id     INTEGER REFERENCES users (id) ON DELETE CASCADE,
-    status      varchar(20)                 default null,
-    total_price int                not NULL
+    status      varchar(20),
+    total_price FLOAT(5)                not NULL
 );
 
 INSERT INTO supplier (name, description)
