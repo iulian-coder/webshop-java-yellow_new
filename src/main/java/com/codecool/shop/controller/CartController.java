@@ -18,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -36,8 +37,19 @@ public class CartController extends HttpServlet {
             throwables.printStackTrace();
         }
 
+        //get session if it exists
+        HttpSession session = req.getSession(false);
+
+        String sessionUsername = null;
+
+        if(session!=null) {
+            sessionUsername = (String)session.getAttribute("username");
+        }
+
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
+        context.setVariable("username", sessionUsername);
+
 ////        Map<Product, Integer> cartMap = null;
 //        cartMap = cartDao.getAll();
 //

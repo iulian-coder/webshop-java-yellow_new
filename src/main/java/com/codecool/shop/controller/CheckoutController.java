@@ -90,14 +90,23 @@ public class CheckoutController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //get session if it exists
+        HttpSession session = req.getSession(false);
+
+        String sessionUsername = null;
+
+        if(session!=null) {
+            sessionUsername = (String)session.getAttribute("username");
+        }
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext() );
+        context.setVariable("username", sessionUsername);
 
-        HttpSession session = req.getSession();
-        String sessionUsername = (String)session.getAttribute("username");
+//        HttpSession session = req.getSession();
+//        String sessionUsername = (String)session.getAttribute("username");
 
-        //Check if the user is login
+        //Check if the user is logged in
         if (sessionUsername == null){
             resp.sendRedirect("/login");
         }else {
