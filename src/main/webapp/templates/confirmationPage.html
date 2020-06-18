@@ -65,12 +65,12 @@
     <p th:text="'Payment status: ' + ${paymentMessage}"></p>
 </div>
 <div th:if="${paymentMessage}" class="container">
-    <p>Please see below the order details</p>
-    <ul th:each="element : ${cartMap}">
-        <li th:text="${element.getKey().getName()}"></li>
-        <li th:text="${element.getValue()} + ' qty ' + ${element.getKey().getPrice()}"></li>
+<!--    <p>Please see below the order details</p>-->
+<!--    <ul th:each="element : ${cartMap}">-->
+<!--        <li th:text="${element.getKey().getName()}"></li>-->
+<!--        <li th:text="${element.getValue()} + ' qty ' + ${element.getKey().getPrice()}"></li>-->
 
-    </ul>
+<!--    </ul>-->
 <!--    <p th:text="'You bought ' + ${totalNumberOfItems} + ' item(s)'"></p>-->
 <!--    <p th:text="'Total order ' + ${totalPrice} + ' USD'"></p>-->
 </div>

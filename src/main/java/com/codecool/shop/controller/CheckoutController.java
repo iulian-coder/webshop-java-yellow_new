@@ -5,12 +5,10 @@ import com.codecool.shop.dao.CartDao;
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.UserDao;
 import com.codecool.shop.dao.implementation.CartDaoJDBC;
-import com.codecool.shop.dao.implementation.CartDaoMem;
 import com.codecool.shop.dao.implementation.OrderDaoJDBC;
 import com.codecool.shop.dao.implementation.UserDaoJDBC;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Order;
-import com.codecool.shop.model.Product;
 import com.codecool.shop.model.User;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -20,7 +18,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(urlPatterns = {"/cart/checkout"})
 public class CheckoutController extends HttpServlet {
@@ -56,10 +55,21 @@ public class CheckoutController extends HttpServlet {
         String shippingAddress = req.getParameter("address2");
 
         try {
-            userTemp = userDao.getUserbyUsername(sessionUsername);
-            float totalPrice = cartDao.find(1).getTotal();
+            userTemp = userDao.getUserByUsername(sessionUsername);
 
-            Order order = new Order(1, userTemp.getId(),"pending",totalPrice);
+            List<Cart> templist = new ArrayList<>();
+            try {
+                templist = cartDao.getAll();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            float sum = 0;
+            for (int i = 0; i < templist.size(); i++) {
+                sum += templist.get(i).getTotal();
+            }
+
+
+            Order order = new Order(1, userTemp.getId(),"pending", sum);
             orderDao.add(order);
 
         } catch (SQLException throwables) {
