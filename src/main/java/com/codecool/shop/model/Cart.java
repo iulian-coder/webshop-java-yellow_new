@@ -7,6 +7,7 @@ import java.util.List;
 public class Cart{
 
     private int id;
+    private int userId;
     private User user;
     private Data creationData;
 //    private Product product;
@@ -26,6 +27,10 @@ public class Cart{
         this.quantity = quantity;
         this.total = total;
     }
+    public Cart(int userId) {
+        this.userId = userId;
+    }
+
 
     public int getId() {
         return id;

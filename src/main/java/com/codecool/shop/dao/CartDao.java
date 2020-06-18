@@ -17,4 +17,8 @@ public interface CartDao {
     void changeQuantity(int i, int id);
     List <Cart> getAll() throws SQLException;
     Map<Product, Integer> getAllDaoMem();
+
+    Cart find(int id) throws SQLException;
+
+
 }
