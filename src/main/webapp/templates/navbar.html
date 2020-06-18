@@ -1,15 +1,6 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <body>
-<!--<div id="footer">-->
-<!--    <div th:fragment="copy">-->
-<!--        <div class="card">-->
-<!--            <div class="card-body">-->
-<!--                &copy; 2020 Codecool Bucharest - Team Yellow-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
 
 <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">CodecoolShop</a>
@@ -34,9 +25,9 @@
                 <a class="nav-link" th:href="@{/logout}" th:text="Logout" style="color:greenyellow"></a>
             </li>
         </ul>
-<!--        <span class="navbar-text">-->
-<!--            <i><b th:text="*{username}?'Logged in as: ' + ${username}:'Not logged in'"></b></i>-->
-<!--        </span>-->
+        <span class="navbar-text">
+            <i><b th:text="*{username}?'Logged in as: ' + ${username}:'Not logged in'" style="color:greenyellow"></b></i>
+        </span>
     </div>
 </nav>
 

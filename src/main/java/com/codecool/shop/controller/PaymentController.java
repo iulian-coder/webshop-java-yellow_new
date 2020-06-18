@@ -29,11 +29,17 @@ import java.util.Map;
 @WebServlet(urlPatterns = {"/cart/payment"})
 public class PaymentController extends HttpServlet {
 
-
-
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //get session if it exists
+        HttpSession session = req.getSession(false);
+
+        String sessionUsername = null;
+
+        if(session!=null) {
+            sessionUsername = (String)session.getAttribute("username");
+        }
+
         CartDao cartDao = null;
         try {
             cartDao = CartDaoJDBC.getInstance();
@@ -43,8 +49,7 @@ public class PaymentController extends HttpServlet {
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-
-
+        context.setVariable("username", sessionUsername);
 
         List<Cart> templist = new ArrayList<>();
         try {

@@ -26,6 +26,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Map;
 
@@ -126,7 +127,14 @@ public class ConfirmationController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        //get session if it exists
+        HttpSession session = req.getSession(false);
 
+        String sessionUsername = null;
+
+        if(session!=null) {
+            sessionUsername = (String)session.getAttribute("username");
+        }
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
@@ -145,6 +153,7 @@ public class ConfirmationController extends HttpServlet {
         context.setVariable("cartMap", cartMap);
         context.setVariable("totalPrice", sum);
         context.setVariable("totalNumberOfItems", numberOfProducts);
+        context.setVariable("username", sessionUsername);
 
         CartDao cartDao = null;
         try {
