@@ -36,10 +36,13 @@ public class ProductController extends HttpServlet {
 //        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
 //        SupplierDao supplier = SupplierDaoMem.getInstance();
 
+        //get session if it exists
         HttpSession session = req.getSession(false);
 
+        String sessionUsername = null;
+
         if(session!=null) {
-            String sessionUsername = (String)session.getAttribute("username");
+            sessionUsername = (String)session.getAttribute("username");
         }
 
         ProductDao productDataStore = null;
@@ -56,6 +59,7 @@ public class ProductController extends HttpServlet {
 
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
+
 //        Map<Product, Integer> cartMap = null;
 //        cartMap = cartDao.getAllDaoMem();
 //
@@ -63,6 +67,7 @@ public class ProductController extends HttpServlet {
 //        for (Map.Entry<Product, Integer> entry : cartMap.entrySet()) {
 //            numberOfProducts += entry.getValue();
 //        }
+
         CartDao cartDao = null;
         try {
             cartDao = CartDaoJDBC.getInstance();
@@ -98,6 +103,9 @@ public class ProductController extends HttpServlet {
 
         }
         context.setVariable("totalNumberOfItems", numberOfProducts);
+
+        //add variable username to the context
+        context.setVariable("username", sessionUsername);
         displayProducts(context, engine, resp, productCategoryDataStore,productDataStore, categoryId, supplierId, supplier);
 
     }
