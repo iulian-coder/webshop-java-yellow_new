@@ -38,7 +38,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
+        <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
             </li>
@@ -54,16 +54,17 @@
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/logout}" th:text="Logout" style="color:greenyellow"></a>
             </li>
-            <li class="nav-item">
-                <p class="navbar-text"><i><b><span th:text="*{username}?'Logged in as: ' + ${username}:'Not logged in'"></span></b></i></p>
-            </li>
+        </ul>
+        <span class="navbar-text">
+            <i><b th:text="*{username}?'Logged in as: ' + ${username}:'Not logged in'"></b></i>
+        </span>
 <!--            <li class="nav-item">-->
 <!--                <a class="nav-link" href="#">Pricing</a>-->
 <!--            </li>-->
 <!--            <li class="nav-item">-->
 <!--                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>-->
 <!--            </li>-->
-        </ul>
+
     </div>
 </nav>
 
