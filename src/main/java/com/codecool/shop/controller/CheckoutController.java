@@ -85,7 +85,7 @@ public class CheckoutController extends HttpServlet {
             e.printStackTrace();
         }
 
-        resp.sendRedirect("/cart/payment");
+        resp.sendRedirect("/cart/option-payment");
     }
 
     @Override
