@@ -3,7 +3,7 @@ package com.codecool.shop.model;
 import java.util.Date;
 
 public class Order {
-    //todo
+
     private int id;
     private Date creationData;
     private Cart cart;

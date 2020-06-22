@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet(urlPatterns = {"/cart/payment"})
+@WebServlet(urlPatterns = {"/cart/payment/card"})
 public class PaymentController extends HttpServlet {
 
     @Override

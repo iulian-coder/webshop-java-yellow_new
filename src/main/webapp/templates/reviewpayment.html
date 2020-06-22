@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Review Payment</title>
+</head>
+<body>
+<div align="center">
+    <h1>Please Review Before Paying</h1>
+    <form action="execute_payment" method="post">
+        <table>
+            <tr>
+                <td colspan="2"><b>This row will be hidden:</b></td>
+                <td>
+                    <input type="text" name="paymentId" th:value="${paymentId}" />
+                    <input type="text" name="PayerID" th:value="${payerId}" />
+                </td>
+            </tr>
+            <tr>
+                <td th:text="${payerInfo}"></td>
+            </tr>
+            <tr>
+                <td th:text="${transaction}"></td>
+
+            </tr>
+            <tr>
+                <td th:text="${shippingAddress}"></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" value="Pay Now" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>
