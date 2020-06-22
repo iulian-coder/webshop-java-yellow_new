@@ -17,11 +17,12 @@ public class PaypalAuthorizePaymentController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        //Change the values if the shipping and tax is not free
         String product = req.getParameter("product");
         String subtotal = req.getParameter("subtotal");
-        String shipping = req.getParameter("shipping");
-        String tax = req.getParameter("tax");
-        //Change the value if the shipping and tax is not free
+        String shipping = "0";
+        String tax = "0";
         String total = req.getParameter("subtotal");
 
         OrderDetailPaypal orderDetailPaypal = new OrderDetailPaypal(product, subtotal, shipping, tax, total);
