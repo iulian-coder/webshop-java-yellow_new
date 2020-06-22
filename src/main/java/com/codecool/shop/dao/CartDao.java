@@ -19,6 +19,9 @@ public interface CartDao {
     Map<Product, Integer> getAllDaoMem();
 
     Cart find(int id) throws SQLException;
+    void addNewCart(int user_id) throws SQLException;
+    Cart findByUserId(int userId) throws SQLException;
+    void removeCart(int id) throws SQLException;
 
 
 }

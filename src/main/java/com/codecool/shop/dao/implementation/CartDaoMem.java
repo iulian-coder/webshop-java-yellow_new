@@ -100,4 +100,19 @@ public class CartDaoMem implements CartDao {
     public int get(int id) throws SQLException {
         return 0;
     }
+
+    @Override
+    public void addNewCart(int user_id) throws SQLException{
+
+    }
+
+    @Override
+    public Cart findByUserId(int userId) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public void removeCart(int id) throws SQLException {
+
+    }
 }

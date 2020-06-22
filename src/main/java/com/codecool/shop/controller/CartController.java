@@ -84,38 +84,55 @@ public class CartController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CartDao carDao = null;
+//        CartDao tempCart = CartDaoMem.getInstance();
+
         try {
             carDao = CartDaoJDBC.getInstance();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
         try {
             if (req.getParameter("addToCart") != null) {
-                String id = req.getParameter("addToCart");
-                carDao.add(Integer.parseInt(id));
+                int id = Integer.parseInt(req.getParameter("addToCart"));
+                carDao.add(id);
+
+//                HttpSession session = req.getSession(false);
+//                tempCart = (CartDao) session.getAttribute("cart");
+//                tempCart.add(id);
+//                session.setAttribute("cart", tempCart);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         try {
             if (req.getParameter("itemId") != null && req.getParameter("changeQuantity") != null) {
-                String itemIdToChangeQuantity = req.getParameter("itemId");
-                String newQuantity = req.getParameter("changeQuantity");
-                if (Integer.parseInt(newQuantity) == 0) {
-                    carDao.removeProduct(Integer.parseInt(itemIdToChangeQuantity));
+                int itemIdToChangeQuantity = Integer.parseInt(req.getParameter("itemId"));
+                int newQuantity = Integer.parseInt(req.getParameter("changeQuantity"));
+
+
+//                HttpSession session = req.getSession(false);
+//                tempCart = (CartDao) session.getAttribute("cart");
+//                tempCart.changeQuantity(itemIdToChangeQuantity, newQuantity);
+//                session.setAttribute("cart", tempCart);
+
+
+                if (newQuantity == 0) {
+                    carDao.removeProduct(itemIdToChangeQuantity);
                 }
-                if (Integer.parseInt(newQuantity) > 0) {
-                    if (Integer.parseInt(newQuantity) >= carDao.get(Integer.parseInt(itemIdToChangeQuantity))) {
-                        int quantityDifference = Integer.parseInt(newQuantity) - carDao.get(Integer.parseInt(itemIdToChangeQuantity));
+                if (newQuantity > 0) {
+                    if (newQuantity >= carDao.get(itemIdToChangeQuantity)) {
+                        int quantityDifference = newQuantity - carDao.get(itemIdToChangeQuantity);
 
                         for (int i = 1; i <= quantityDifference; i++) {
-                            carDao.add(Integer.parseInt(itemIdToChangeQuantity));
+                            carDao.add(itemIdToChangeQuantity);
                         }
 //                    }else{
-//                        carDao.removeProduct(Integer.parseInt(itemIdToChangeQuantity));
-//                        int quantityDifference = carDao.get(Integer.parseInt(itemIdToChangeQuantity))-Integer.parseInt(newQuantity);
+//                        carDao.removeProduct(itemIdToChangeQuantity);
+//                        int quantityDifference = carDao.get(itemIdToChangeQuantity)-newQuantity;
 //                        for (int i = 1; i <= quantityDifference; i++) {
-//                            carDao.add(Integer.parseInt(itemIdToChangeQuantity));
+//                            carDao.add(itemIdToChangeQuantity);
 //                        }
                     }
 
