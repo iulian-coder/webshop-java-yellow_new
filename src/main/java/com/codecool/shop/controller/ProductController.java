@@ -32,81 +32,62 @@ public class ProductController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        ProductDao productDataStore = ProductDaoMem.getInstance();
-//        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-//        SupplierDao supplier = SupplierDaoMem.getInstance();
+        ProductDao productDataStore = null;
+        ProductCategoryDao productCategoryDataStore = null;
+        SupplierDao supplier = null;
+        CartDao cartDao = null;
+        int numberOfProducts = 0;
+        List<Cart> templist = new ArrayList<>();
+        int categoryId = 2;
+        int supplierId = 3;
 
         //get session if it exists
         HttpSession session = req.getSession(false);
 
         String sessionUsername = null;
 
-        if(session!=null) {
-            sessionUsername = (String)session.getAttribute("username");
+        if (session != null) {
+            sessionUsername = (String) session.getAttribute("username");
         }
 
-        ProductDao productDataStore = null;
-        ProductCategoryDao productCategoryDataStore = null;
-        SupplierDao supplier = null;
+        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
+        WebContext context = new WebContext(req, resp, req.getServletContext());
 
         try {
             productDataStore = ProductDaoJDBC.getInstance();
             productCategoryDataStore = ProductCategoryDaoJDBC.getInstance();
             supplier = SupplierDaoJDBC.getInstance();
-        }catch(SQLException e){e.getStackTrace();}
-
-//        CartDao cartDao = CartDaoMem.getInstance();
-
-
-        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-
-//        Map<Product, Integer> cartMap = null;
-//        cartMap = cartDao.getAllDaoMem();
-//
-//        int numberOfProducts = 0;
-//        for (Map.Entry<Product, Integer> entry : cartMap.entrySet()) {
-//            numberOfProducts += entry.getValue();
-//        }
-
-        CartDao cartDao = null;
-        try {
             cartDao = CartDaoJDBC.getInstance();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-        List<Cart> templist = new ArrayList<>();
-        try {
             templist = cartDao.getAll();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        int numberOfProducts = 0;
-        for (int i = 0; i < templist.size(); i++) {
-            numberOfProducts += templist.get(i).getQuantity();
+
+
+        if (req.getSession().getAttribute("username") != null) {
+            numberOfProducts = ((CartDaoJDBC) cartDao).totalNumberOfProductsInCart(templist);
+        } else {
+
+            CartDaoMem cart = (CartDaoMem) req.getSession().getAttribute("cartMem");
+            if (cart != null) {
+                numberOfProducts = cart.totalNumberOfProductsInCart(cart);
+            }
         }
 
 
-        WebContext context = new WebContext(req, resp, req.getServletContext());
-
-
-        int categoryId=2;
-        int supplierId=3;
-
-        if (req.getParameter("category")!=null) {
-            categoryId=Integer.parseInt(req.getParameter("category"));
-            supplierId=0;
+        if (req.getParameter("category") != null) {
+            categoryId = Integer.parseInt(req.getParameter("category"));
+            supplierId = 0;
         }
 
-        if (req.getParameter("supplier")!=null) {
-            supplierId=Integer.parseInt(req.getParameter("supplier"));
+        if (req.getParameter("supplier") != null) {
+            supplierId = Integer.parseInt(req.getParameter("supplier"));
 
         }
+
         context.setVariable("totalNumberOfItems", numberOfProducts);
-
-        //add variable username to the context
         context.setVariable("username", sessionUsername);
-        displayProducts(context, engine, resp, productCategoryDataStore,productDataStore, categoryId, supplierId, supplier);
+        displayProducts(context, engine, resp, productCategoryDataStore, productDataStore, categoryId, supplierId, supplier);
 
     }
 
@@ -114,13 +95,13 @@ public class ProductController extends HttpServlet {
     private void displayProducts(WebContext context, TemplateEngine engine, HttpServletResponse resp, ProductCategoryDao productCategoryDataStore, ProductDao productDataStore, int categoryId, int supplierId, SupplierDao supplier) throws IOException {
         try {
             context.setVariable("category", productCategoryDataStore.find(categoryId));
-        }catch (Exception exc) {
+        } catch (Exception exc) {
             if (exc instanceof IOException || exc instanceof SQLException) {
                 exc.printStackTrace();
             }
         }
 
-        if (supplierId!=0) {
+        if (supplierId != 0) {
             try {
                 context.setVariable("supplier", supplier.find(supplierId));
             } catch (Exception exc) {
@@ -131,15 +112,15 @@ public class ProductController extends HttpServlet {
         }
         try {
             context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(categoryId)));
-        }catch (Exception exc) {
+        } catch (Exception exc) {
             if (exc instanceof IOException || exc instanceof SQLException) {
                 exc.printStackTrace();
             }
         }
-        if (supplierId!=0){
+        if (supplierId != 0) {
             try {
                 context.setVariable("products", productDataStore.getBy(supplier.find(supplierId)));
-            }catch (Exception exc) {
+            } catch (Exception exc) {
                 if (exc instanceof IOException || exc instanceof SQLException) {
                     exc.printStackTrace();
                 }

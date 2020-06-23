@@ -30,6 +30,10 @@ public class CartController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //It's a LIST
         CartDao cartDao = null;
+        List<Cart> templist = new ArrayList<>();
+        float sum = 0;
+        int numberOfProducts = 0;
+
         try {
             cartDao = CartDaoJDBC.getInstance();
         } catch (SQLException throwables) {
@@ -49,27 +53,29 @@ public class CartController extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("username", sessionUsername);
 
-////        Map<Product, Integer> cartMap = null;
-//        cartMap = cartDao.getAll();
-//
-//        int numberOfProducts = 0;
-//        double sum = 0;
-//        for (Map.Entry<Product, Integer> entry : cartMap.entrySet()) {
-//            sum += entry.getKey().getPriceDouble() * entry.getValue();
-//            numberOfProducts += entry.getValue();
-//        }
-        List<Cart> templist = new ArrayList<>();
+
         try {
             templist = cartDao.getAll();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        float sum = 0;
-        int numberOfProducts = 0;
-        for (int i = 0; i < templist.size(); i++) {
-            sum += templist.get(i).getTotal();
-            numberOfProducts += templist.get(i).getQuantity();
+
+        if (req.getSession().getAttribute("username") != null) {
+            sum = ((CartDaoJDBC) cartDao).productsTotalPrice(templist);
+            numberOfProducts = ((CartDaoJDBC) cartDao).totalNumberOfProductsInCart(templist);
+        }else{
+
+            CartDaoMem cart = (CartDaoMem) req.getSession().getAttribute("cartMem");
+            if (cart != null) {
+                sum = cart.productsTotalPrice(cart);
+                numberOfProducts = cart.totalNumberOfProductsInCart(cart);
+            }
+
         }
+
+
+
+
         context.setVariable("cartList", templist);
         context.setVariable("totalPrice", sum);
         context.setVariable("totalNumberOfItems", numberOfProducts);
@@ -139,10 +145,7 @@ public class CartController extends HttpServlet {
 //                int newQuantity = Integer.parseInt(req.getParameter("changeQuantity"));
 //
 //
-////                HttpSession session = req.getSession(false);
-////                tempCart = (CartDao) session.getAttribute("cart");
-////                tempCart.changeQuantity(itemIdToChangeQuantity, newQuantity);
-////                session.setAttribute("cart", tempCart);
+
 //
 //
 //                if (newQuantity == 0) {

@@ -234,4 +234,20 @@ public class CartDaoJDBC implements CartDao {
         return null;
     }
 
+    public float productsTotalPrice(List<Cart> cartList){
+        float sum = 0;
+        for (int i = 0; i < cartList.size(); i++) {
+            sum += cartList.get(i).getTotal();
+        }
+        return sum;
+    }
+
+    public int totalNumberOfProductsInCart(List<Cart> cartList){
+        int numberOfProducts = 0;
+        for (int i = 0; i < cartList.size(); i++) {
+            numberOfProducts += cartList.get(i).getQuantity();
+        }
+        return numberOfProducts;
+    }
+
 }

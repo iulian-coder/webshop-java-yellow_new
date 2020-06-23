@@ -102,4 +102,23 @@ public class CartDaoMem implements CartDao {
     public void removeCart(int id) throws SQLException {
 
     }
+
+    public float productsTotalPrice(CartDao cartDao){
+        Map<Product, Integer> cartMap = cartDao.getAllDaoMem();
+        float sum = 0;
+        for (Map.Entry<Product, Integer> entry : cartMap.entrySet()) {
+            sum += entry.getKey().getPriceDouble() * entry.getValue();
+        }
+        return sum;
+    }
+
+    public int totalNumberOfProductsInCart(CartDao cartDao){
+        Map<Product, Integer> cartMap = cartDao.getAllDaoMem();
+
+        int numberOfProducts = 0;
+        for (Map.Entry<Product, Integer> entry : cartMap.entrySet()) {
+            numberOfProducts += entry.getValue();
+        }
+        return numberOfProducts;
+    }
 }
