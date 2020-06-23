@@ -40,7 +40,7 @@ import org.json.simple.JSONObject;
 @WebServlet(urlPatterns = "/cart/payment/confirmation")
 public class ConfirmationController extends HttpServlet {
 
-    CartDao cartDao = CartDaoMem.getInstance();
+//    CartDao cartDao = CartDaoMem.getInstance();
     private String statusPayment = "no";
 
 
@@ -65,7 +65,7 @@ public class ConfirmationController extends HttpServlet {
         JSONObject orderDetails = new JSONObject();
 
         //Add data to json file
-        orderDetails.putAll(cartDao.getAllDaoMem());
+//        orderDetails.putAll(cartDao.getAllDaoMem());
         orderDetails.put("statusPayment", statusPayment);
 
         //Write JSON file
@@ -140,7 +140,7 @@ public class ConfirmationController extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
         Map<Product, Integer> cartMap = null;
-        cartMap = cartDao.getAllDaoMem();
+//        cartMap = cartDao.getAllDaoMem();
 
         int numberOfProducts = 0;
         double sum = 0;

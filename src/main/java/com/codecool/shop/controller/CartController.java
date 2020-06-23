@@ -4,12 +4,11 @@ import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.CartDao;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.implementation.CartDaoJDBC;
-import com.codecool.shop.dao.implementation.CartDaoMem;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
+import com.codecool.shop.dao.UserDao;
+import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.Cart;
 import com.codecool.shop.model.Product;
+import com.codecool.shop.model.User;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -42,8 +41,8 @@ public class CartController extends HttpServlet {
 
         String sessionUsername = null;
 
-        if(session!=null) {
-            sessionUsername = (String)session.getAttribute("username");
+        if (session != null) {
+            sessionUsername = (String) session.getAttribute("username");
         }
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
@@ -74,76 +73,104 @@ public class CartController extends HttpServlet {
         context.setVariable("cartList", templist);
         context.setVariable("totalPrice", sum);
         context.setVariable("totalNumberOfItems", numberOfProducts);
-
-//        System.out.println(templist);
-
         engine.process("product/cart_page.html", context, resp.getWriter());
 
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CartDao carDao = null;
-//        CartDao tempCart = CartDaoMem.getInstance();
 
-        try {
-            carDao = CartDaoJDBC.getInstance();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        if (req.getSession().getAttribute("username") != null) {
 
-        try {
-            if (req.getParameter("addToCart") != null) {
-                int id = Integer.parseInt(req.getParameter("addToCart"));
-                carDao.add(id);
-
-//                HttpSession session = req.getSession(false);
-//                tempCart = (CartDao) session.getAttribute("cart");
-//                tempCart.add(id);
-//                session.setAttribute("cart", tempCart);
+            UserDao user = null;
+            CartDao cartDao = null;
+            try {
+                user = UserDaoJDBC.getInstance();
+                cartDao = CartDaoJDBC.getInstance();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+
+            try {
+                if (req.getParameter("addToCart") != null) {
+                    int id = Integer.parseInt(req.getParameter("addToCart"));
+                    int userId = user.getUserByUsername((String) req.getSession().getAttribute("username")).getId();
+                    int cartId = cartDao.addNewCart(userId);
+                    cartDao.add(id, cartId);
+
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            CartDao cart = (CartDao) req.getSession().getAttribute("cartMem");
+            if (cart == null) {
+                cart = new CartDaoMem();
+                req.getSession().setAttribute("cartMem", cart);
+            }
+            try {
+                if (req.getParameter("addToCart") != null) {
+                    int id = Integer.parseInt(req.getParameter("addToCart"));
+                    cart.add(id, 0);
+                    Map<Product, Integer> cartMap = null;
+                    cartMap = cart.getAllDaoMem();
+                    System.out.println("Aici o sa inceapa for");
+                    for (Map.Entry<Product, Integer> entry : cartMap.entrySet())
+                         {
+                             System.out.println(entry.getKey().getName()+": "+entry.getValue());
+
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         }
 
-        try {
-            if (req.getParameter("itemId") != null && req.getParameter("changeQuantity") != null) {
-                int itemIdToChangeQuantity = Integer.parseInt(req.getParameter("itemId"));
-                int newQuantity = Integer.parseInt(req.getParameter("changeQuantity"));
 
 
-//                HttpSession session = req.getSession(false);
-//                tempCart = (CartDao) session.getAttribute("cart");
-//                tempCart.changeQuantity(itemIdToChangeQuantity, newQuantity);
-//                session.setAttribute("cart", tempCart);
 
 
-                if (newQuantity == 0) {
-                    carDao.removeProduct(itemIdToChangeQuantity);
-                }
-                if (newQuantity > 0) {
-                    if (newQuantity >= carDao.get(itemIdToChangeQuantity)) {
-                        int quantityDifference = newQuantity - carDao.get(itemIdToChangeQuantity);
-
-                        for (int i = 1; i <= quantityDifference; i++) {
-                            carDao.add(itemIdToChangeQuantity);
-                        }
+//        try {
+//            if (req.getParameter("itemId") != null && req.getParameter("changeQuantity") != null) {
+//                int itemIdToChangeQuantity = Integer.parseInt(req.getParameter("itemId"));
+//                int newQuantity = Integer.parseInt(req.getParameter("changeQuantity"));
+//
+//
+////                HttpSession session = req.getSession(false);
+////                tempCart = (CartDao) session.getAttribute("cart");
+////                tempCart.changeQuantity(itemIdToChangeQuantity, newQuantity);
+////                session.setAttribute("cart", tempCart);
+//
+//
+//                if (newQuantity == 0) {
+//                    carDao.removeProduct(itemIdToChangeQuantity);
+//                }
+//                if (newQuantity > 0) {
+//                    if (newQuantity >= carDao.get(itemIdToChangeQuantity)) {
+//                        int quantityDifference = newQuantity - carDao.get(itemIdToChangeQuantity);
+//
+//                        for (int i = 1; i <= quantityDifference; i++) {
+//                            carDao.add(itemIdToChangeQuantity);
+//                        }
 //                    }else{
 //                        carDao.removeProduct(itemIdToChangeQuantity);
 //                        int quantityDifference = carDao.get(itemIdToChangeQuantity)-newQuantity;
 //                        for (int i = 1; i <= quantityDifference; i++) {
 //                            carDao.add(itemIdToChangeQuantity);
 //                        }
-                    }
-
-                }
-
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//                    }
+//
+//                }
+//
+//
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         resp.sendRedirect("/");
-    }
+   }
 
 }
