@@ -35,23 +35,22 @@ public class ProductController extends HttpServlet {
         ProductDao productDataStore = null;
         ProductCategoryDao productCategoryDataStore = null;
         SupplierDao supplier = null;
-        CartDao cartDao = null;
+        CartDaoJDBC cartDao = null;
         int numberOfProducts = 0;
         List<Cart> templist = new ArrayList<>();
         int categoryId = 2;
         int supplierId = 3;
+        String sessionUsername = null;
+
+        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
+        WebContext context = new WebContext(req, resp, req.getServletContext());
 
         //get session if it exists
         HttpSession session = req.getSession(false);
 
-        String sessionUsername = null;
-
         if (session != null) {
             sessionUsername = (String) session.getAttribute("username");
         }
-
-        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-        WebContext context = new WebContext(req, resp, req.getServletContext());
 
         try {
             productDataStore = ProductDaoJDBC.getInstance();
@@ -63,11 +62,9 @@ public class ProductController extends HttpServlet {
             throwables.printStackTrace();
         }
 
-
         if (req.getSession().getAttribute("username") != null) {
-            numberOfProducts = ((CartDaoJDBC) cartDao).totalNumberOfProductsInCart(templist);
+            numberOfProducts = cartDao.totalNumberOfProductsInCart(templist);
         } else {
-
             CartDaoMem cart = (CartDaoMem) req.getSession().getAttribute("cartMem");
             if (cart != null) {
                 numberOfProducts = cart.totalNumberOfProductsInCart(cart);

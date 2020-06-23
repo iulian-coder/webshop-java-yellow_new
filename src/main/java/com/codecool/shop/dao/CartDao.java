@@ -15,7 +15,7 @@ public interface CartDao {
     void remove(int id) throws SQLException;
     void removeProduct(int id) throws SQLException;
     int get(int id) throws SQLException;
-    void changeQuantity(int i, int id);
+    void changeQuantity(int i, int id) throws IOException, SQLException;
     List <Cart> getAll() throws SQLException;
     Map<Product, Integer> getAllDaoMem();
 

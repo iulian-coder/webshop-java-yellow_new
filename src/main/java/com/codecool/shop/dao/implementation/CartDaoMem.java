@@ -46,8 +46,8 @@ public class CartDaoMem implements CartDao {
         this.cart = new HashMap<>();
     }
 
-    public void changeQuantity(int id, int newQuantity) {
-        ProductDao productList = ProductDaoMem.getInstance();
+    public void changeQuantity(int id, int newQuantity) throws IOException, SQLException {
+        ProductDao productList = ProductDaoJDBC.getInstance();
         Product product = null;
         try {
             product = productList.find(id);
@@ -114,7 +114,6 @@ public class CartDaoMem implements CartDao {
 
     public int totalNumberOfProductsInCart(CartDao cartDao){
         Map<Product, Integer> cartMap = cartDao.getAllDaoMem();
-
         int numberOfProducts = 0;
         for (Map.Entry<Product, Integer> entry : cartMap.entrySet()) {
             numberOfProducts += entry.getValue();

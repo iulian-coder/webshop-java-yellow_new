@@ -80,17 +80,6 @@
 
 <!-- select one category-->
 <div class="container">
-<!--    <div class="card">-->
-<!--        <h5>Categories</h5>-->
-<!--        <a href="index.html?category=1">Tablets</a>-->
-<!--        <a href="index.html?category=2">Smartwatches</a>-->
-
-<!--    <div class="card">-->
-<!--        <h5>Suppliers</h5>-->
-<!--        <a href="index.html?supplier=1">Amazon</a>-->
-<!--        <a href="index.html?supplier=2">Lenovo</a>-->
-<!--        <a href="index.html?supplier=3">Ebay</a>-->
-
         <div class="btn-group">
             <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Categories
@@ -114,16 +103,6 @@
             </div>
         </div>
         <br>
-<!--    </div>-->
-<!--</div>-->
-<!--<br>-->
-<!--<br>-->
-
-<!--<div class="container-fluid">-->
-<!--        <div class="card">-->
-<!--            <strong th:text="${category.name}"></strong>-->
-<!--        </div>-->
-<!--        <br>-->
 
     <div id="products" class="row">
         <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">

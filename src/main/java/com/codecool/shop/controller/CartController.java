@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,11 +29,20 @@ import java.util.Map;
 public class CartController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //It's a LIST
-        CartDao cartDao = null;
-        List<Cart> templist = new ArrayList<>();
+        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
+        WebContext context = new WebContext(req, resp, req.getServletContext());
+
+        CartDaoJDBC cartDao = null;
         float sum = 0;
         int numberOfProducts = 0;
+        String sessionUsername = null;
+
+        //get session if it exists
+        HttpSession session = req.getSession(false);
+
+        if (session != null) {
+            sessionUsername = (String) session.getAttribute("username");
+        }
 
         try {
             cartDao = CartDaoJDBC.getInstance();
@@ -40,43 +50,30 @@ public class CartController extends HttpServlet {
             throwables.printStackTrace();
         }
 
-        //get session if it exists
-        HttpSession session = req.getSession(false);
-
-        String sessionUsername = null;
-
-        if (session != null) {
-            sessionUsername = (String) session.getAttribute("username");
-        }
-
-        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-        WebContext context = new WebContext(req, resp, req.getServletContext());
-        context.setVariable("username", sessionUsername);
-
-
-        try {
-            templist = cartDao.getAll();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
         if (req.getSession().getAttribute("username") != null) {
-            sum = ((CartDaoJDBC) cartDao).productsTotalPrice(templist);
-            numberOfProducts = ((CartDaoJDBC) cartDao).totalNumberOfProductsInCart(templist);
-        }else{
+            List<Cart> templist = new ArrayList<>();
+            try {
+                templist = cartDao.getAll();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            sum = cartDao.productsTotalPrice(templist);
+            numberOfProducts = cartDao.totalNumberOfProductsInCart(templist);
+            context.setVariable("cartList", templist);
+
+        } else {
 
             CartDaoMem cart = (CartDaoMem) req.getSession().getAttribute("cartMem");
             if (cart != null) {
+                Map<Product, Integer> tempMap = cart.getAllDaoMem();
                 sum = cart.productsTotalPrice(cart);
                 numberOfProducts = cart.totalNumberOfProductsInCart(cart);
+                context.setVariable("cartListInMem", tempMap);
             }
 
         }
 
-
-
-
-        context.setVariable("cartList", templist);
+        context.setVariable("username", sessionUsername);
         context.setVariable("totalPrice", sum);
         context.setVariable("totalNumberOfItems", numberOfProducts);
         engine.process("product/cart_page.html", context, resp.getWriter());
@@ -123,20 +120,25 @@ public class CartController extends HttpServlet {
                     Map<Product, Integer> cartMap = null;
                     cartMap = cart.getAllDaoMem();
                     System.out.println("Aici o sa inceapa for");
-                    for (Map.Entry<Product, Integer> entry : cartMap.entrySet())
-                         {
-                             System.out.println(entry.getKey().getName()+": "+entry.getValue());
+                    for (Map.Entry<Product, Integer> entry : cartMap.entrySet()) {
+                        System.out.println(entry.getKey().getName() + ": " + entry.getValue());
 
                     }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            try{
+                if (req.getParameter("itemId") != null && req.getParameter("changeQuantity") != null) {
+                    int itemIdToChangeQuantity = Integer.parseInt(req.getParameter("itemId"));
+                    int newQuantity = Integer.parseInt(req.getParameter("changeQuantity"));
+                    cart.changeQuantity(itemIdToChangeQuantity, newQuantity);
+                }
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
 
         }
-
-
-
 
 
 //        try {
@@ -174,6 +176,6 @@ public class CartController extends HttpServlet {
 //            e.printStackTrace();
 //        }
         resp.sendRedirect("/");
-   }
+    }
 
 }
