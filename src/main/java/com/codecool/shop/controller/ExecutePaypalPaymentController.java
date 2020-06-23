@@ -22,9 +22,8 @@ public class ExecutePaypalPaymentController extends HttpServlet {
             PaymentServices paymentServices = new PaymentServices();
             paymentServices.executePayment(paymentId,payerId);
 
-            //TODO: make a thank you page
-//              :clear the cart
-            resp.sendRedirect("/");
+            //TODO: clear the cart
+            resp.sendRedirect("/cart/payment/confirmed");
 
         }catch (PayPalRESTException ex){
             ex.printStackTrace();
