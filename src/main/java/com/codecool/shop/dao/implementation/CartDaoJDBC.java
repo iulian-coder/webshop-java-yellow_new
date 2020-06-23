@@ -193,8 +193,7 @@ public class CartDaoJDBC implements CartDao {
     }
 
     @Override
-    public void changeQuantity(int i, int id) {
-
+    public void changeQuantity(int quantity, int id) throws SQLException {
     }
 
     @Override

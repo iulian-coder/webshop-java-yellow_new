@@ -100,8 +100,37 @@ public class CartController extends HttpServlet {
                     int userId = user.getUserByUsername((String) req.getSession().getAttribute("username")).getId();
                     int cartId = cartDao.addNewCart(userId);
                     cartDao.add(id, cartId);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
+            try {
+                if (req.getParameter("itemId") != null && req.getParameter("changeQuantity") != null) {
+                    int itemIdToChangeQuantity = Integer.parseInt(req.getParameter("itemId"));
+                    int newQuantity = Integer.parseInt(req.getParameter("changeQuantity"));
+                    int userId = user.getUserByUsername((String) req.getSession().getAttribute("username")).getId();
+                    int cartId = cartDao.addNewCart(userId);
+                    if (newQuantity == 0) {
+                        cartDao.removeProduct(itemIdToChangeQuantity);
+                    }
+                    if (newQuantity > 0) {
+                        if (newQuantity >= cartDao.get(itemIdToChangeQuantity)) {
+                            int quantityDifference = newQuantity - cartDao.get(itemIdToChangeQuantity);
 
+                            for (int i = 1; i <= quantityDifference; i++) {
+
+                                cartDao.add(itemIdToChangeQuantity, cartId);
+                            }
+                        } else {
+//                            cartDao.removeProduct(itemIdToChangeQuantity);
+//                            int quantityDifference = cartDao.get(itemIdToChangeQuantity) - newQuantity;
+//                            for (int i = 1; i <= quantityDifference; i++) {
+//                                cartDao.add(itemIdToChangeQuantity, cartId);
+//                            }
+                        }
+
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -128,53 +157,19 @@ public class CartController extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            try{
+            try {
                 if (req.getParameter("itemId") != null && req.getParameter("changeQuantity") != null) {
                     int itemIdToChangeQuantity = Integer.parseInt(req.getParameter("itemId"));
                     int newQuantity = Integer.parseInt(req.getParameter("changeQuantity"));
                     cart.changeQuantity(itemIdToChangeQuantity, newQuantity);
                 }
-            }catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
         }
 
 
-//        try {
-//            if (req.getParameter("itemId") != null && req.getParameter("changeQuantity") != null) {
-//                int itemIdToChangeQuantity = Integer.parseInt(req.getParameter("itemId"));
-//                int newQuantity = Integer.parseInt(req.getParameter("changeQuantity"));
-//
-//
-
-//
-//
-//                if (newQuantity == 0) {
-//                    carDao.removeProduct(itemIdToChangeQuantity);
-//                }
-//                if (newQuantity > 0) {
-//                    if (newQuantity >= carDao.get(itemIdToChangeQuantity)) {
-//                        int quantityDifference = newQuantity - carDao.get(itemIdToChangeQuantity);
-//
-//                        for (int i = 1; i <= quantityDifference; i++) {
-//                            carDao.add(itemIdToChangeQuantity);
-//                        }
-//                    }else{
-//                        carDao.removeProduct(itemIdToChangeQuantity);
-//                        int quantityDifference = carDao.get(itemIdToChangeQuantity)-newQuantity;
-//                        for (int i = 1; i <= quantityDifference; i++) {
-//                            carDao.add(itemIdToChangeQuantity);
-//                        }
-//                    }
-//
-//                }
-//
-//
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
         resp.sendRedirect("/");
     }
 
