@@ -59,7 +59,7 @@ public class CheckoutController extends HttpServlet {
 
             List<Cart> templist = new ArrayList<>();
             try {
-                templist = cartDao.getAll();
+                templist = cartDao.getAll((Integer) req.getSession().getAttribute("cartId"));
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -85,7 +85,7 @@ public class CheckoutController extends HttpServlet {
             e.printStackTrace();
         }
 
-        resp.sendRedirect("/cart/payment");
+        resp.sendRedirect("/cart/option-payment");
     }
 
     @Override

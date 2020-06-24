@@ -7,33 +7,20 @@ import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class CartDaoMem implements CartDao {
     private HashMap<Product, Integer> cart = new HashMap<>();
-    private static CartDaoMem instance = null;
 
     /* A private Constructor prevents any other class from instantiating.
      */
-    private CartDaoMem() {
-    }
-
-    public Map<Product, Integer> getCart() {
-        return this.cart;
-    }
-
-    public static CartDaoMem getInstance() {
-        if (instance == null) {
-            instance = new CartDaoMem();
-        }
-        return instance;
-    }
 
     @Override
-    public void add(int id) {
-        ProductDaoMem productsList = ProductDaoMem.getInstance();
+    public void add(int id, int cartId) throws IOException, SQLException {
+        ProductDaoJDBC productsList = ProductDaoJDBC.getInstance();
         Product product = productsList.find(id);
             if(cart.containsKey(product)){
                 cart.put(product, cart.get(product) + 1);
@@ -59,8 +46,8 @@ public class CartDaoMem implements CartDao {
         this.cart = new HashMap<>();
     }
 
-    public void changeQuantity(int id, int newQuantity) {
-        ProductDao productList = ProductDaoMem.getInstance();
+    public void changeQuantity(int id, int newQuantity) throws IOException, SQLException {
+        ProductDao productList = ProductDaoJDBC.getInstance();
         Product product = null;
         try {
             product = productList.find(id);
@@ -77,7 +64,7 @@ public class CartDaoMem implements CartDao {
     }
 
     @Override
-    public List<Cart> getAll() throws SQLException {
+    public List<Cart> getAll(Integer cartId) throws SQLException {
         return null;
     }
 
@@ -97,7 +84,41 @@ public class CartDaoMem implements CartDao {
     }
 
     @Override
-    public int get(int id) throws SQLException {
+    public int get(int id, Integer cartId) throws SQLException {
         return 0;
+    }
+
+    @Override
+    public int addNewCart(int user_id) throws SQLException{
+    return 0;
+    }
+
+    @Override
+    public Cart findByUserId(int userId) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public void removeCart(int id) throws SQLException {
+
+    }
+
+
+    public float productsTotalPrice(CartDao cartDao){
+        Map<Product, Integer> cartMap = cartDao.getAllDaoMem();
+        float sum = 0;
+        for (Map.Entry<Product, Integer> entry : cartMap.entrySet()) {
+            sum += entry.getKey().getPriceDouble() * entry.getValue();
+        }
+        return sum;
+    }
+
+    public int totalNumberOfProductsInCart(CartDao cartDao){
+        Map<Product, Integer> cartMap = cartDao.getAllDaoMem();
+        int numberOfProducts = 0;
+        for (Map.Entry<Product, Integer> entry : cartMap.entrySet()) {
+            numberOfProducts += entry.getValue();
+        }
+        return numberOfProducts;
     }
 }
