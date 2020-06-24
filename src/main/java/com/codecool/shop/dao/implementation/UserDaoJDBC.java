@@ -212,7 +212,7 @@ public class UserDaoJDBC implements UserDao {
                 String email = resultSet.getString("email");
                 String billingAddress = resultSet.getString("billing_address");
                 String shippingAddress = resultSet.getString("shipping_address");
-                user =new User(username, password, firstName, lastName, phone, email, billingAddress, shippingAddress);
+                user = new User(username, password, firstName, lastName, email, phone, billingAddress, shippingAddress);
                 user.setId(id);
             }
             resultSet.close();
@@ -230,12 +230,12 @@ public class UserDaoJDBC implements UserDao {
     public void edit(User user) throws SQLException {
 
         try (Connection connection = dataSource.getConnection();) {
-            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE users SET password = ?, first_name = ?, last_name = ?, phone_number = ?, email = ?, billing_address = ?, shipping_address = ? WHERE username = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE users SET password = ?, first_name = ?, last_name = ?, email = ?, phone_number = ?, billing_address = ?, shipping_address = ? WHERE username = ?");
             preparedStatement.setString(1, user.getPassword());
             preparedStatement.setString(2, user.getFirstName());
             preparedStatement.setString(3, user.getLastName());
-            preparedStatement.setString(4, user.getPhone());
-            preparedStatement.setString(5, user.getEmail());
+            preparedStatement.setString(4, user.getEmail());
+            preparedStatement.setString(5, user.getPhone());
             preparedStatement.setString(6, user.getBillingAddress());
             preparedStatement.setString(7, user.getShippingAddress());
             preparedStatement.setString(8, user.getUsername());

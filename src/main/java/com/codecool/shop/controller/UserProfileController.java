@@ -223,6 +223,8 @@ public class UserProfileController extends HttpServlet {
             }
         }
 
+        out.println(password);
+
         User user = new User(username, password, firstName, lastName, email, phone, billingAddress, shippingAddress);
 
         try {

@@ -6,8 +6,8 @@ public class User {
     private String password;
     private String firstName;
     private String lastName;
-    private String phone;
     private String email;
+    private String phone;
     private String billingAddress;
     private String shippingAddress;
 
@@ -16,8 +16,8 @@ public class User {
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.phone = phone;
         this.email = email;
+        this.phone = phone;
         this.billingAddress = billingAddress;
         this.shippingAddress = shippingAddress;
     }
