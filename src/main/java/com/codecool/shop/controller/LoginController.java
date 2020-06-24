@@ -48,9 +48,11 @@ public class LoginController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserDao userDao = null;
         String passwordDB = null;
+        CartDao cartDao = null;
 
         try {
             userDao = UserDaoJDBC.getInstance();
+            cartDao = CartDaoJDBC.getInstance();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -71,6 +73,22 @@ public class LoginController extends HttpServlet {
             System.out.println("Session created");
             session.setAttribute("username", username);
             String sessionUsername = (String)session.getAttribute("username");
+            CartDaoMem cart = (CartDaoMem) req.getSession().getAttribute("cartMem");
+            if (cart != null) {
+                try {
+                    int userId = userDao.getUserByUsername((String) req.getSession().getAttribute("username")).getId();
+                    Integer cartId = cartDao.addNewCart(userId);
+                    session.setAttribute("cartId", cartId);
+                    Map<Product, Integer> tempMap = cart.getAllDaoMem();
+                    for (Map.Entry<Product, Integer> entry : tempMap.entrySet()) {
+                        cartDao.add(entry.getKey().getId(), cartId);
+                    }
+                    req.getSession().removeAttribute("cartMem");
+
+                }catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
 
             resp.sendRedirect("/");
             System.out.println(sessionUsername);

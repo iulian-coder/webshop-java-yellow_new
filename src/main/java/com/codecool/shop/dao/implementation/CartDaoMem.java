@@ -64,7 +64,7 @@ public class CartDaoMem implements CartDao {
     }
 
     @Override
-    public List<Cart> getAll() throws SQLException {
+    public List<Cart> getAll(Integer cartId) throws SQLException {
         return null;
     }
 
@@ -84,7 +84,7 @@ public class CartDaoMem implements CartDao {
     }
 
     @Override
-    public int get(int id) throws SQLException {
+    public int get(int id, Integer cartId) throws SQLException {
         return 0;
     }
 
@@ -102,6 +102,7 @@ public class CartDaoMem implements CartDao {
     public void removeCart(int id) throws SQLException {
 
     }
+
 
     public float productsTotalPrice(CartDao cartDao){
         Map<Product, Integer> cartMap = cartDao.getAllDaoMem();

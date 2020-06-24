@@ -57,7 +57,7 @@ public class ProductController extends HttpServlet {
             productCategoryDataStore = ProductCategoryDaoJDBC.getInstance();
             supplier = SupplierDaoJDBC.getInstance();
             cartDao = CartDaoJDBC.getInstance();
-            templist = cartDao.getAll();
+            templist = cartDao.getAll((Integer) req.getSession().getAttribute("cartId"));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

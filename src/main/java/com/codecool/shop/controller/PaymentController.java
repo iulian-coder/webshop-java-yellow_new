@@ -53,7 +53,7 @@ public class PaymentController extends HttpServlet {
 
         List<Cart> templist = new ArrayList<>();
         try {
-            templist = cartDao.getAll();
+            templist = cartDao.getAll((Integer) req.getSession().getAttribute("cartId"));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
