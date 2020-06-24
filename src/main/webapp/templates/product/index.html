@@ -25,7 +25,13 @@
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <!-- End of Bootstrap components -->
 
-    <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css">
+
+    <!-- Icon library -->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css%22%3E">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
 </head>
 
 <body>
@@ -54,14 +60,11 @@
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/logout}" th:text="Logout" style="color:greenyellow"></a>
             </li>
-
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link" href="#">Pricing</a>-->
-<!--            </li>-->
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>-->
-<!--            </li>-->
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/user-profile}" th:text="Profile" style="color:greenyellow"></a>
+            </li>
         </ul>
+
         <span class="navbar-text">
             <i><b th:text="*{username}?'Logged in as: ' + ${username}:'Not logged in'" style="color:greenyellow"></b></i>
         </span>
@@ -69,61 +72,35 @@
     </div>
 </nav>
 
-<!--<div class="login-message">-->
-<!--    <p><i><b><span th:text="*{username}?'Logged in as: ' + ${username}:'Not logged in'"></span></b></i></p>-->
-<!--</div>-->
-
 <div class="jumbotron text-center">
     <h1>Codecool Shop</h1>
 </div>
 
-
 <!-- select one category-->
 <div class="container">
-<!--    <div class="card">-->
-<!--        <h5>Categories</h5>-->
-<!--        <a href="index.html?category=1">Tablets</a>-->
-<!--        <a href="index.html?category=2">Smartwatches</a>-->
-
-<!--    <div class="card">-->
-<!--        <h5>Suppliers</h5>-->
-<!--        <a href="index.html?supplier=1">Amazon</a>-->
-<!--        <a href="index.html?supplier=2">Lenovo</a>-->
-<!--        <a href="index.html?supplier=3">Ebay</a>-->
-
-        <div class="btn-group">
-            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Categories
-            </button>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="index.html?category=1">Tablets</a>
-                <a class="dropdown-item" href="index.html?category=2">Smartwatches</a>
-            </div>
+    <div class="btn-group">
+        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Categories
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="index.html?category=1">Tablets</a>
+            <a class="dropdown-item" href="index.html?category=2">Smartwatches</a>
         </div>
-        <div class="btn-group">
-            <button class="btn btn-secondary btn-sm" type="button">
-                Suppliers
-            </button>
-            <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="sr-only">Toggle Dropdown</span>
-            </button>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="index.html?supplier=1">Amazon</a>
-                <a class="dropdown-item" href="index.html?supplier=2">Lenovo</a>
-                <a class="dropdown-item" href="index.html?supplier=3">Ebay</a>
-            </div>
+    </div>
+    <div class="btn-group">
+        <button class="btn btn-secondary btn-sm" type="button">
+            Suppliers
+        </button>
+        <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="index.html?supplier=1">Amazon</a>
+            <a class="dropdown-item" href="index.html?supplier=2">Lenovo</a>
+            <a class="dropdown-item" href="index.html?supplier=3">Ebay</a>
         </div>
-        <br>
-<!--    </div>-->
-<!--</div>-->
-<!--<br>-->
-<!--<br>-->
-
-<!--<div class="container-fluid">-->
-<!--        <div class="card">-->
-<!--            <strong th:text="${category.name}"></strong>-->
-<!--        </div>-->
-<!--        <br>-->
+    </div>
+    <br>
 
     <div id="products" class="row">
         <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
