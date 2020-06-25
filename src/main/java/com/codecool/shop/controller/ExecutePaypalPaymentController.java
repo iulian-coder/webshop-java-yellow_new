@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/cart/payment/execute_payment"})
+@WebServlet(urlPatterns = {"/execute_payment"})
 public class ExecutePaypalPaymentController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -23,7 +23,7 @@ public class ExecutePaypalPaymentController extends HttpServlet {
             paymentServices.executePayment(paymentId,payerId);
 
             //TODO: clear the cart
-            resp.sendRedirect("/cart/payment/confirmed");
+            resp.sendRedirect("/confirmed");
 
         }catch (PayPalRESTException ex){
             ex.printStackTrace();

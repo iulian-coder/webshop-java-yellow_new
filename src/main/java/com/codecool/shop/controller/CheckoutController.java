@@ -24,70 +24,6 @@ import java.util.List;
 @WebServlet(urlPatterns = {"/checkout"})
 public class CheckoutController extends HttpServlet {
 
-//    @Override
-//    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//
-//
-//        UserDao userDao = null;
-//        OrderDao orderDao = null;
-//        User userTemp = null;
-//        CartDao cartDao = null;
-//
-//        try {
-//            userDao = UserDaoJDBC.getInstance();
-//            orderDao = OrderDaoJDBC.getInstance();
-//            cartDao = CartDaoJDBC.getInstance();
-//        } catch (SQLException e){
-//            e.printStackTrace();
-//        }
-//
-//        HttpSession session = req.getSession();
-//        String sessionUsername = (String)session.getAttribute("username");
-//
-////
-//        String firstName = "None";
-//        String lastName = "None";
-//        String username = sessionUsername;
-//        String email = "None";
-//        String phone = req.getParameter("phone");
-//        String password = "None";
-//        String billingAddress = req.getParameter("address");
-//        String shippingAddress = req.getParameter("address2");
-//
-//        try {
-//            userTemp = userDao.getUserByUsername(sessionUsername);
-//
-//            List<Cart> templist = new ArrayList<>();
-//            try {
-//                templist = cartDao.getAll((Integer) req.getSession().getAttribute("cartId"));
-//            } catch (SQLException throwables) {
-//                throwables.printStackTrace();
-//            }
-//            float sum = 0;
-//            for (int i = 0; i < templist.size(); i++) {
-//                sum += templist.get(i).getTotal();
-//            }
-//
-//
-//            Order order = new Order(1, userTemp.getId(),"pending", sum);
-//            orderDao.add(order);
-//
-//        } catch (SQLException throwables) {
-//            throwables.printStackTrace();
-//        }
-//        User user =new User(username, password, firstName, lastName, email, phone, billingAddress, shippingAddress);
-//
-//
-//
-//        try {
-//            userDao.update(user);
-//        } catch (SQLException e){
-//            e.printStackTrace();
-//        }
-//
-//        resp.sendRedirect("/cart/option-payment");
-//    }
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -121,7 +57,8 @@ public class CheckoutController extends HttpServlet {
         }
         sum = cartDao.productsTotalPrice(templist);
         numberOfProducts = cartDao.totalNumberOfProductsInCart(templist);
-        int cartId = 10;
+
+        Integer cartId = (Integer) req.getSession().getAttribute("cartId");
 
         context.setVariable("cartList", templist);
         context.setVariable("username", sessionUsername);
