@@ -178,7 +178,7 @@ public class CartController extends HttpServlet {
         }
 
 
-        resp.sendRedirect("/");
+        resp.sendRedirect("/shop");
     }
 
 }

@@ -39,18 +39,6 @@ public class ContactController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-//
-        String firstName = "None";
-        String lastName = "None";
-
-        String email = "None";
-        String phone = req.getParameter("phone");
-        String password = "None";
-        String billingAddress = req.getParameter("address");
-        String shippingAddress = req.getParameter("address2");
-
-
-
         resp.sendRedirect("/");
     }
 
