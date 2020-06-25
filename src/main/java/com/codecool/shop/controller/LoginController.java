@@ -58,6 +58,7 @@ public class LoginController extends HttpServlet {
         }
         String username = req.getParameter("username");
         String password = req.getParameter("password");
+        System.out.println(username);
 
         try {
             passwordDB = userDao.getPasswordByUsername(username);

@@ -77,7 +77,7 @@ public class CartController extends HttpServlet {
         context.setVariable("username", sessionUsername);
         context.setVariable("totalPrice", sum);
         context.setVariable("totalNumberOfItems", numberOfProducts);
-        engine.process("product/cart_page.html", context, resp.getWriter());
+        engine.process("cart.html", context, resp.getWriter());
 
     }
 
@@ -157,7 +157,6 @@ public class CartController extends HttpServlet {
                     cart.add(id, 0);
                     Map<Product, Integer> cartMap = null;
                     cartMap = cart.getAllDaoMem();
-                    System.out.println("Aici o sa inceapa for");
                     for (Map.Entry<Product, Integer> entry : cartMap.entrySet()) {
                         System.out.println(entry.getKey().getName() + ": " + entry.getValue());
 
