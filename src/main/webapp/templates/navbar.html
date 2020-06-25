@@ -5,7 +5,7 @@
     <div class="main_menu">
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container">
-                <a class="navbar-brand logo_h" href="index.html"><img src="img/logo.png" alt=""></a>
+                <a class="navbar-brand logo_h" href="index.html"><img src="/static/img/logo.png" alt=""></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent"
                         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,15 +30,10 @@
                                aria-haspopup="true"
                                aria-expanded="false">Account</a>
                             <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="nav-link" th:href="@{/login}" th:text="Login"></a></li>
-                                <li class="nav-item"><a class="nav-link" th:href="@{/logout}" th:text="Logout"></a></li>
-                                <li class="nav-item"><a class="nav-link" th:href="@{/registration}"
-                                                        th:text="Register"></a></li>
-                                <li class="nav-item"><a class="nav-link" th:href="@{/user-profile}"
-                                                        th:text="*{username}? 'User Profile':''"></a></li>
-                                <!--                                <span class="navbar-text">-->
-                                <!--            <i><b th:text="*{username}?'Logged in as: ' + ${username}:'Not logged in'" style="color:greenyellow"></b></i>-->
-                                <!--        </span>-->
+                                <li class="nav-item"><a class="nav-link" th:href="@{/login}" th:text="*{username}? '':'Login'"></a></li>
+                                <li class="nav-item"><a class="nav-link" th:href="@{/logout}" th:text="*{username}? 'Logout':''"></a></li>
+                                <li class="nav-item"><a class="nav-link" th:href="@{/registration}" th:text="*{username}? '':'Register'"></a></li>
+                                <li class="nav-item"><a class="nav-link" th:href="@{/user-profile}" th:text="*{username}? 'User Profile':''"></a></li>
                             </ul>
                         </li>
                         <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
@@ -46,6 +41,8 @@
 
 
                     <ul class="nav-shop">
+                        <li class="nav-item" th:text="*{username}?'' + ${username}:''" ></li>
+
                         <li class="nav-item">
 
                             <button onclick="location.href='/cart'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle" th:text="${totalNumberOfItems}"></span></button>

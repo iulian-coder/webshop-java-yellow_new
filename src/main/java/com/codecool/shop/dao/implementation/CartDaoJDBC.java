@@ -113,7 +113,7 @@ public class CartDaoJDBC implements CartDao {
     public void removeCart(int id) throws SQLException {
         try (Connection connection = dataSource.getConnection();) {
 
-            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM cart WHERE cart_id=?");
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM cart WHERE id=?");
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
             preparedStatement.close();

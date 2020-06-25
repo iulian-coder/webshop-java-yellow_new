@@ -8,6 +8,7 @@ import com.codecool.shop.dao.implementation.CartDaoJDBC;
 import com.codecool.shop.dao.implementation.OrderDaoJDBC;
 import com.codecool.shop.dao.implementation.UserDaoJDBC;
 import com.codecool.shop.model.Cart;
+import com.codecool.shop.model.EmailSender;
 import com.codecool.shop.model.User;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -38,6 +39,8 @@ public class ContactController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        EmailSender emailSender = new EmailSender("iulian.titei@gmail.com","Buna","Buna din nou");
 
         resp.sendRedirect("/");
     }
