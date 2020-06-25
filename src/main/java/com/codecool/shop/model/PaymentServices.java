@@ -55,7 +55,7 @@ public class PaymentServices {
         PayerInfo payerInfo = new PayerInfo();
         payerInfo.setFirstName("TestCodecool")
                 .setLastName("Codecool")
-                .setEmail("bucuresti.codecoolTest@company.com");
+                .setEmail("codecoolbucurestitest@gmail.com");
 
         payer.setPayerInfo(payerInfo);
 

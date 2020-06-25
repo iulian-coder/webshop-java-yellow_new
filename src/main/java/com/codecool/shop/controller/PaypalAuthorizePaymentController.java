@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/cart/payment/authorize_payment"})
+@WebServlet(urlPatterns = {"/authorize_payment"})
 public class PaypalAuthorizePaymentController extends HttpServlet {
 
     @Override
@@ -23,7 +23,7 @@ public class PaypalAuthorizePaymentController extends HttpServlet {
         String subtotal = req.getParameter("subtotal");
         String shipping = "0";
         String tax = "0";
-        String total = req.getParameter("subtotal");
+        String total = req.getParameter("total");
 
         OrderDetailPaypal orderDetailPaypal = new OrderDetailPaypal(product, subtotal, shipping, tax, total);
 

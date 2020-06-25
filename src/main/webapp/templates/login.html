@@ -1,90 +1,92 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8" />
-    <meta name="author" content="Codecool" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Codecool Shop - Login</title>
+	<link rel="icon" href="/static/img/favicon.ico">
+	<link rel="stylesheet" href="/static/vendors/bootstrap/bootstrap.min.css">
+	<link rel="stylesheet" href="/static/vendors/fontawesome/css/all.min.css">
+	<link rel="stylesheet" href="/static/vendors/themify-icons/themify-icons.css">
+	<link rel="stylesheet" href="/static/vendors/linericon/style.css">
+	<link rel="stylesheet" href="/static/vendors/owl-carousel/owl.theme.default.min.css">
+	<link rel="stylesheet" href="/static/vendors/owl-carousel/owl.carousel.min.css">
+	<link rel="stylesheet" href="/static/vendors/nice-select/nice-select.css">
+	<link rel="stylesheet" href="/static/vendors/nouislider/nouislider.min.css">
 
-    <title>Codecool Shop</title>
-
-    <!-- Bootstrap components -->
-    <!-- Latest compiled and minified Jquery -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-
-    <!--Latest compiled and minified Popper -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-
-    <!-- Latest compiled and minified CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <!-- End of Bootstrap components -->
-
-    <link rel="stylesheet" type="text/css" href="/static/css/boot_forms.css" />
+	<link rel="stylesheet" href="/static/css/style.css">
 </head>
-
 <body>
-
-<!--<nav class="navbar navbar-expand-lg navbar-dark bg-dark">-->
-<!--    <a class="navbar-brand" href="#">CodecoolShop</a>-->
-<!--    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">-->
-<!--        <span class="navbar-toggler-icon"></span>-->
-<!--    </button>-->
-<!--    <div class="collapse navbar-collapse" id="navbarNav">-->
-<!--        <ul class="navbar-nav">-->
-<!--            <li class="nav-item active">-->
-<!--                <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>-->
-<!--            </li>-->
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link" th:href="@{/cart}" th:text="Cart" style="color:greenyellow"></a>-->
-<!--            </li>-->
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link" th:href="@{/registration}" th:text="SignUp" style="color:greenyellow"></a>-->
-<!--            </li>-->
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link" th:href="@{/login}" th:text="Login" style="color:greenyellow"></a>-->
-<!--            </li>-->
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link" th:href="@{/logout}" th:text="Logout" style="color:greenyellow"></a>-->
-<!--            </li>-->
-<!--        </ul>-->
-<!--    </div>-->
-<!--</nav>-->
-
-<nav th:insert="navbar.html :: navbar"></nav>
-
-    <div class="container">
-        <div class="login-form">
-            <form action="/login" method="post">
-                <h2 class="text-center">Log in</h2>
-                <div class="input-container">
-                    <input type="text" class="form-control" name="username" placeholder="Username" required="required">
-                </div>
-                <div class="form-group">
-                    <input type="password" class="form-control" name="password" placeholder="Password" required="required">
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-block">Log in</button>
-                </div>
-            </form>
-            <p class="text-center"><a th:href="@{/registration}">Create an Account</a></p>
-        </div>
+<header th:insert="navbar.html :: navbar"></header>
+  
+  <!-- ================ start banner area ================= -->	
+	<section class="blog-banner-area" id="category">
+		<div class="container h-100">
+			<div class="blog-banner">
+				<div class="text-center">
+					<h1>Login / Register</h1>
+					<nav aria-label="breadcrumb" class="banner-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Login/Register</li>
+            </ol>
+          </nav>
+				</div>
+			</div>
     </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div th:replace="footer.html :: copy"></div>
+	</section>
+	<!-- ================ end banner area ================= -->
+  
+  <!--================Login Box Area =================-->
+	<section class="login_box_area section-margin">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="login_box_img">
+						<div class="hover">
+							<h4>New to our website?</h4>
+							<p>There are advances being made in science and technology everyday, and a good example of this is the</p>
+							<a class="button button-account" href="/registration">Create an Account</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="login_form_inner">
+						<h3>Log in to enter</h3>
+						<form class="row login_form" action="/login" id="contactForm" method="post" >
+							<div class="col-md-12 form-group">
+								<input type="text" class="form-control" name="username" placeholder="Username" required onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+							</div>
+							<div class="col-md-12 form-group">
+								<input type="password" class="form-control" name="password" placeholder="Password" required onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+							</div>
+							<div class="col-md-12 form-group">
+
+							</div>
+							<div class="col-md-12 form-group">
+								<button type="submit" value="submit" class="button button-login w-100">Log In</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--================End Login Box Area =================-->
+
+
+	<footer th:replace="footer.html :: copy"></footer>
+
+
+  <script src="/static/vendors/jquery/jquery-3.2.1.min.js"></script>
+  <script src="/static/vendors/bootstrap/bootstrap.bundle.min.js"></script>
+  <script src="/static/vendors/skrollr.min.js"></script>
+  <script src="/static/vendors/owl-carousel/owl.carousel.min.js"></script>
+  <script src="/static/vendors/nice-select/jquery.nice-select.min.js"></script>
+  <script src="/static/vendors/jquery.ajaxchimp.min.js"></script>
+  <script src="/static/vendors/mail-script.js"></script>
+  <script src="/static/js/main.js"></script>
 </body>
 </html>
