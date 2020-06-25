@@ -865,27 +865,27 @@ a {
     transition: all .4s ease-in-out
 }
 
-.hero-carousel__slideOverlay h3 {
-    font-size: 20px;
-    font-weight: 400;
-    color: #fff
-}
+/*.hero-carousel__slideOverlay h3 {*/
+/*    font-size: 20px;*/
+/*    font-weight: 400;*/
+/*    color: #fff*/
+/*}*/
 
-.hero-carousel__slideOverlay p {
-    color: #fff;
-    margin: 0
-}
+/*.hero-carousel__slideOverlay p {*/
+/*    color: #fff;*/
+/*    margin: 0*/
+/*}*/
 
-.hero-carousel__slide:hover::after {
-    transform: translateY(0);
-    opacity: 1
-}
+/*.hero-carousel__slide:hover::after {*/
+/*    transform: translateY(0);*/
+/*    opacity: 1*/
+/*}*/
 
-.hero-carousel__slide:hover .hero-carousel__slideOverlay {
-    transform: translateY(0);
-    opacity: 1;
-    z-index: 2
-}
+/*.hero-carousel__slide:hover .hero-carousel__slideOverlay {*/
+/*    transform: translateY(0);*/
+/*    opacity: 1;*/
+/*    z-index: 2*/
+/*}*/
 
 .card-product {
     border: 0;

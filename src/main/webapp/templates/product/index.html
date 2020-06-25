@@ -1,139 +1,231 @@
-<!doctype html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8" />
-    <meta name="author" content="Codecool" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<!--<!doctype html>-->
+<!--<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="utf-8" />-->
+<!--    <meta name="author" content="Codecool" />-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />-->
 
-    <title>Codecool Shop</title>
+<!--    <title>Codecool Shop</title>-->
 
     <!-- Bootstrap components -->
     <!-- Latest compiled and minified Jquery -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<!--    <script src="https://code.jquery.com/jquery-3.3.1.min.js"-->
+<!--            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>-->
 
-    <!--Latest compiled and minified Popper -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<!--    &lt;!&ndash;Latest compiled and minified Popper &ndash;&gt;-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"-->
+<!--            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>-->
 
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+<!--    &lt;!&ndash; Latest compiled and minified JavaScript &ndash;&gt;-->
+<!--    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"-->
+<!--    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>-->
 
-    <!-- Latest compiled and minified CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <!-- End of Bootstrap components -->
+<!--    &lt;!&ndash; Latest compiled and minified CSS &ndash;&gt;-->
+<!--    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"-->
+<!--          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">-->
+<!--    &lt;!&ndash; End of Bootstrap components &ndash;&gt;-->
 
-    <link rel="shortcut icon" href="/static/img/favicon.ico"/>
-    <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
-
-
-   
-
-    <!-- Icon library -->
-<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css%22%3E">-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--    <link rel="shortcut icon" href="/static/img/favicon.ico"/>-->
+<!--    <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />-->
 
 
+<!--   -->
 
+<!--    &lt;!&ndash; Icon library &ndash;&gt;-->
+<!--&lt;!&ndash;    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css%22%3E">&ndash;&gt;-->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+
+
+
+<!--</head>-->
+
+<!--<body>-->
+
+<!--&lt;!&ndash;<nav th:insert="navbar.html :: navbar"></nav>&ndash;&gt;-->
+
+<!--<nav class="navbar navbar-expand-lg navbar-dark bg-dark">-->
+<!--    <a class="navbar-brand" href="#">CodecoolShop</a>-->
+<!--    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--        <span class="navbar-toggler-icon"></span>-->
+<!--    </button>-->
+<!--    <div class="collapse navbar-collapse" id="navbarNav">-->
+<!--        <ul class="navbar-nav mr-auto">-->
+<!--            <li class="nav-item active">-->
+<!--                <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" th:href="@{/cart}" th:text="'Cart '+ ${totalNumberOfItems} + ' items'" style="color:greenyellow"></a>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" th:href="@{/registration}" th:text="SignUp" style="color:greenyellow"></a>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" th:href="@{/login}" th:text="Login" style="color:greenyellow"></a>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" th:href="@{/logout}" th:text="Logout" style="color:greenyellow"></a>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--                <a class="nav-link" th:href="@{/user-profile}" th:text="*{username}? 'User Profile':''" style="color:greenyellow"></a>-->
+<!--            </li>-->
+<!--        </ul>-->
+
+<!--        <span class="navbar-text">-->
+<!--            <i><b th:text="*{username}?'Logged in as: ' + ${username}:'Not logged in'" style="color:greenyellow"></b></i>-->
+<!--        </span>-->
+
+<!--    </div>-->
+<!--</nav>-->
+
+<!--<div class="jumbotron text-center">-->
+<!--    <h1>Codecool Shop</h1>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; select one category&ndash;&gt;-->
+<!--<div class="container">-->
+<!--    <div class="btn-group">-->
+<!--        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--            Categories-->
+<!--        </button>-->
+<!--        <div class="dropdown-menu">-->
+<!--            <a class="dropdown-item" href="index.html?category=1">Tablets</a>-->
+<!--            <a class="dropdown-item" href="index.html?category=2">Smartwatches</a>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="btn-group">-->
+<!--        <button class="btn btn-secondary btn-sm" type="button">-->
+<!--            Suppliers-->
+<!--        </button>-->
+<!--        <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--            <span class="sr-only">Toggle Dropdown</span>-->
+<!--        </button>-->
+<!--        <div class="dropdown-menu">-->
+<!--            <a class="dropdown-item" href="index.html?supplier=1">Amazon</a>-->
+<!--            <a class="dropdown-item" href="index.html?supplier=2">Lenovo</a>-->
+<!--            <a class="dropdown-item" href="index.html?supplier=3">Ebay</a>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <br>-->
+
+
+<!--    <div id="products" class="row">-->
+<!--        <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">-->
+<!--            <div class="card bg-light mb-3">-->
+<!--                <img class="responsive" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/' + ${prod.image}" alt="" />-->
+<!--                <div class="card-header">-->
+<!--                    <h4 class="card-title" th:text="${prod.name}"></h4>-->
+<!--                    <p class="card-text" th:text="${prod.description}"></p>-->
+<!--                </div>-->
+<!--                <div class="card-body">-->
+<!--                    <div class="card-text">-->
+<!--                        <p class="lead" th:text="${prod.getPrice()}"></p>-->
+<!--                    </div>-->
+<!--                    <div class="card-text">-->
+<!--                        <form method="post"-->
+<!--                            action="/cart">-->
+<!--                            <input type="hidden" name="addToCart" th:value="${prod.getId()}">-->
+<!--                            <input type="submit" class="btn btn-success" value="Add to cart">-->
+<!--                        </form>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<div th:replace="footer.html :: copy"></div>-->
+
+
+<!--</body>-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Codecool Shop - Home</title>
+    <link rel="icon" href="img/Fevicon.png" type="image/png">
+    <link rel="stylesheet" href="/static/vendors/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/vendors/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="/static/vendors/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="/static/vendors/nice-select/nice-select.css">
+    <link rel="stylesheet" href="/static/vendors/owl-carousel/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/static/vendors/owl-carousel/owl.carousel.min.css">
+
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
-
 <body>
+<header th:insert="navbar.html :: navbar"></header>
 
-<!--<nav th:insert="navbar.html :: navbar"></nav>-->
+<main class="site-main">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">CodecoolShop</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/cart}" th:text="'Cart '+ ${totalNumberOfItems} + ' items'" style="color:greenyellow"></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/registration}" th:text="SignUp" style="color:greenyellow"></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/login}" th:text="Login" style="color:greenyellow"></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/logout}" th:text="Logout" style="color:greenyellow"></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" th:href="@{/user-profile}" th:text="*{username}? 'User Profile':''" style="color:greenyellow"></a>
-            </li>
-        </ul>
-
-        <span class="navbar-text">
-            <i><b th:text="*{username}?'Logged in as: ' + ${username}:'Not logged in'" style="color:greenyellow"></b></i>
-        </span>
-
-    </div>
-</nav>
-
-<div class="jumbotron text-center">
-    <h1>Codecool Shop</h1>
-</div>
-
-<!-- select one category-->
-<div class="container">
-    <div class="btn-group">
-        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Categories
-        </button>
-        <div class="dropdown-menu">
-            <a class="dropdown-item" href="index.html?category=1">Tablets</a>
-            <a class="dropdown-item" href="index.html?category=2">Smartwatches</a>
-        </div>
-    </div>
-    <div class="btn-group">
-        <button class="btn btn-secondary btn-sm" type="button">
-            Suppliers
-        </button>
-        <button type="button" class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="sr-only">Toggle Dropdown</span>
-        </button>
-        <div class="dropdown-menu">
-            <a class="dropdown-item" href="index.html?supplier=1">Amazon</a>
-            <a class="dropdown-item" href="index.html?supplier=2">Lenovo</a>
-            <a class="dropdown-item" href="index.html?supplier=3">Ebay</a>
-        </div>
-    </div>
-    <br>
-
-
-    <div id="products" class="row">
-        <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
-            <div class="card bg-light mb-3">
-                <img class="responsive" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/' + ${prod.image}" alt="" />
-                <div class="card-header">
-                    <h4 class="card-title" th:text="${prod.name}"></h4>
-                    <p class="card-text" th:text="${prod.description}"></p>
-                </div>
-                <div class="card-body">
-                    <div class="card-text">
-                        <p class="lead" th:text="${prod.getPrice()}"></p>
+    <!--================ Hero banner start =================-->
+    <section class="hero-banner">
+        <div class="container">
+            <div class="row no-gutters align-items-center pt-60px">
+                <div class="col-5 d-none d-sm-block">
+                    <div class="hero-banner__img">
+                        <img class="img-fluid" src="/static/img/hero-banner.png" alt="">
                     </div>
-                    <div class="card-text">
-                        <form method="post"
-                            action="/cart">
-                            <input type="hidden" name="addToCart" th:value="${prod.getId()}">
-                            <input type="submit" class="btn btn-success" value="Add to cart">
-                        </form>
+                </div>
+                <div class="col-sm-7 col-lg-6 offset-lg-1 pl-4 pl-md-5 pl-lg-0">
+                    <div class="hero-banner__content">
+                        <h4>Shop is fun</h4>
+                        <h1>Browse Our Premium Product</h1>
+                        <p>Us which over of signs divide dominion deep fill bring they're meat beho upon own earth without morning over third. Their male dry. They are great appear whose land fly grass.</p>
+                        <a class="button button-hero" href="/shop">Browse Now</a>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </section>
+    <!--================ Hero banner start =================-->
 
-<div th:replace="footer.html :: copy"></div>
+    <!--================ Hero Carousel start =================-->
+    <section class="section-margin mt-0">
+        <div class="owl-carousel owl-theme hero-carousel">
+            <div class="hero-carousel__slide">
+                <img src="/static/img/hero-slide1.png" alt="" class="img-fluid">
+                <a href="#" class="hero-carousel__slideOverlay">
+<!--                    <h3>Wireless Headphone</h3>-->
+<!--                    <p>Accessories Item</p>-->
+                </a>
+            </div>
+            <div class="hero-carousel__slide">
+                <img src="/static/img/hero-slide2.png" alt="" class="img-fluid">
+                <a href="#" class="hero-carousel__slideOverlay">
+<!--                    <h3>Wireless Headphone</h3>-->
+<!--                    <p>Accessories Item</p>-->
+                </a>
+            </div>
+            <div class="hero-carousel__slide">
+                <img src="/static/img/hero-slide3.png" alt="" class="img-fluid">
+                <a href="#" class="hero-carousel__slideOverlay">
+<!--                    <h3>Wireless Headphone</h3>-->
+<!--                    <p>Accessories Item</p>-->
+                </a>
+            </div>
+        </div>
+    </section>
+    <!--================ Hero Carousel end =================-->
 
+</main>
+
+
+<footer th:replace="footer.html :: copy"></footer>
+
+
+
+<script src="/static/vendors/jquery/jquery-3.2.1.min.js"></script>
+<script src="/static/vendors/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="/static/vendors/skrollr.min.js"></script>
+<script src="/static/vendors/owl-carousel/owl.carousel.min.js"></script>
+<script src="/static/vendors/nice-select/jquery.nice-select.min.js"></script>
+<script src="/static/vendors/jquery.ajaxchimp.min.js"></script>
+<script src="/static/vendors/mail-script.js"></script>
+<script src="/static/js/main.js"></script>
 </body>
 </html>
+<!--</html>-->
