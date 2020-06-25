@@ -4,6 +4,7 @@ import com.codecool.shop.dao.*;
 
 import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.config.TemplateEngineUtil;
+import com.codecool.shop.model.EmailSender;
 import com.codecool.shop.model.Product;
 
 import com.codecool.shop.model.User;
@@ -84,53 +85,12 @@ public class RegistrationController extends HttpServlet {
 
         System.out.println("New user added");
 
-        sendEmail(email);
+        String subjectEmail = "Welcome at Codecool Shop";
+        String messageEmail =  "We are very happy to have you here! Happy shopping!";
+
+        EmailSender emailSender = new EmailSender(email,subjectEmail,messageEmail);
 
         resp.sendRedirect("/login");
 
     }
-
-    private void sendEmail(String email){
-
-        String toEmail = email; //client Email
-        String subjectEmail = "Welcome at Codecool Shop";
-        String messageEmail =  "We are very happy to have you here! Happy shopping!";
-        String userGmail="codecoolbucurestitest@gmail.com"; //server Email
-        String pswGmail = "strlumina";
-        String host = "smtp.gmail.com";
-
-
-        Properties props = new Properties();
-
-        props.put("mail.smtp.host", host);
-        props.put("mail.smtp.port", "587");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-
-        Session session = Session.getInstance(props,new javax.mail.Authenticator()
-        {
-            protected PasswordAuthentication getPasswordAuthentication()
-            {
-                return new PasswordAuthentication(userGmail,pswGmail);
-            }
-        });
-
-        try {
-            MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(userGmail));
-            message.addRecipient(Message.RecipientType.TO,new InternetAddress(toEmail));
-            message.setSubject(subjectEmail);
-            message.setText(messageEmail);
-
-            Transport.send(message);
-
-            System.out.println("E-mail sent successfully");
-
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-    }
-
 }

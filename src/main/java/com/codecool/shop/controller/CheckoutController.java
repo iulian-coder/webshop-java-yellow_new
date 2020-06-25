@@ -26,17 +26,17 @@ public class CheckoutController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(getServletContext());
-        WebContext context = new WebContext(req, resp, req.getServletContext() );
-
-        //get session if it exists
-        HttpSession session = req.getSession(false);
-
         CartDaoJDBC cartDao = null;
         float sum = 0;
         int numberOfProducts = 0;
         String sessionUsername = null;
+        List<Cart> templist = new ArrayList<>();
+
+
+        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(getServletContext());
+        WebContext context = new WebContext(req, resp, req.getServletContext() );
+
+        HttpSession session = req.getSession(false);
 
         if(session!=null) {
             sessionUsername = (String)session.getAttribute("username");
@@ -44,17 +44,11 @@ public class CheckoutController extends HttpServlet {
 
         try {
             cartDao = CartDaoJDBC.getInstance();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-        List<Cart> templist = new ArrayList<>();
-        try {
-
             templist = cartDao.getAll((Integer) req.getSession().getAttribute("cartId"));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
         sum = cartDao.productsTotalPrice(templist);
         numberOfProducts = cartDao.totalNumberOfProductsInCart(templist);
 
@@ -66,9 +60,6 @@ public class CheckoutController extends HttpServlet {
         context.setVariable("cartId",cartId);
         context.setVariable("totalNumberOfItems", numberOfProducts);
 
-
-
-        //Check if the user is logged in
         if (sessionUsername == null){
             resp.sendRedirect("/login");
         }else {
