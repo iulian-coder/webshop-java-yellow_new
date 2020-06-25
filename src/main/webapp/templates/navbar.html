@@ -38,6 +38,7 @@
                         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
                     </ul>
 
+
                     <ul class="nav-shop">
                         <li class="nav-item">
                             <button onclick="location.href='/cart'"><i class="ti-shopping-cart"></i><span class="nav-shop__circle">3</span></button>
@@ -47,37 +48,40 @@
                 </div>
             </div>
         </nav>
-    </div>
+  
+<!--    Old NavBar-->
+<!-- <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">CodecoolShop</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/cart}" th:text="Cart" style="color:greenyellow"></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/registration}" th:text="SignUp" style="color:greenyellow"></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/login}" th:text="Login" style="color:greenyellow"></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/logout}" th:text="Logout" style="color:greenyellow"></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/user-profile}" th:text="*{username}? 'User Profile':''" style="color:greenyellow"></a>
+            </li>
+        </ul>
+        <span class="navbar-text">
+            <i><b th:text="*{username}?'Logged in as: ' + ${username}:'Not logged in'" style="color:greenyellow"></b></i>
+        </span>
+    </div> -->
 </header>
 
-<!--<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">-->
-<!--    <a class="navbar-brand" href="#">CodecoolShop</a>-->
-<!--    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">-->
-<!--        <span class="navbar-toggler-icon"></span>-->
-<!--    </button>-->
-<!--    <div class="collapse navbar-collapse" id="navbarNav">-->
-<!--        <ul class="navbar-nav mr-auto">-->
-<!--            <li class="nav-item active">-->
-<!--                <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>-->
-<!--            </li>-->
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link" th:href="@{/cart}" th:text="Cart" style="color:greenyellow"></a>-->
-<!--            </li>-->
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link" th:href="@{/registration}" th:text="SignUp" style="color:greenyellow"></a>-->
-<!--            </li>-->
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link" th:href="@{/login}" th:text="Login" style="color:greenyellow"></a>-->
-<!--            </li>-->
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link" th:href="@{/logout}" th:text="Logout" style="color:greenyellow"></a>-->
-<!--            </li>-->
-<!--        </ul>-->
-<!--        <span class="navbar-text">-->
-<!--            <i><b th:text="*{username}?'Logged in as: ' + ${username}:'Not logged in'" style="color:greenyellow"></b></i>-->
-<!--        </span>-->
-<!--    </div>-->
-<!--</nav>-->
 
 </body>
 </html>
