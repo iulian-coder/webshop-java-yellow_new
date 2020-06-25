@@ -3334,12 +3334,22 @@ a {
     float: right
 }
 
+.order_box .list li a .first{
+    float: none;
+    width: auto;
+    text-align: left;
+    display: inline-block;
+    margin-right: 10px;
+    color: #222;
+
+}
+
 .order_box .list li a .middle {
     float: none;
     width: 50px;
     text-align: right;
     display: inline-block;
-    margin-left: 30px;
+    margin-left: 10px;
     color: #222
 }
 

@@ -55,7 +55,7 @@ public class PaymentServices {
         PayerInfo payerInfo = new PayerInfo();
         payerInfo.setFirstName("TestCodecool")
                 .setLastName("Codecool")
-                .setEmail("codecoolbucurestitest@gmail.com");
+                .setEmail("codecoolbucurestitest@company.com");
 
         payer.setPayerInfo(payerInfo);
 
@@ -64,7 +64,7 @@ public class PaymentServices {
     private RedirectUrls getRedirectURLs() {
         RedirectUrls redirectUrls = new RedirectUrls();
         redirectUrls.setCancelUrl("http://localhost:8888/");
-        redirectUrls.setReturnUrl("http://localhost:8888/cart/payment/review-payment");
+        redirectUrls.setReturnUrl("http://localhost:8888/review-payment");
 
         return redirectUrls;
     }

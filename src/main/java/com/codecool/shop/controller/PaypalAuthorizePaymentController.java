@@ -19,7 +19,7 @@ public class PaypalAuthorizePaymentController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         //Change the values if the shipping and tax is not free
-        String product = req.getParameter("product");
+        String product = "OrderCodecoolShopNo" + req.getParameter("product");
         String subtotal = req.getParameter("subtotal");
         String shipping = "0";
         String tax = "0";
