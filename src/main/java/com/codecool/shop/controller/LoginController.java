@@ -82,7 +82,9 @@ public class LoginController extends HttpServlet {
                     session.setAttribute("cartId", cartId);
                     Map<Product, Integer> tempMap = cart.getAllDaoMem();
                     for (Map.Entry<Product, Integer> entry : tempMap.entrySet()) {
-                        cartDao.add(entry.getKey().getId(), cartId);
+                        for(int i=0; i<entry.getValue(); i++) {
+                            cartDao.add(entry.getKey().getId(), cartId);
+                        }
                     }
                     req.getSession().removeAttribute("cartMem");
 
