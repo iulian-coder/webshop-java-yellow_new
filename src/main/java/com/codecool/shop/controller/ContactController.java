@@ -40,7 +40,7 @@ public class ContactController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        EmailSender emailSender = new EmailSender("iulian.titei@gmail.com","Buna","Buna din nou");
+        EmailSender emailSender = new EmailSender("codecoolbucurestitest@gmail.com","Buna","Buna din nou");
 
         resp.sendRedirect("/");
     }

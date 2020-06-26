@@ -21,21 +21,6 @@ public class ThankYouPageController extends HttpServlet {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(getServletContext());
         WebContext context = new WebContext(req,resp,req.getServletContext());
 
-//        private void writeJson() throws SQLException {
-//            JSONObject orderDetails = new JSONObject();
-//
-//
-//            //Write JSON file
-//            try (FileWriter file = new FileWriter("orderDetails.json")) {
-//
-//                file.write(orderDetails.toJSONString());
-//                file.flush();
-//
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//
-
         engine.process("thankyouPage.html",context,resp.getWriter());
     }
 }

@@ -2,6 +2,7 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.dao.CartDao;
 import com.codecool.shop.dao.implementation.CartDaoJDBC;
+import com.codecool.shop.model.EmailSender;
 import com.codecool.shop.model.PaymentServices;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
@@ -29,6 +30,12 @@ public class ExecutePaypalPaymentController extends HttpServlet {
             //TODO: order history
             CartDao cartDao = new CartDaoJDBC().getInstance();
             cartDao.removeCart(cartId);
+
+
+            String emailTo = "codecoolbucurestitest@gmail.com"; //client email
+            String subject = "Your order No."+cartId;
+            String emailMessage = "Your Codecoolshop order has been registered No" +cartId;
+            EmailSender emailSender = new EmailSender(emailTo,subject,emailMessage);
 
             resp.sendRedirect("/confirmed");
 
