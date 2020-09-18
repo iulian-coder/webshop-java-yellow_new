@@ -7,6 +7,7 @@ Maven
 Jetty
 Postgresql
 Thymeleaf
+Bootstrap
 Paypal
 
 # Screenshot
@@ -19,7 +20,7 @@ Paypal
 Import this project to IntelliJ as a Maven project.
 IntelliJ can auto-install the dependencies based on the pom.xml
 
-# Run with
+# Run in with
 
 mvn jetty:run
 
